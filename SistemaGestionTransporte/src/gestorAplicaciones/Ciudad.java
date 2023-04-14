@@ -8,8 +8,7 @@ import java.util.PriorityQueue;
 
 public class Ciudad {
     private String nombre;
-    Map<String, Double> conexiones; // = new HashMap<>();
-    //ArrayList<Pair<String,Integer>> conexiones;
+    private Map<String, Double> conexiones;
 
     public Ciudad(String nombre) {
         this.nombre = nombre;
@@ -26,7 +25,6 @@ public class Ciudad {
     }
 
     public void conectarCiudades(String nombre, double costo){
-        //conexiones.put(nombre,costo);
         conexiones.put(this.nombre,costo);
 
     }
@@ -48,7 +46,7 @@ public class Ciudad {
             if (ciudad.equals(destino)) break;
             for (Map.Entry<String, Double> map : conexiones.entrySet()){
 
-                if(map.getValue() != -1 && ciudadesVisitadas.get(map.getValue()).getKey()){
+                if(map.getValue() != -1 && ciudadesVisitadas.get(map.getKey()).getKey()){
                     distancia = costos.get(ciudad) + conexiones.get(map.getKey());
                     if(distancia < costos.get(map.getKey())){
                         costos.put(map.getKey(), distancia);
@@ -84,12 +82,11 @@ public class Ciudad {
     private String getRuta(String destino, Map<String, Pair<Boolean,String>> ciudadesVisitadas){
         StringBuilder procedencia = new StringBuilder(destino);
         destino = ciudadesVisitadas.get(destino).getValue();
-        while (!procedencia.equals("-")){
+        while (!destino.equals("-")){
             procedencia.append(" - ").append(destino);
             destino = ciudadesVisitadas.get(destino).getValue();
         }
 
         return procedencia.toString();
     }
-
 }
