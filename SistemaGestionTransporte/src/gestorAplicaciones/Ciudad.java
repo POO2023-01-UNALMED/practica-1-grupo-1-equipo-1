@@ -25,7 +25,7 @@ public class Ciudad {
     }
 
     public void conectarCiudades(String nombre, double costo){
-        conexiones.put(this.nombre,costo);
+        conexiones.put(nombre,costo);
 
     }
 
@@ -34,27 +34,33 @@ public class Ciudad {
         Map<String, Pair<Boolean,String>> ciudadesVisitadas = new HashMap<>();
         this.inicializarCiudadesVisitadas(ciudadesVisitadas);
         Map<String, Double> costos = new HashMap<>(this.conexiones);
+        this.inicializarCostos(costos);
         PriorityQueue<Pair<String, Double>> queue = new PriorityQueue<>(Comparator.comparing(Pair::getValue));
         queue.offer(new Pair<>(this.nombre,0d));
-        String ciudad, procedencia = "-";
+        String nombre;
         double distancia;
+        ciudadesVisitadas.put(this.nombre,new Pair<>(true,"-"));
 
         while (!queue.isEmpty()){
-            ciudad = queue.poll().getKey();
-            ciudadesVisitadas.put(ciudad,new Pair<>(true,procedencia));
+            nombre = queue.poll().getKey();
+            ciudadesVisitadas.put(nombre,new Pair<>(true,ciudadesVisitadas.get(nombre).getValue()));
 
-            if (ciudad.equals(destino)) break;
-            for (Map.Entry<String, Double> map : conexiones.entrySet()){
+            Ciudad ciudad = Pais.COLOMBIA.getCiudad(nombre);
 
-                if(map.getValue() != -1 && ciudadesVisitadas.get(map.getKey()).getKey()){
-                    distancia = costos.get(ciudad) + conexiones.get(map.getKey());
-                    if(distancia < costos.get(map.getKey())){
+            if (nombre.equals(destino)) break;
+            assert ciudad != null;
+            for (Map.Entry<String, Double> map : ciudad.conexiones.entrySet()){
+
+                if(map.getValue() != -1 && !ciudadesVisitadas.get(map.getKey()).getKey()){
+                    distancia = costos.get(nombre) + ciudad.conexiones.get(map.getKey());
+                    System.out.println(costos.get(map.getKey()));
+                    if(distancia <= costos.get(map.getKey())){
                         costos.put(map.getKey(), distancia);
                         queue.offer(new Pair<>(map.getKey(), distancia));
+                        ciudadesVisitadas.put(map.getKey(),new Pair<>(false,nombre));
                     }
                 }
             }
-            procedencia = ciudad;
         }
         distancia = costos.get(destino);
 
@@ -70,10 +76,7 @@ public class Ciudad {
 
     private void inicializarCostos(Map<String, Double> costos){
         for (Map.Entry<String, Double> map : costos.entrySet()) {
-            if(map.getKey().equals(this.nombre)){
-                map.setValue(0d);
-            }
-            else{
+            if(map.getValue() == -1){
                 map.setValue(Double.MAX_VALUE);
             }
         }
@@ -87,6 +90,17 @@ public class Ciudad {
             destino = ciudadesVisitadas.get(destino).getValue();
         }
 
-        return procedencia.toString();
+        return procedencia.reverse().toString();
+    }
+
+    @Override
+    public String toString(){
+        StringBuilder result = new StringBuilder();
+        result.append("Ciudad: ").append(this.nombre);
+        result.append("\nAdyacente\tcosto\n");
+        for (Map.Entry<String, Double> map : conexiones.entrySet()){
+            result.append(map.getKey()).append("\n").append(map.getValue()).append("\n");
+        }
+        return result.toString();
     }
 }
