@@ -58,7 +58,7 @@ public class Ciudad {
         }
         distancia = costos.get(destino);
 
-        return new Pair<>(destino, distancia);
+        return new Pair<>(this.getRuta(destino,ciudadesVisitadas), distancia);
 
     }
 
