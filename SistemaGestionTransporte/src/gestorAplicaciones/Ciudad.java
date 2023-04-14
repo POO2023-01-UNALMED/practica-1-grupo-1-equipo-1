@@ -8,10 +8,12 @@ import java.util.PriorityQueue;
 
 public class Ciudad {
     private String nombre;
+    private String nombrePais;
     private Map<String, Double> conexiones;
 
-    public Ciudad(String nombre) {
+    public Ciudad(String nombre, String nombrePais) {
         this.nombre = nombre;
+        this.nombrePais = nombrePais;
         conexiones = new HashMap<>();
         conexiones.put(this.nombre,0d);
     }
@@ -40,12 +42,22 @@ public class Ciudad {
         String nombre;
         double distancia;
         ciudadesVisitadas.put(this.nombre,new Pair<>(true,"-"));
+        Ciudad ciudad;
+
 
         while (!queue.isEmpty()){
             nombre = queue.poll().getKey();
             ciudadesVisitadas.put(nombre,new Pair<>(true,ciudadesVisitadas.get(nombre).getValue()));
 
-            Ciudad ciudad = Pais.COLOMBIA.getCiudad(nombre);
+            if(this.nombrePais.equals("Colombia")) {
+                ciudad = Pais.COLOMBIA.getCiudad(nombre);
+            }
+            else if(this.nombrePais.equals("Ecaudor")){
+                ciudad = Pais.ECUADOR.getCiudad(nombre);
+            }
+            else{
+                ciudad = Pais.PANAMA.getCiudad(nombre);
+            }
 
             if (nombre.equals(destino)) break;
             assert ciudad != null;

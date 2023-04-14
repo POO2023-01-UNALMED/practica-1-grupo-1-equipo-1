@@ -74,7 +74,7 @@ public enum Pais implements Archivo {
     }
 
     private void agregarCiudad(String nombreCiudad) {
-        this.ciudades.add(new Ciudad(nombreCiudad));
+        this.ciudades.add(new Ciudad(nombreCiudad, this.nombre));
         this.conexionesIniciales();
 
     }
