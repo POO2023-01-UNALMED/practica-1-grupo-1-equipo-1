@@ -40,7 +40,7 @@ public class Usuario {
 	public String getClave() {
 		return clave;
 	}
-	public String setClave(String Clave) {
+	public void setClave(String Clave) {
 		clave = Clave;
 	}
 	public int getDocumento() {
