@@ -1,10 +1,37 @@
 package gestorAplicaciones;
 
-public class Camion {
+public class Camion extends Vehiculo{
+	//Atributos
+	private int vmax;
+	private float capacidad_carga;
+	private String modelo;
    
-   
-	public Camion() {
-		// TODO Auto-generated constructor stub
-	}
+//Constructor
 
+public Camion(String tipo, String placa, float capacidad_carga, String modelo, Empleados conductor) {
+	super(String tipo, String placa, Empleados conductor);
+	this.vmax=vmax;
+	this.capacidad_carga = capacidad_carga;
+	this.modelo = modelo;
+}
+
+//set y get
+public void setCapacidad_carga(float capacidad_carga) {
+	this.capacidad_carga = capacidad_carga;
+}
+public float getCapacidad_carga() {
+	return capacidad_carga;
+}
+public void setModelo(String modelo) {
+	this.modelo = modelo;
+}
+public String getModelo() {
+	return modelo;
+}
+public void setVmax(int vmax) {
+	this.vmax=vmax;
+}
+public int getVmax() {
+	return vmax;
+}
 }
