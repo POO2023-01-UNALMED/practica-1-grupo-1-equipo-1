@@ -8,8 +8,8 @@ public class Camion extends Vehiculo{
    
 //Constructor
 
-public Camion(String tipo, String placa, float capacidad_carga, String modelo, Empleados conductor, int vmax) {
-	super(String tipo, String placa, Empleados conductor);
+public Camion(String tipo, String placa, float capacidad_carga, String modelo, Empleado conductor, int vmax) {
+	super(String tipo, String placa, Empleado conductor);
 	this.vmax=vmax;
 	this.capacidad_carga = capacidad_carga;
 	this.modelo = modelo;

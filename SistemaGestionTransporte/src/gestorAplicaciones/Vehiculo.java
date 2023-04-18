@@ -6,11 +6,11 @@ public class Vehiculo {
 	
 	private String tipo;
 	private String placa;
-	private Empleados conductor;
+	private Empleado conductor;
 	
 	//Constructor
 	
-	public Vehiculo(String tipo, String placa, Empleados conductor) {
+	public Vehiculo(String tipo, String placa, Empleado conductor) {
 		this.tipo = tipo;
 		this.placa = placa;
 		this.conductor = conductor;
@@ -27,10 +27,10 @@ public class Vehiculo {
 	//metodos set y get
 	
 
-	public void setConductor(Empleados conductor) {
+	public void setConductor(Empleado conductor) {
 		this.conductor = conductor;
 	}
-	public Empleados getConductor() {
+	public Empleado getConductor() {
 		return conductor;
 	}
 
