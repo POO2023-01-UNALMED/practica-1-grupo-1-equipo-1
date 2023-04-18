@@ -9,7 +9,7 @@ public class Avion extends Vehiculo {
 	   
 	//Constructor
 
-public Avion(String tipo, String placa, float capacidad_carga, String modelo, Empleados conductor,float max_distancia) {
+public Avion(String tipo, String placa, float capacidad_carga, String modelo, Empleados conductor,int vmax, float max_distancia) {
 	super(String tipo, String placa, Empleados conductor);
 	this.vmax=vmax;
 	this.capacidad_carga = capacidad_carga;
