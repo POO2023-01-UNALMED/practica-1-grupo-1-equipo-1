@@ -171,6 +171,7 @@ public class SeccionAdministrador implements Seccion {
         clave = Main.pedirDato();
         if (admin.getClave().equals(clave)) {
             System.out.println("Ingresando como administrador...");
+            admin.actualizarFacturas();
             this.showMenu();
         }
         else{

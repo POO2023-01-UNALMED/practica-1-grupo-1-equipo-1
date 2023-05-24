@@ -177,6 +177,10 @@ public class Pedido implements Serializable {
     }
 
     private ArrayList<Pair<String,Double>> getRuta(ArrayList<String> camino, Map<String, Double> costos){
+        /*
+        Este metodo retorna un ArrayList<Pair<String,Double>> que almacena el camino que debe seguir
+        el camion.
+         */
         ArrayList<Pair<String,Double>> ruta = new ArrayList<Pair<String,Double>>();
         for(String ciudad : camino){
             ruta.add(new Pair<>(ciudad,costos.get(ciudad)));
@@ -217,6 +221,9 @@ public class Pedido implements Serializable {
     }
 
     public LocalDateTime calcularHoraSalida() {
+
+        //Este metodo calcula la hora de salida en funcion de la hora en que se realizo el pedido
+
         LocalDateTime salida = LocalDateTime.now();
         String strFecha;
         DateTimeFormatter formato = DateTimeFormatter.ofPattern("yyyy-MM-dd");
@@ -236,11 +243,12 @@ public class Pedido implements Serializable {
     }
 
     public LocalDateTime calcularHoraLLegada(int horas, LocalDateTime horaSalida) {
+        //Calcula hora de llegda del Pedido en funcion de la hora de llegada y las horas de viaje
         return horaSalida.plusHours(horas);
     }
 
     public void verificarEstado(LocalDateTime salida, LocalDateTime llegada){
-
+        //Este metodo verifica y cambia de ser neceario el estado del pedido en funcion de la hora actual.
         LocalDateTime actual = LocalDateTime.now();
 
         int diffHora, duracion, factor;
@@ -254,14 +262,10 @@ public class Pedido implements Serializable {
     }
 
     public double tiempoTranscurrido(LocalDateTime salida){
+        //Este metodo retorna double que representa la cantidad de horas transcurridas
+        //desde la hora de salida pasada como srgumento
+
         LocalDateTime actual = LocalDateTime.now();
         return actual.getHour() - salida.getHour() + (double)actual.getMinute()/60;
-    }
-
-    public static void main(String[] args) {
-        LocalDateTime actual = LocalDateTime.now();
-        DateTimeFormatter fecha = DateTimeFormatter.ofPattern("yyyy-MM-dd HH-mm-ss");
-        System.out.println(actual.format(fecha));
-        System.out.println(actual.getSecond());
     }
 }

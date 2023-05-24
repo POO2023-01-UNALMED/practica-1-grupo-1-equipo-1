@@ -4,7 +4,7 @@ import java.io.Serial;
 import java.io.Serializable;
 
 public class Pair<K, V>  implements Serializable {
-    //esta clase es de tipo generica, guarda dos valores del tipo de dato definidos al ser instanciada
+    //esta clase es de tipo generica, guarda dos valores (key, value) del tipo de dato definidos al ser instanciada.
 
     @Serial
     private static final long serialVersionUID = 1L;

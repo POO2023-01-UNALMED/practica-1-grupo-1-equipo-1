@@ -11,10 +11,9 @@ public class SeccionTrabajador implements Seccion{
     Empleado empleado;
     @Override
     public void Inicio() {
-                    /*
-        Se tienen las opciones de salir al menu pricipal, iniciar seccion de usuario,
-        registar un nuevo usuario o salir al menu principal en Main
-         */
+
+        //Se tienen las opciones de salir al menu pricipal e iniciar seccion de empleado,
+
         do {
             System.out.println("""
                     
@@ -68,12 +67,14 @@ public class SeccionTrabajador implements Seccion{
     }
 
     private void cambiarEstado() {
+        //Cambia el estatusAcivo de  la instancia de la clase empleado.
         this.empleado.setEstatusActivo(!this.empleado.isEstatusActivo());
         this.mostarEstado();
         System.out.println("Tu estado en la empresa ha cambiado.");
     }
 
     private void mostarEstado() {
+        //imprime el estado del empleado de acuerdo a el atributo statusActivo
         if(this.empleado.isEstatusActivo()) System.out.println("Estado: Activo");
         else System.out.println("Estado: Inantivo");
     }
@@ -105,7 +106,7 @@ public class SeccionTrabajador implements Seccion{
 
     @Override
     public Usuario validarInformacion(String empleado, String clave) {
-                /*
+        /*
         Esta funcion recibe dos String y retorna un objeto de tipo Usuario
         que coincida con los datos ingresados, de lo contrario retorna null.
          */

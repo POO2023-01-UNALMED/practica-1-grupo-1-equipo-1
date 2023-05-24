@@ -20,7 +20,7 @@ public class SeccionUsuario implements Seccion {
     public void Inicio() {
         /*
         Se tienen las opciones de salir al menu pricipal, iniciar seccion de usuario,
-        registar un nuevo usuario o salir al menu principal en Main
+        registar un nuevo usuario.
          */
         do {
             System.out.println("""
@@ -84,6 +84,11 @@ public class SeccionUsuario implements Seccion {
     }
 
     private void seguirPedido() {
+        /*
+        Esta funcion pide por consola el ID de factura e imprimi la
+        informacion de la factura y el estado si se encuentra asociado al usuario ingresado.
+         */
+
         //funcionalidad 4 seguir estado pedido
         long id;
         System.out.println("Ingrese ID factura: ");
@@ -95,7 +100,7 @@ public class SeccionUsuario implements Seccion {
 
             pedido = factura.getPedido();
             camion = Camion.buscarCamion(pedido.getTipoProductos(), pedido.getVehiculo());
-            //pedido.verificarEstado(factura.getHoraSalida(),factura.getHoraLLegada());
+
             System.out.println(factura);
 
             if(pedido.getEstado().equals("Enviado")){
@@ -138,6 +143,8 @@ public class SeccionUsuario implements Seccion {
     }
 
     private void calcularTiempo() {
+        //Calcular la hora de salida y llegada del pedido relaizado por el usuario
+
         factura.setHoraSalida(pedido.calcularHoraSalida());
         factura.setHoraLLegada(pedido.calcularHoraLLegada(camion.calcularTiempo(),factura.getHoraSalida()));
     }
@@ -197,6 +204,7 @@ public class SeccionUsuario implements Seccion {
     }
 
     private void confirmarPedido() {
+
         System.out.println(factura);
         do{
             System.out.println("""
@@ -210,7 +218,7 @@ public class SeccionUsuario implements Seccion {
     }
 
     private void calcularTarifa() {
-        //calcular la tarifa del pedido
+        //calcular la tarifa del pedido en relacion a la ruta y tipo de camion a emplear.
         factura = new Factura(pedido, usuario);
         camion.setRuta(pedido.calcularRuta());
         camion.calcularCostoCamion();

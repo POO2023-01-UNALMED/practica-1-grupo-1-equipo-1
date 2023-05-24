@@ -74,6 +74,8 @@ public enum Pais {
     }
 
     public boolean isCiudad(String nombreCiudad) {
+        //Si enombreCiudad coincide con el atributo nombre de una instancia de ciudades retorna true.
+
         for (Ciudad ciudad : this.ciudades) {
             if (ciudad.getNombre().equals(nombreCiudad)) return true;
         }
@@ -81,6 +83,7 @@ public enum Pais {
     }
 
     private void agregarCiudad(String nombreCiudad) {
+        //Crea una nueva intsacia de tipo ciudad y lo agraga a ciudades.
         this.ciudades.add(new Ciudad(nombreCiudad, this.nombre));
         this.conexionesIniciales();
 
@@ -128,8 +131,5 @@ public enum Pais {
             e.printStackTrace();
         }
         return texto.toString();
-    }
-    public void EditarArchivo(String fileName, String text) {
-
     }
 }

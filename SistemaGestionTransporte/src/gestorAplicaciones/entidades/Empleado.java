@@ -100,6 +100,7 @@ public class Empleado extends Usuario{
 	}
 
 	public static void crearEmpleado(String nombre, String clave, long id, String correo, String pais, String ciudadActual) {
+		//Crea una instacia de empleado con los atributos pasados como argumentos
 		new Empleado(nombre, clave, id, correo, true, pais,ciudadActual);
 	}
 

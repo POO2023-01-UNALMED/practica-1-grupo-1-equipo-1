@@ -3,6 +3,7 @@ package gestorAplicaciones.entidades;
 import gestorAplicaciones.camion.*;
 import gestorAplicaciones.pais.Pais;
 import gestorAplicaciones.producto.Factura;
+import uiMain.Main;
 
 import java.util.ArrayList;
 
@@ -55,6 +56,7 @@ public class Administrador extends Empleado{
 		//Retorna un String con las facturas en el pais pasado como argumento
 		StringBuilder infoFacturas = new StringBuilder();
 		for(Factura factura : Factura.getFacturas()){
+			Main.actualizarInformacion(factura);
 			if(factura.getPedido().getPais().getNombre().equals(pais)){
 				infoFacturas.append(factura);
 			}
@@ -63,12 +65,12 @@ public class Administrador extends Empleado{
 	}
 
 	public void registrarEmpleado(String nombre, String clave, String id, String correo, String pais,String CiudadActual) {
-
+		//nueva instancia de Empleado
 		Empleado.crearEmpleado(nombre, clave, Long.parseLong(id), correo, pais, CiudadActual);
 	}
 
 	public void registarCamion(int opcion, String placa, String pais, String ciudadActual, double pesoMaximo, double capacidad) {
-
+		//nueva instancia de Camion
 		switch (opcion) {
 				case 1 -> camion = new CamionCisterna(placa, pais,ciudadActual, pesoMaximo, capacidad);
 				case 2 -> camion = new CamionFrigorifico(placa, pais, ciudadActual, pesoMaximo, capacidad);
@@ -76,5 +78,12 @@ public class Administrador extends Empleado{
 				case 4 -> camion = new CamionPortaCoches(placa, pais, ciudadActual, pesoMaximo, capacidad);
 				default -> System.out.println("Opcion no valida");
 			}
+	}
+
+	public void actualizarFacturas(){
+		//Actualizar informacion de cada factura
+		for(Factura factura : Factura.getFacturas()){
+			Main.actualizarInformacion(factura);
+		}
 	}
 }

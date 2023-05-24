@@ -70,6 +70,7 @@ public class Producto implements Serializable {
     }
 
     public static Producto crearProducto(String nombre,String tipo,double peso,double volumen,long cantidad) {
+        //retorna una instacia de Producto con los valores pasados cmo argumentos.
         return new Producto(nombre,tipo,peso,volumen,cantidad);
     }
     public String toString() {

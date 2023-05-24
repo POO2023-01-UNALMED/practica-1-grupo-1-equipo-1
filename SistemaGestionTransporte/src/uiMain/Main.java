@@ -91,8 +91,11 @@ public class Main {
     }
 
     public static void actualizarInformacion(Factura factura){
-        //funcionalidad 5 actuaalizar informacionede envio
-        //ArrayList<Factura> facturas = Factura.getFacturas();
+        //Esta funcion recibe como parametro una instancia de factura y
+        //actualiza el atributo estado de la clase Factura.
+
+        //funcionalidad 5: actualizar informacionede envio
+
         String estadoAnterior;
         //for (Factura factura : facturas) {
         if(!factura.getPedido().getEstado().equals("Entregado")) {

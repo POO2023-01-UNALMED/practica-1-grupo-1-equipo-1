@@ -155,6 +155,10 @@ public class Factura implements Serializable{
     }
 
     public String infoViaje(String ubicacion, double tiempo){
+        /*
+        Este metodo retorna un String Con la ubicacion actual del pedido y el tiempo restante pasados como
+        argumentos.
+         */
         StringBuilder info = new StringBuilder();
         int horas, minutos;
         horas = (int)  Math.floor(tiempo);
@@ -170,6 +174,10 @@ public class Factura implements Serializable{
     }
 
     public static Factura buscarFactura(long id, String nombre){
+        /*
+        Esta funcion retorna una instancia de Factura que coincidad con los atributos id y nombre
+        pasados como argumento, de lo contrario retorna null;
+        */
         for (Factura factura : Factura.facturas){
             if (factura.isFactura(id,nombre)) return factura;
         }
