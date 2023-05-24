@@ -11,15 +11,18 @@ public enum Pais {
     PANAMA("Panama"),
     ECUADOR("Ecuador");
 
+    //atributos
     private String nombre;
     private ArrayList<Ciudad> ciudades;
 
+    //constructor
     Pais(String nombre) {
         this.nombre = nombre;
         this.ciudades = new ArrayList<Ciudad>();
         this.generarConexiones();
     }
 
+    //metodos getter and setter
     public String getNombre() {
         return nombre;
     }
@@ -47,6 +50,7 @@ public enum Pais {
     }
 
     public void mostarCiudades() {
+        //muesta las ciudades asociadas al pais
         System.out.println("ciudades de " + this.nombre);
         for (Ciudad ciudad : this.ciudades) {
             System.out.println(ciudad.toString());
@@ -54,6 +58,7 @@ public enum Pais {
     }
 
     private void generarConexiones() {
+        //generar el grafo de conexiones entre las ciudades
         String ruta = "src/baseDatos/" + this.nombre + ".txt";
         String mapa = LeerArchivo(ruta);
         String[] lineas = mapa.split("\n");
@@ -80,7 +85,7 @@ public enum Pais {
     }
 
     private void conexionesIniciales() {
-        //int indice = this.ciudades.indexOf(nombreCiudad);
+        //cada que se añada una nueva ciudad se conecta con las demas opciones con -1 (no conectada)
         Ciudad ciudad = ciudades.get(ciudades.size() - 1);
         for (Ciudad ciudadAdyacente : this.ciudades) {
             if (!ciudad.getNombre().equals(ciudadAdyacente.getNombre())) {
@@ -91,6 +96,7 @@ public enum Pais {
     }
 
     public void costoCiudades(String nombreCiudad1, String nombreCiudad2, double costo) {
+        //conecta dos ciudades directamente
         for (Ciudad ciudad1 : this.ciudades) {
             if (ciudad1.getNombre().equals(nombreCiudad1)) {
                 for (Ciudad ciudad2 : this.ciudades) {
@@ -106,6 +112,7 @@ public enum Pais {
     }
 
     public String LeerArchivo(String fileName) {
+        //cargar grafo de las ciudades.
         StringBuilder texto = new StringBuilder();
         try {
             File archivo = new File(fileName);

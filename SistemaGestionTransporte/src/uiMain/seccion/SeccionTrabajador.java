@@ -22,6 +22,11 @@ public class SeccionTrabajador implements Seccion{
 
     @Override
     public void ingresar() {
+        /*
+        Esta funcion pide dos datos, usuario y clave, usario puede ser el nombre o id del empleado,
+         y clave es la clave del empleado y comprueba que los datos ingresador correspondan
+         a un empleado ya existente.
+         */
         String usuario,clave;
         System.out.println("Usuario/ID: ");
         usuario = Main.pedirDato();

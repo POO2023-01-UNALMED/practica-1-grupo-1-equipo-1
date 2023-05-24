@@ -15,6 +15,7 @@ public abstract class Camion {
     private boolean disponible;
     private ArrayList <Pair<String, Double>> ruta;
 
+    //constructor
     public Camion(String placa, String tamanio, String capacidad, String costo, String pais){
         this.placa = placa;
         this.tamanio = tamanio;
@@ -24,13 +25,10 @@ public abstract class Camion {
         camiones.add(this);
     }
 
+    //metodos getter and setter
     public static ArrayList<Camion> getCamiones() {
         return camiones;
     }
-
-    /*public static void setCamiones(ArrayList<Camion> camiones) {
-        Camion.camiones = camiones;
-    }*/
 
     public String getPlaca() {
         return placa;
@@ -88,6 +86,7 @@ public abstract class Camion {
         this.ruta = ruta;
     }
 
+    //metodos
     public abstract double calcularCostoCamion();
 
     public abstract boolean comprobarPlaca(String placa);

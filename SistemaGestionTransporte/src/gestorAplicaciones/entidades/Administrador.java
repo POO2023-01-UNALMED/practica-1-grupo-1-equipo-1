@@ -1,13 +1,11 @@
 package gestorAplicaciones.entidades;
 
 public class Administrador extends Empleado{
-	
-	//atributos
+
 	//constructor
 	public Administrador(String clave) {
 		super("Administrador","Clave",0,"Administrador@egt.com",true);
 	}
-	//metodos get y set
 	
 	//metodos
 	public void estadistica() {
@@ -17,6 +15,7 @@ public class Administrador extends Empleado{
 		
 	}
 	public String MostrarEmpleados() {
+		//mostar dotos los objetos de tipo Empleado
 		StringBuilder infoEmpleados = new StringBuilder();
 		for (Empleado empleado : Empleado.getEmpleados()) {
 			infoEmpleados.append(empleado.toString());
@@ -25,6 +24,7 @@ public class Administrador extends Empleado{
 	}
 
 	public Empleado mostarEmpleado(String nombre) {
+		//retorna la instancia de Empleado que sea igual al atributo de tipo String pasado como argumento
 		for (Empleado empleado : Empleado.getEmpleados()) {
 			if (empleado.getNombre().equals(nombre)) {
 				return empleado;
@@ -34,6 +34,7 @@ public class Administrador extends Empleado{
 	}
 
 	public String mostarUsuarios() {
+		//mostar dotos los objetos de tipo Usuario
 		StringBuilder infoUsuarios = new StringBuilder();
 		for(Empleado empleado : Empleado.getEmpleados()){
 			infoUsuarios.append(empleado);
@@ -42,6 +43,7 @@ public class Administrador extends Empleado{
 	}
 
 	public Usuario mostarUsuario(String nombre) {
+		//retorna la instancia de Usuario que sea igual al atributo de tipo String pasado como argumento
 		for (Usuario usuario : Usuario.getUsuarios()){
 			if(usuario.getNombre().equals(nombre)){
 				return usuario;

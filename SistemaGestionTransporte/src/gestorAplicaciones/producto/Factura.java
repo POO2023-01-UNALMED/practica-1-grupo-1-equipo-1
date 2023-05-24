@@ -5,6 +5,7 @@ import gestorAplicaciones.entidades.Usuario;
 import java.util.ArrayList;
 
 public class Factura {
+    //atributos
     private static final ArrayList<Factura> facturas = new ArrayList<Factura>();
     private static  long IDfactura = 100000000;
     private final double ganancia = 1.25;
@@ -13,17 +14,21 @@ public class Factura {
     private String Fecha;
     private long ID;
 
+    //constructor
     public Factura() {
         Factura.IDfactura += 1;
         Factura.facturas.add(this);
         this.ID = Factura.IDfactura;
     }
 
+    //constrctor
     public Factura(Pedido pedido,Usuario usuario){
         super();
         this.pedido = pedido;
         this.usuario = usuario;
     }
+
+    //metodos getter and setter
 
     public static long getIDfactura() {
         return IDfactura;
@@ -69,6 +74,8 @@ public class Factura {
         return ganancia;
     }
 
+    //metodos
+
     /*@Override
     public String toString() {
         return "Factura No: " + this.ID
@@ -76,6 +83,11 @@ public class Factura {
     }*/
 
     public static void historialFacturas(Usuario usuairo){
+        /*
+            imprime toString() de los objetos de tipo Factura que tieden como atributo al Usuario
+            pasado como argumento.
+        */
+
         for (Factura factura : Factura.facturas){
             if(factura.getUsuario() == usuairo){
                 System.out.println(factura);

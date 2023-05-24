@@ -4,11 +4,12 @@ import gestorAplicaciones.entidades.Usuario;
 import uiMain.Main;
 
 public class SeccionAdministrador implements Seccion {
-    int opcion = 0;
+    int opcion = 0; //toma el valor de la opcion ingresado por consola
     @Override
     public void Inicio() {
         do{
-            System.out.println("Ingrese:\n1. ingresar como administrador.\n0. salir.");
+        //Se tienen las opciones de ingresar como administardor o salir al menu principal en Main
+            System.out.println("\nIngrese:\n1. ingresar como administrador.\n0. salir.");
 
         this.opcion = Main.getOption();
         switch (this.opcion) {
@@ -16,7 +17,7 @@ public class SeccionAdministrador implements Seccion {
                 //salir
                     System.out.println("Saliendo...");
             case 1 ->
-                //Ingresar
+                //Ingresar como administrador
                     this.ingresar();
             default -> System.out.println("Opcion no valida.\n");
         }
@@ -25,8 +26,9 @@ public class SeccionAdministrador implements Seccion {
 
     @Override
     public void showMenu() {
+        //mostar el tipo de acciones que puede realizar el administrador.
         do{
-            System.out.println("Ingrese:\n1. Historial de pedidos.\n2. Pedidos en curso.\n3. Trabajadores.\n4. Vehiculos.\n5. Usuarios.\n0salir.");
+            System.out.println("\nIngrese:\n1. Historial de pedidos.\n2. Pedidos en curso.\n3. Trabajadores.\n4. Vehiculos.\n5. Usuarios.\n0salir.");
             this.opcion = Main.getOption();
             switch (this.opcion) {
                 case 0:
@@ -44,7 +46,7 @@ public class SeccionAdministrador implements Seccion {
                     break;
                 case 3:
                     /*
-                    mlista de trabajadores y estado
+                    lista de trabajadores y estado
                      */
                     break;
                 case 4:
@@ -71,6 +73,10 @@ public class SeccionAdministrador implements Seccion {
 
     @Override
     public void ingresar() {
+             /*
+        Esta funcion pide  la clave de dministardor ycomprueba que los datos ingresador correspondan
+         a los datos del administrador..
+         */
         String usuario,clave;
         usuario = "Administrador";
         System.out.println("Clave: ");

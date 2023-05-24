@@ -5,12 +5,16 @@ import gestorAplicaciones.producto.Factura;
 import uiMain.Main;
 
 public class SeccionUsuario implements Seccion {
-    int opcion = 0;
-    Usuario usuario;
+    int opcion = 0; //toma el valor de la opcion ingresado por consola
+    Usuario usuario; //insatncia de usuario, representa el usaurio que ha ingresado.
     @Override
     public void Inicio() {
+        /*
+        Se tienen las opciones de salir al menu pricipal, iniciar seccion de usuario,
+        registar un nuevo usuario o salir al menu principal en Main
+         */
         do {
-            System.out.println("Ingrese:\n1. iniciar Seccion.\n2. Registrarse.\n0. salir.");
+            System.out.println(" \nIngrese:\n1. iniciar Seccion.\n2. Registrarse.\n0. salir.");
             this.opcion = Main.getOption();
             switch (this.opcion) {
                 case 0 ->
@@ -29,8 +33,9 @@ public class SeccionUsuario implements Seccion {
 
     @Override
     public void showMenu() {
+        //mostar el tipo de acciones que puede realizar el usuario.
         do{
-            System.out.println("Ingrese:\n1. Realizar pedido.\n2. Seguir pedido.\n3. historial de pedido.\n4. PQRS.\n0. salir.");
+            System.out.println("\nIngrese:\n1. Realizar pedido.\n2. Seguir pedido.\n3. historial de pedido.\n4. PQRS.\n0. salir.");
             this.opcion = Main.getOption();
             switch (this.opcion) {
                 case 0:
@@ -39,7 +44,6 @@ public class SeccionUsuario implements Seccion {
                 case 1:
                     /*
                     Realizar pedido
-
                      */
                     break;
                 case 2:
@@ -70,11 +74,23 @@ public class SeccionUsuario implements Seccion {
 
     @Override
     public void ingresar() {
+        /*
+        Esta funcion pide dos datos, usuario y clave, usario puede ser el nombre o id del usario,
+         y clave es la clave del usuario y comprueba que los datos ingresador correspondan
+         a un usuario ya existente.
+         */
         String usuario,clave;
+
+        //pedir usuario o numero de identificacion
         System.out.println("USuario/ID: ");
         usuario = Main.pedirDato();
+
+        //pedir clave
         System.out.println("clave: ");
         clave = Main.pedirDato();
+
+        //si los datos son validos llama a la funcion showMenu() si no sale de la funcion
+
         this.usuario = this.validarInformacion(usuario,clave);
         if (this.usuario != null) {
             this.showMenu();
@@ -86,6 +102,11 @@ public class SeccionUsuario implements Seccion {
 
     @Override
     public  Usuario validarInformacion(String usuario, String clave) {
+        /*
+        Esta funcion recibe dos String y retorna un objeto de tipo Usuario
+        que coincida con los datos ingresados, de lo contrario retorna null.
+         */
+
         if(usuario != null && usuario.chars().allMatch(c -> c == ' ' || Character.isLetter(c))){
             for (Usuario u : Usuario.getUsuarios()){
                 if(u.comprobarUsuario(usuario,clave)) return u;
@@ -100,20 +121,28 @@ public class SeccionUsuario implements Seccion {
     }
 
     public void registrarUSuario(){
+        /*
+        Esta funcion registra un nuervo usuario en caso de que se cumplan
+        todas las condiciones
+        */
         String nombre, clave, id, correo;
 
+        //pedir nombre
         System.out.println("nombre: ");
         nombre = Main.pedirDato();
         if(!this.isNombreValido(nombre)) return;
 
+        //pedir numero de identificacion
         System.out.println("ID: ");
         id = Main.pedirDato();
         if(!this.isIDValido(id)) return;
 
+        //pedir correo
         System.out.println("correo: ");
         correo = Main.pedirDato();
         if(!this.isCorreoValido(correo)) return;
 
+        //pedir clave
         System.out.println("Clave: ");
         clave = Main.pedirDato();
         this.usuario = Usuario.crearUsuario(nombre, clave, Long.parseLong(id), correo);
@@ -121,6 +150,11 @@ public class SeccionUsuario implements Seccion {
 
     }
     private boolean isNombreValido(String nombre){
+        /*
+        Esta funcion retorna false si el argumento que se ingresa no contione espacio y caracteres
+        alfabetiscos o si ya es un atributo de nombre de un objeto de tipo usuario,
+        de lo contrario retorna true.
+         */
         if(nombre == null || !nombre.chars().allMatch(c -> c == ' ' || Character.isLetter(c))){
             System.out.println("El nombre solo debe tener caracteres alfanumericos.");
             return false;
@@ -134,6 +168,11 @@ public class SeccionUsuario implements Seccion {
     }
 
     private boolean isIDValido(String id){
+        /*
+        Esta funcion retorna false si el argumento que se ingresa no contione solo caracteres
+        numericos o si ya es un atributo de ID de un objeto de tipo usuario,
+        de lo contrario retorna true.
+         */
         if(id == null || !id.chars().allMatch(Character::isDigit)){
             System.out.println("la identificacion debe contener solo caracteres numericos.");
             return false;
@@ -146,6 +185,10 @@ public class SeccionUsuario implements Seccion {
     }
 
     private boolean isCorreoValido(String correo){
+        /*
+        Esta funcion retorna false si el argumento que se ingresa contiene el caracter '@' o si
+        solo contiene en la ultima posicion, de lo contrario retorna true.
+         */
         if(!correo.contains("@") || correo.charAt(correo.length()-1) == '@'){
             System.out.println("correo no valido.");
             return false;

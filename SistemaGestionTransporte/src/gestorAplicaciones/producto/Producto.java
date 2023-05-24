@@ -2,6 +2,7 @@ package gestorAplicaciones.producto;
 
 public class Producto {
 
+    //atributos
     private String nombre;
     private String tipo;
     private double peso;
@@ -17,6 +18,7 @@ public class Producto {
 
     }
 
+    //metodos getter and setter
     public String getNombre() {
         return nombre;
     }
@@ -49,6 +51,7 @@ public class Producto {
         this.volumen = volumen;
     }
 
+    //metodos
     public void Editar(){}
 
     public void eliminar(){}
