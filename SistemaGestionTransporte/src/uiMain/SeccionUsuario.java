@@ -2,14 +2,13 @@ package uiMain;
 
 import java.util.Scanner;
 
-public class SeccionUsuario implements Seccion {
-    int opcion = 0;
+public class SeccionUsuario extends Seccion {
     @Override
     public void Inicio() {
         //int opcion = 0;
         do {
             System.out.println("Ingrese:\n1.iniciar Seccion.\n2 Registrarse.\n0salir.");
-            this.opcion = Main.getOption();
+            this.opcion = Seccion.getOption();
             switch (this.opcion) {
                 case 0 ->
                     //salir
@@ -29,7 +28,7 @@ public class SeccionUsuario implements Seccion {
     public void showMenu() {
         do{
             System.out.println("Ingrese:\nRealizar pedido.\n2 Seguir pedido.\n3. historial de pedido.\n4.PQRS.\n0salir.");
-            this.opcion = Main.getOption();
+            this.opcion = Seccion.getOption();
             switch (this.opcion) {
                 case 0:
                     System.out.println("Seccion terminada.");
@@ -64,19 +63,6 @@ public class SeccionUsuario implements Seccion {
     @Override
     public void guardar() {
 
-    }
-
-    @Override
-    public void ingresar() {
-        String usuario,clave;
-        usuario = Main.usurio();
-        clave = Main.clave();
-        if (this.validarInformacion(usuario,clave)){
-            System.out.println("correcto");
-        }
-        else{
-            System.out.println("Usuario y/o clave no validas");
-        }
     }
 
     @Override

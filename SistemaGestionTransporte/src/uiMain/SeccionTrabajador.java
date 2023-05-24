@@ -2,8 +2,8 @@ package uiMain;
 
 import java.util.Scanner;
 
-public class SeccionTrabajador implements Seccion{
-    int opcion = 0;
+public class SeccionTrabajador extends Seccion{
+
     @Override
     public void Inicio() {
 
@@ -17,19 +17,6 @@ public class SeccionTrabajador implements Seccion{
     @Override
     public void guardar() {
 
-    }
-
-    @Override
-    public void ingresar() {
-        String usuario,clave;
-        usuario = Main.usurio();
-        clave = Main.clave();
-        if (this.validarInformacion(usuario,clave)){
-            System.out.println("correcto");
-        }
-        else{
-            System.out.println("Usuario y/o clave no validas");
-        }
     }
 
     @Override
