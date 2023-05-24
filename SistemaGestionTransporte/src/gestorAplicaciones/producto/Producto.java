@@ -7,15 +7,16 @@ public class Producto {
     private String tipo;
     private double peso;
     private double volumen;
+    private long cantidad;
 
 
     //metodos
-    public Producto(String nombre, String tipo, double peso, double volumen){
+    public Producto(String nombre, String tipo, double peso, double volumen,long cantidad){
         this.nombre = nombre;
         this.tipo = tipo;
         this.peso = peso;
         this.volumen = volumen;
-
+        this.cantidad = cantidad;
     }
 
     //metodos getter and setter
@@ -49,6 +50,14 @@ public class Producto {
 
     public void setVolumen(double volumen) {
         this.volumen = volumen;
+    }
+
+    public long getCantidad() {
+        return cantidad;
+    }
+
+    public void setCantidad(long cantidad) {
+        this.cantidad = cantidad;
     }
 
     //metodos

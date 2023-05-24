@@ -100,10 +100,46 @@ public class SeccionUsuario implements Seccion {
         destino = this.elegirCiudad(pais,"Destino");
         
         //seleccionar tipos de produccto a transportar
+        this.tipoProductos();
         this.seleccionarProductos();
+
+        //Sleccionar auto
     }
 
     private void seleccionarProductos() {
+        String nombre;
+        double peso, volumen;
+        long cantidad;
+
+        do {
+            System.out.println("""
+    
+            Ingrese:
+            1. Ingresar ciudad de "+ciudad+".
+            2. ver lista de ciudades.
+            0. Salir.""");
+
+            switch (opcion) {
+                case 0:
+                    break;
+                case 1:
+                    System.out.println("nombre del producto: ");
+                    nombre = Main.pedirDato();
+
+                    System.out.println("peso del producto: ");
+                    peso = Double.parseDouble(Main.pedirDato());
+
+                    System.out.println("volumen del producto: ");
+                    volumen = Double.parseDouble(Main.pedirDato());
+
+                    System.out.println("Cantidad de ese producto: ");
+                    cantidad = Long.parseLong(Main.pedirDato());
+                    break;
+            }
+        }while(this.opcion != 0);
+    }
+
+    private void tipoProductos() {
         System.out.println("Seleccione el tipo de producto a transportar");
         do{
             System.out.println("""
@@ -115,8 +151,20 @@ public class SeccionUsuario implements Seccion {
                     5. Carga general.\s""");
 
             this.opcion = Main.getOption();
-
-
+            switch(opcion){
+                case 1:
+                    break;
+                case 2:
+                    break;
+                case 3:
+                    break;
+                case 4:
+                    break;
+                case 5:
+                    break;
+                default:
+                    System.out.println("Opcion no valida");
+            }
         }while(this.opcion != 0);
     }
 
@@ -159,7 +207,7 @@ public class SeccionUsuario implements Seccion {
                     2. Ecuador.
                     3. Panama.
                     0. Salir.""");
-            
+
             this.opcion = Main.getOption();
             switch (this.opcion){
                 case 0:
