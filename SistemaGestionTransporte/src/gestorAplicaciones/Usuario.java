@@ -1,93 +1,89 @@
 package gestorAplicaciones;
 
+import java.util.ArrayList;
+
 public class Usuario {
 	
 	//atributos
-	private String nombre;
+	private static ArrayList<Usuario> usuarios = new ArrayList<Usuario>();
+	private final String nombre;
 	private String clave;
-	private int documento;
-	private float saldo;
-	private Pedido pedido;
-	private String tipoUsuario;
+	private long ID;
+	private String correo;
+
+	//private float saldo;
+	//private Pedido pedido;
+	//private String tipoUsuario;
 	
 	//constructores
 	
-	public Usuario (String nombreUsuario, String nuevaClave, int id) {
-		nombre = nombreUsuario;
-		clave = nuevaClave;
-		documento = id;
-		saldo = 0;
-		pedido = null;
-		tipoUsuario = "cliente";
+	public Usuario (String nombre, String clave,long id, String correo) {
+		this(nombre, clave, correo);
+		this.ID = id;
+		Usuario.usuarios.add(this);
+		//saldo = 0;
+		//pedido = null;
+		//tipoUsuario = "cliente";
 	}
-	public Usuario (String nombreUsuario, String nuevaClave, int id, float saldo, Pedido pedido, String usuario) {
-		nombre = nombreUsuario;
-		clave = nuevaClave;
-		documento = id;
-		this.saldo = saldo;
-		this.pedido = pedido;
-		tipoUsuario = usuario;
+	public Usuario (String nombre, String clave, String correo) {
+		this.nombre = nombre;
+		this.clave = clave;
+		this.correo = correo;
 	}
 	
 	//metodod get y set
-	
+
+	public static ArrayList<Usuario> getUsuarios() {
+		return usuarios;
+	}
+
+	public static void setUsuarios(ArrayList<Usuario> usuarios) {
+		Usuario.usuarios = usuarios;
+	}
+
 	public String getNombre() {
 		return nombre;
 	}
-	public void setNombre(String Nombre) {
-		nombre = Nombre;
-	}
+
 	public String getClave() {
 		return clave;
 	}
-	public void setClave(String Clave) {
-		clave = Clave;
+
+	public void setClave(String clave) {
+		this.clave = clave;
 	}
-	public int getDocumento() {
-		return documento;
+
+	public long getID() {
+		return ID;
 	}
-	public void setDocumento(int id) {
-		documento = id;
+
+	public String getCorreo() {
+		return correo;
 	}
-	public float getSaldo() {
-		return saldo;
+
+	public void setCorreo(String correo) {
+		this.correo = correo;
 	}
-	public void setSaldo(float saldo) {
-		this.saldo = saldo;
-	}
-	public Pedido getPedido() {
-		return pedido;
-	}
-	public void setPedido(Pedido pedido) {
-		this.pedido = pedido;
-	}
-	public String getTipoUsuario() {
-		return tipoUsuario;
-	}
-	public void setUsuario(String usuario) {
-		tipoUsuario = usuario;
-	}
-	
+
+
 	//metodos
 	
-	public void crearUsuario(String nombre, String clave, String usuario) {
-		new Usuario(nombre, clave, 0, 0, null, usuario);
+	public static void crearUsuario(String nombre, String clave,long id, String correo) {
+		new Usuario(nombre, clave, id, correo);
 	}
-	public String iniciarSesion(int id, String clave) {
+	/*public String iniciarSesion(int id, String clave) {
 		boolean estado = false;
 		estado = comprobarDocumento(id);
 		estado = comprobarClave(clave);
+	}*/
+
+	public boolean comprobarUsuario(String nombre, String clave){
+		return this.nombre.equals(nombre) && this.clave.equals(clave);
 	}
-	public boolean comprobarDocumento(int documento) {
-		
+	public boolean comprobarUsuario(long id, String clave){
+		return this.ID == id && this.clave.equals(clave);
 	}
-	public boolean comprobarNombre(String nombre) {
-		
-	}
-	public boolean comprobarClave(String clave) {
-		
-	}
-	public String recargarCuenta(float plata) {
+	/*public String recargarCuenta(float plata) {
 		saldo += plata;
 		return "Su saldo es" + getSaldo();
 	}
@@ -101,8 +97,6 @@ public class Usuario {
 		}else {
 			return "Saldo insuficiente";
 		}
-	}
-	public Pedido historialPedidos() {
-		
-	}
+	}*/
+	//public Pedido historialPedidos() {}
 }
