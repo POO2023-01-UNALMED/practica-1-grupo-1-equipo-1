@@ -201,7 +201,6 @@ public class SeccionUsuario implements Seccion {
 
     private void calcularTarifa() {
         //calcular la tarifa del pedido
-        factura = new Factura();
         factura = new Factura(pedido, usuario);
         camion.setRuta(pedido.calcularRuta());
         camion.calcularCostoCamion();

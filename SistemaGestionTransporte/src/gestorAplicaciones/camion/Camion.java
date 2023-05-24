@@ -106,7 +106,7 @@ public abstract class Camion {
 
     public int calcularTiempo(){
         double km = this.getRuta().get(this.getRuta().size() - 1).getValue();
-        return Integer.parseInt(String.valueOf(km/this.valocidad()));
+        return (int) Math.ceil(km/this.valocidad());
     }
     public abstract double valocidad();
 
