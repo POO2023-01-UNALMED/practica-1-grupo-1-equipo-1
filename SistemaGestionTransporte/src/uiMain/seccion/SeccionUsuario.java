@@ -9,7 +9,7 @@ import uiMain.Main;
 public class SeccionUsuario implements Seccion {
     int opcion = 0;
     Usuario usuario;
-    Pedido pedido;
+    Pedido pedido = new Pedido();
     @Override
     public void Inicio() {
         /*
@@ -91,14 +91,14 @@ public class SeccionUsuario implements Seccion {
         Pais pais;
 
         //Seleccionar pais
-        pais = this.selecionarPais();
+        pedido.setPais(this.selecionarPais());
 
         //Seleccionar ciudad de origen
-        origen = this.elegirCiudad(pais,"Origen");
-        
+        pedido.setOrigen(this.elegirCiudad(pedido.getPais(),"Origen"));
+
         //seleccionar ciuddad de destino
-        destino = this.elegirCiudad(pais,"Destino");
-        
+        pedido.setDestino(this.elegirCiudad(pedido.getPais(),"Destino"));
+
         //seleccionar tipos de produccto a transportar
         tipo = this.tipoProductos();
         this.seleccionarProductos();
