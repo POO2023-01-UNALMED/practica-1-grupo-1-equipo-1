@@ -2,9 +2,10 @@ package gestorAplicaciones;
 
 import java.util.ArrayList;
 
-public class Usuario {
+public class Usuario{
 	
-	//atributos
+	//atributos serializador
+	private static final long serialVersionUID = 1L;
 	private static ArrayList<Usuario> usuarios = new ArrayList<Usuario>();
 	private final String nombre;
 	private String clave;
