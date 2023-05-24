@@ -79,11 +79,11 @@ public class Empleado extends Usuario {
 
 	public String toString(){
 		//sobreescritura del metodo toString para mostar los atributos del objeto.
-		return "nombre\t" + this.getNombre()
+		return "\nnombre\t" + this.getNombre()
 				+ "\nid\t" + this.getID()
 				+ "\ncorreo\t" + this.getCorreo()
-				+ "Activo\t" + this.estatusActivo
-				+ "Pais\t" + this.pais
+				+ "\nActivo\t" + this.estatusActivo
+				+ "\nPais\t" + this.pais
 				+ "\n";
 	}
 
@@ -93,6 +93,63 @@ public class Empleado extends Usuario {
 
 	public static void crearEmpleado(String nombre, String clave, long id, String correo, String pais, String ciudadActual) {
 		new Empleado(nombre, clave, id, correo, true, pais,ciudadActual);
+	}
+
+	public static boolean isNombreValido(String nombre){
+        /*
+        Esta funcion retorna false si el argumento que se ingresa no contione espacio y caracteres
+        alfabetiscos o si ya es un atributo de nombre de un objeto de tipo usuario,
+        de lo contrario retorna true.
+         */
+		if(nombre == null || !nombre.chars().allMatch(c -> c == ' ' || Character.isLetter(c))){
+			System.out.println("El nombre solo debe tener caracteres alfanumericos.");
+			return false;
+		}
+		for(Empleado empleado : Empleado.empleados) {
+			if (empleado.comprobarNombre(nombre)) {
+				System.out.println("nombre ya registrado.");
+				return false;
+			}
+		}
+		return true;
+
+	}
+
+	public static boolean isIDValido(String id){
+        /*
+        Esta funcion retorna false si el argumento que se ingresa no contione solo caracteres
+        numericos o si ya es un atributo de ID de un objeto de tipo usuario,
+        de lo contrario retorna true.
+         */
+		if(id == null || !id.chars().allMatch(Character::isDigit)){
+			System.out.println("la identificacion debe contener solo caracteres numericos.");
+			return false;
+		}
+		for(Empleado empleado : Empleado.empleados) {
+			if (empleado.comprobarID(Long.parseLong(id))) {
+				System.out.println("numero de identificacion ya registrado.");
+				return false;
+			}
+		}
+		return true;
+	}
+
+	public static boolean isCorreoValido(String correo){
+        /*
+        Esta funcion retorna false si el argumento que se ingresa contiene el caracter '@' o si
+        solo contiene en la ultima posicion, de lo contrario retorna true.
+         */
+		if(!correo.contains("@") || correo.charAt(correo.length()-1) == '@'){
+			System.out.println("correo no valido.");
+			return false;
+		}
+		for(Empleado empleado : Empleado.empleados) {
+			if (empleado.comprobarCorreo(correo)) {
+				System.out.println("correo ya registrado.");
+				return false;
+			}
+		}
+		return true;
 	}
 
 }

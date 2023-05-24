@@ -48,11 +48,10 @@ public class SeccionAdministrador implements Seccion {
                     Ingrese:
                     1. Registrar nuevo empleado.
                     2. Registar nuevo vehiculo.
-                    3. Historial de pedidos.
-                    4. Pedidos en curso.
-                    5. Trabajadores.
-                    6. Vehiculos.
-                    7. Usuarios.
+                    3. Estadisticas.
+                    4. Vehiculos.
+                    5. Usuarios.
+                    6. Empleados.
                     0. salir.""");
 
             this.opcion = Main.getOption();
@@ -112,8 +111,9 @@ public class SeccionAdministrador implements Seccion {
         usuario = "Administrador";
         System.out.println("Clave: ");
         clave = Main.pedirDato();
-        if (this.validarInformacion(usuario,clave )!= null){
-            System.out.println("correcto");
+        if (admin.getClave().equals(clave)) {
+            System.out.println("Ingresando como administrador...");
+            this.showMenu();
         }
         else{
             System.out.println("Usuario y/o clave no validas");
@@ -149,7 +149,6 @@ public class SeccionAdministrador implements Seccion {
         clave = Main.pedirDato();
 
         System.out.println("ciudad actual del empleado: ");
-        ciudadActual = Main.pedirDato();
         do{
             ciudadActual = Main.pedirDato();
             if(pais.isCiudad(ciudadActual)) break;
@@ -235,8 +234,7 @@ public class SeccionAdministrador implements Seccion {
                 0. Cancelar.
                 """);
 
-            System.out.println("ciudad actual del empleado: ");
-            ciudadActual = Main.pedirDato();
+            System.out.println("ciudad actual del Camion: ");
             do{
                 ciudadActual = Main.pedirDato();
                 if(pais.isCiudad(ciudadActual)) break;

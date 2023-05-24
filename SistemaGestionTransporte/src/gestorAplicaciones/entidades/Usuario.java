@@ -174,7 +174,7 @@ public class Usuario{
 	@Override
 	public String toString(){
 		//sobreescritura del metodo toString para mostar los atributos del objeto.
-		return "nombre\t" + this.nombre
+		return "\nnombre\t" + this.nombre
 				+ "\nid\t" + this.ID
 				+ "\ncorreo\t" + this.correo
 				+ "\n";

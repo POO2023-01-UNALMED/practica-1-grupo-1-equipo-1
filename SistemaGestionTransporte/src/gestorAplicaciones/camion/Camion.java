@@ -29,6 +29,7 @@ public abstract class Camion {
         this.pais = pais;
         this.ciudadActual = ciudadActual;
         this.capacidad = capacidad;
+        this.disponible = true;
     }
 
 
