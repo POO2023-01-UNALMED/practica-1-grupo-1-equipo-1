@@ -1,6 +1,7 @@
 package uiMain;
 
 import gestorAplicaciones.camion.Camion;
+import gestorAplicaciones.pais.Pais;
 import gestorAplicaciones.producto.Factura;
 import gestorAplicaciones.producto.Pedido;
 import uiMain.seccion.Seccion;
@@ -90,5 +91,34 @@ public class Main {
                 }
             }
         }
+    }
+    public  static Pais selecionarPais() {
+        //seleccionar pais donde se realizara el transporte del pedido.
+        int opcion;
+        do{
+            System.out.println("""
+
+                    Ingrese:
+                    1. Colombia.
+                    2. Ecuador.
+                    3. Panama.
+                    0. Salir.""");
+
+            opcion = Main.getOption();
+            switch (opcion){
+                case 0:
+                    break;
+                case 1:
+                    return Pais.COLOMBIA;
+                case 2:
+                    return Pais.ECUADOR;
+                case 3:
+                    return Pais.PANAMA;
+                default:
+                    System.out.println("Opcion no valida.");
+            }
+
+        }while (opcion != 0);
+        return null;
     }
 }

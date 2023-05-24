@@ -3,11 +3,12 @@ package uiMain.seccion;
 import gestorAplicaciones.camion.*;
 import gestorAplicaciones.entidades.Empleado;
 import gestorAplicaciones.entidades.Usuario;
-import gestorAplicaciones.pais.Pais;
 import gestorAplicaciones.producto.Factura;
 import gestorAplicaciones.producto.Pedido;
 import gestorAplicaciones.producto.Producto;
 import uiMain.Main;
+
+import java.util.ArrayList;
 
 public class SeccionUsuario implements Seccion {
     int opcion = 0;
@@ -79,11 +80,6 @@ public class SeccionUsuario implements Seccion {
                     //mostar historial de pedidos
                     Factura.historialFacturas(this.usuario);
                     break;
-                case 4:
-                    /*
-                    //funcionalidad PQRS
-                     */
-                    break;
                 default:
                     System.out.println("opcion no valida.");
             }
@@ -150,34 +146,34 @@ public class SeccionUsuario implements Seccion {
         String tipoCarga;
         pedido = new Pedido();
         //Seleccionar pais
-        pedido.setPais(Pais.selecionarPais());
+        pedido.setPais(Main.selecionarPais());
         if(pedido.getPais() == null){
             System.out.println("Pais no seleccionado.");
             return false;
         }
 
         //Seleccionar ciudad de origen
-        pedido.setOrigen(pedido.getPais().elegirCiudad("Origen"));
+        pedido.setOrigen(this.elegirCiudad("Origen"));
         if(pedido.getOrigen() == null){
             System.out.println("Ciudad no valida.");
             return false;
         }
 
         //seleccionar ciuddad de destino
-        pedido.setDestino(pedido.getPais().elegirCiudad("Destino"));
+        pedido.setDestino(this.elegirCiudad("Destino"));
         if(pedido.getDestino() == null){
             System.out.println("Ciudad no valida.");
             return false;
         }
         //seleccionar tipos de produccto a transportar
-        tipoCarga = Producto.tipoProductos();
+        tipoCarga = this.tipoProductos();
         if(tipoCarga == null){
             System.out.println("Seleccion no validad.");
             return false;
         }
         pedido.setTipoProductos(tipoCarga);
 
-        pedido.setProductos(Producto.seleccionarProductos(tipoCarga));
+        pedido.setProductos(this.seleccionarProductos(tipoCarga));
         if(pedido.getProductos() == null){
             System.out.println("No has ingresado ningun producto.");
             return false;
@@ -303,5 +299,130 @@ public class SeccionUsuario implements Seccion {
         clave = Main.pedirDato();
         this.usuario = Usuario.crearUsuario(nombre, clave, Long.parseLong(id), correo);
         this.showMenu();
+    }
+    public String elegirCiudad(String ciudad) {
+        //Seleccionar una ciudad
+        int opcion;
+        String str;
+        do{
+            System.out.println("""
+            
+            Ingrese:
+            1. Ingresar ciudad de\s""" +ciudad+
+                    """
+                    
+                    2. ver lista de ciudades.
+                    0. Salir.""");
+
+            opcion = Main.getOption();
+            switch (opcion){
+                case 0:
+                    break;
+                case 1:
+                    System.out.println("Ingrese ciudad de "+ciudad+": ");
+                    str = Main.pedirDato();
+                    if (pedido.getPais().isCiudad(str)) return str;
+                    else System.out.println("pais no encontrado.");
+                    break;
+                case 2:
+                    pedido.getPais().mostarCiudades();
+            }
+        }while(opcion != 0);
+        return null;
+    }
+
+    public  String tipoProductos() {
+        //Selecionar el tipo de productos a transportar
+        System.out.println("Seleccione el tipo de producto a transportar");
+        do{
+            System.out.println("""
+                    
+                    Ingrese:
+                    1. Carga perecedera.
+                    2. Carga fragil.
+                    3. Carga ADR.
+                    4. Carga de coches.
+                    5. Carga general.
+                    0. Salir.""");
+
+            this.opcion = Main.getOption();
+            switch (this.opcion) {
+                case 1 -> {
+                    return "Frigorifico";
+                }
+                case 2, 5 -> {
+                    return "Lona";
+                }
+                case 3 -> {
+                    return "Cisterna";
+                }
+                case 4 -> {
+                    return "PortaCoches";
+                }
+                default -> System.out.println("Opcion no valida");
+            }
+        }while(this.opcion != 0);
+
+        return null;
+    }
+    public  ArrayList<Producto> seleccionarProductos(String tipo) {
+        //ingresar los productos a transportar y caracteristicas
+        ArrayList<Producto> productos = new ArrayList<Producto>();
+        String nombre;
+        double peso, volumen;
+        long cantidad;
+
+        do {
+            System.out.println("""
+    
+            Ingrese:
+            1. Ingresar producto.
+            2. Ver productos ingresados.
+            3. Confirmar productos.
+            4. Eliminar producto.
+            0. Descartar productos.""");
+
+            this.opcion = Main.getOption();
+            switch (this.opcion) {
+                case 0:
+                    break;
+                case 1:
+                    System.out.println("nombre del producto: ");
+                    nombre = Main.pedirDato();
+
+                    System.out.println("peso del producto: ");
+                    peso = Double.parseDouble(Main.pedirDato());
+
+                    System.out.println("volumen del producto: ");
+                    volumen = Double.parseDouble(Main.pedirDato());
+
+                    System.out.println("Cantidad de ese producto: ");
+                    cantidad = Long.parseLong(Main.pedirDato());
+
+                    productos.add(Producto.crearProducto(nombre, tipo, peso, volumen, cantidad));
+                    break;
+                case 2:
+                    for(Producto producto : productos){
+                        System.out.println(producto);
+                    }
+                    break;
+                case 3:
+                    return productos;
+                case 4:
+                    System.out.println("nombre del producto: ");
+                    nombre = Main.pedirDato();
+                    for(Producto producto : productos){
+                        if(producto.getNombre().equals(nombre)){
+                            productos.remove(producto);
+                            System.out.println("Producto elimindado");
+                            break;
+                        }
+                        System.out.println("producto no encontrado");
+                    }
+                    break;
+            }
+        }while(this.opcion != 0);
+
+        return null;
     }
 }
