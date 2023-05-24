@@ -4,6 +4,12 @@ import java.io.Serial;
 import java.io.Serializable;
 import java.util.ArrayList;
 
+/**
+ *  clase CamionCisterna es una subclase de la clase Camion
+ *  Atributos:
+ *  Camiones:  ArrayList estático de objetos de tipo CamionCisterna que almacena
+ *  todos los camiones cisterna creados.
+ */
 public class CamionCisterna extends Camion implements Serializable {
 
     //serializador
@@ -25,6 +31,7 @@ public class CamionCisterna extends Camion implements Serializable {
     public static void setCamiones(ArrayList<CamionCisterna> camiones){
         CamionCisterna.camiones = camiones;
     }
+
 
     @Override
     public void calcularCostoCamion() {

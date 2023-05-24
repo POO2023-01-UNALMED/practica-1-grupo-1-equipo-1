@@ -4,6 +4,15 @@ import java.io.Serial;
 import java.io.Serializable;
 import java.util.ArrayList;
 
+/**
+ * Clase Usuario representa un usuario.
+ * Atributos:
+ * usuarios: ArrayList estátic que almacena todos los usuarios creados.
+ * nombre: String final que almacena el nombre del usuario.
+ * clave: String que almacena la clave de acceso del usuario.
+ * ID: long que almacena el ID del usuario.
+ * correo: String que almacena el correo del usuario.
+ */
 public class Usuario implements Serializable {
 	
 	//serializador
@@ -74,59 +83,85 @@ public class Usuario implements Serializable {
 
 
 	//metodos
-	
+
+	/**
+	 *
+	 * @param nombre nombre usuario
+	 * @param clave clave usuario
+	 * @param id id del usuario
+	 * @param correo del usuario
+	 * @return Nueva instancia de usuario con los datos pasados como argumentos
+	 */
 	public static Usuario crearUsuario(String nombre, String clave, long id, String correo) {
-		/*
-		este metodo de clase crea una instacioa de tipo Usuario con los datos pasados
-		como argumentos.
-		 */
+
 		return new Usuario(nombre, clave, correo, id);
 	}
 
+	/**
+	 *
+	 * @param nombre nombre de usuario
+	 * @param clave clave de usuario
+	 * @return true si los argumentos ingresados coinciden con los atributos nombre y
+	 * clave, de lo contrario retorna false.
+	 */
 	public boolean comprobarUsuario(String nombre, String clave){
-		/*
-		este metodo retorna true si los argumentos ingresados coinciden con los atributos nombre y
-		clave, de lo contrario retorna false.
-		 */
+
 		return this.nombre.equals(nombre) && this.clave.equals(clave);
 	}
+
+	/**
+	 *
+	 * @param id id de usuario
+	 * @param clave clave de usuario
+	 * @return true si los argumentos ingresados coinciden con los atributos ID y
+	 * clave, de lo contrario retorna false.
+	 */
 	public boolean comprobarUsuario(long id, String clave){
-		/*
-		este metodo retorna true si los argumentos ingresados coinciden con los atributos ID y
-		clave, de lo contrario retorna false.
-		 */
+
 		return this.ID == id && this.clave.equals(clave);
 	}
 
+	/**
+	 *
+	 * @param nombre nombre de usuario
+	 * @return true si el String pasado como argumento coincide con el atributo nombre del objeto
+	 * de la clase Usuario de lo contrario retorna false
+	 */
 	public boolean comprobarNombre(String nombre){
-		/*
-		este metodo de  clase retorna true si el String pasado como argumento coincide con el
-		atributo nombre del objeto de la clase Usuario de lo contrario retorna false.
-		 */
+
 		return this.nombre.equals(nombre);
 	}
+
+	/**
+	 *
+	 * @param id id de usuario
+	 * @return true si el numero pasado como argumento coincide con el atributo ID del objeto de
+	 * la clase Usuario de lo contrario retorna false.
+	 */
 	public  boolean comprobarID(long id){
-		/*
-		este metodo de clase retorna true si el numero pasado como argumento coincide con el
-		atributo ID del objeto de la clase Usuario de lo contrario retorna false.
-		 */
+
 		return this.ID == id;
 	}
 
+	/**
+	 *
+	 * @param correo
+	 * @return true si el String pasado como argumento coincide con el atributo correo del objeto,
+	 * de la clase Usuario de lo contrario retorna false.
+	 */
 	public  boolean comprobarCorreo(String correo){
-		/*
-		este metodo de clase retorna true si el String pasado como argumento coincide con el
-		atributo correo del objeto de la clase Usuario de lo contrario retorna false.
-		 */
+
 			return this.correo.equals(correo);
 	}
 
+	/**
+	 *
+	 * @param nombre nombre de nuevo usuario
+	 * @return false si el nombre contiene espacios o caracteres no alfabéticos,
+	 * o si ya existe un usuario con ese nombre. Retorna true en caso contrario.
+	 */
 	public static boolean isNombreValido(String nombre){
-        /*
-        Esta funcion retorna false si el argumento que se ingresa no contione espacio y caracteres
-        alfabetiscos o si ya es un atributo de nombre de un objeto de tipo usuario,
-        de lo contrario retorna true.
-         */
+
 		if(nombre == null || !nombre.chars().allMatch(c -> c == ' ' || Character.isLetter(c))){
 			System.out.println("El nombre solo debe tener caracteres alfanumericos.");
 			return false;
@@ -141,12 +176,14 @@ public class Usuario implements Serializable {
 
 	}
 
+	/**
+	 *
+	 * @param id ide de nuevo usuario
+	 * @return false si el ID contiene caracteres no numéricos o si ya existe un usuario con ese ID.
+	 * Retorna true en caso contrario.
+	 */
 	public static boolean isIDValido(String id){
-        /*
-        Esta funcion retorna false si el argumento que se ingresa no contione solo caracteres
-        numericos o si ya es un atributo de ID de un objeto de tipo usuario,
-        de lo contrario retorna true.
-         */
+
 		if(id == null || !id.chars().allMatch(Character::isDigit)){
 			System.out.println("la identificacion debe contener solo caracteres numericos.");
 			return false;
@@ -160,11 +197,14 @@ public class Usuario implements Serializable {
 		return true;
 	}
 
+	/**
+	 *
+	 * @param correo correo de nuevo usuario
+	 * @return false si el correo no contiene el carácter '@' o si está ubicado al final del correo,
+	 * o si ya existe un usuario con ese correo. Retorna true en caso contrario.
+	 */
 	public static boolean isCorreoValido(String correo){
-        /*
-        Esta funcion retorna false si el argumento que se ingresa contiene el caracter '@' o si
-        solo contiene en la ultima posicion, de lo contrario retorna true.
-         */
+
 		if(!correo.contains("@") || correo.charAt(correo.length()-1) == '@'){
 			System.out.println("correo no valido.");
 			return false;
@@ -180,7 +220,7 @@ public class Usuario implements Serializable {
 
 	@Override
 	public String toString(){
-		//sobreescritura del metodo toString para mostar los atributos del objeto.
+
 		return "\nnombre:\t" + this.nombre
 				+ "\nid:\t" + this.ID
 				+ "\ncorreo:\t" + this.correo

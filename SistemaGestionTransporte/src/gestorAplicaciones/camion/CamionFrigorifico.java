@@ -4,6 +4,12 @@ import java.io.Serial;
 import java.io.Serializable;
 import java.util.ArrayList;
 
+/**
+*  clase CamionFrigorifico es una subclase de la clase Camion
+*  Atributos:
+*  Camiones:  ArrayList estático de objetos de tipo CamionFrigorifico que almacena
+*  todos los camiones frigorificos creados.
+*/
 public class CamionFrigorifico extends Camion implements Serializable {
     //serializador
     @Serial

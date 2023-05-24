@@ -2,6 +2,15 @@ package gestorAplicaciones.entidades;
 
 import java.util.ArrayList;
 
+/**
+ * clase Empleado es una subclase de la clase Usuario y representa a un empleado.
+ * Atributos:
+ * empleados: Static ArrayList que almacena todos los empleados creados.
+ * estatusActivo: boolean que indica si el empleado está activo o no.
+ * disponible: boolean que indica si el empleado está disponible para trabajar o no.
+ * pais: almacena el país donde se encuentra el empleado.
+ * ciudadActual: almacena la ciudad actual donde se encuentra el empleado.
+ */
 public class Empleado extends Usuario{
 	
 	//atributos
@@ -70,12 +79,24 @@ public class Empleado extends Usuario{
 
 	//metodos
 
+	/**
+	 * Verifica si el empleado está disponible, activo y se encuentra en la misma ciudad que la pasada
+	 * como argumento.
+	 * @param ciudadActual ciudad de donde se realiza el envio
+	 * @return true si se cumplen todas las condiciones, de lo contrario, retorna false
+	 */
 	public boolean elegirConductor(String ciudadActual){
 		return this.ciudadActual.equals(ciudadActual) && this.estatusActivo && this.disponible;
 	}
 
+	/**
+	 * usca y selecciona un empleado disponible que se encuentre en la misma ciudad que la
+	 * pasadqa como argumento.
+	 * @param origen ciudad de donde se realiza el pedido
+	 * @return el empleado seleccionado si se encuentra alguno, de lo contrario, retorna null
+	 */
 	public static Empleado seleccionarEmpleado(String origen) {
-		//buscar un empleado disponible y que se encuentre en la ciudad de origen
+
 		for(Empleado empleado : Empleado.getEmpleados()){
 			if(empleado.elegirConductor(origen)) return empleado;
 		}
@@ -83,7 +104,7 @@ public class Empleado extends Usuario{
 	}
 
 	public String toString(){
-		//sobreescritura del metodo toString para mostar los atributos del objeto.
+
 		return "\nnombre:\t" + this.getNombre()
 				+ "\nid:\t" + this.getID()
 				+ "\ncorreo:\t" + this.getCorreo()
@@ -95,21 +116,39 @@ public class Empleado extends Usuario{
 				+ "\n";
 	}
 
+	/**
+	 *
+	 * @param costoPedido costo del camion
+	 * @return Calcula y retorna al costop del camion el costo del empleado.
+	 */
 	public double calcularPago(double costoPedido) {
 		return costoPedido + costoPedido*0.2;
 	}
 
+	/**
+	 *
+	 * @param nombre nombre empleado
+	 * @param clave clave empleado
+	 * @param id id empleado
+	 * @param correo correo empleado
+	 * @param pais pais donde opera el empleado
+	 * @param ciudadActual ciudad actual donde se encuenra el empleado
+	 *
+	 * crea un objeto Empleado con los datos proporcionados como argumentos.
+	 */
 	public static void crearEmpleado(String nombre, String clave, long id, String correo, String pais, String ciudadActual) {
-		//Crea una instacia de empleado con los atributos pasados como argumentos
+
 		new Empleado(nombre, clave, id, correo, true, pais,ciudadActual);
 	}
 
+	/**
+	 *
+	 * @param nombre nombre3 nuevo empleado
+	 * @return false si el nombre contiene espacios o caracteres no alfabéticos, o si ya existe un
+	 * empleado con ese nombre. Retorna true en caso contrario.
+	 */
 	public static boolean isNombreValido(String nombre){
-        /*
-        Esta funcion retorna false si el argumento que se ingresa no contione espacio y caracteres
-        alfabetiscos o si ya es un atributo de nombre de un objeto de tipo usuario,
-        de lo contrario retorna true.
-         */
+
 		if(nombre == null || !nombre.chars().allMatch(c -> c == ' ' || Character.isLetter(c))){
 			System.out.println("El nombre solo debe tener caracteres alfanumericos.");
 			return false;
@@ -124,12 +163,14 @@ public class Empleado extends Usuario{
 
 	}
 
+	/**
+	 *
+	 * @param id id nuievo empleaqdo
+	 * @return false si el ID contiene caracteres no numéricos o si ya existe un empleado con ese ID.
+	 * Retorna true en caso contrario.
+	 */
 	public static boolean isIDValido(String id){
-        /*
-        Esta funcion retorna false si el argumento que se ingresa no contione solo caracteres
-        numericos o si ya es un atributo de ID de un objeto de tipo usuario,
-        de lo contrario retorna true.
-         */
+
 		if(id == null || !id.chars().allMatch(Character::isDigit)){
 			System.out.println("la identificacion debe contener solo caracteres numericos.");
 			return false;
@@ -143,11 +184,14 @@ public class Empleado extends Usuario{
 		return true;
 	}
 
+	/**
+	 *
+	 * @param correo correo nuevo empleado
+	 * @return false si el correo no contiene el carácter '@' o si está ubicado al final del correo,
+	 * o si ya existe un empleado con ese correo. Retorna true en caso contrario.
+	 */
 	public static boolean isCorreoValido(String correo){
-        /*
-        Esta funcion retorna false si el argumento que se ingresa contiene el caracter '@' o si
-        solo contiene en la ultima posicion, de lo contrario retorna true.
-         */
+
 		if(!correo.contains("@") || correo.charAt(correo.length()-1) == '@'){
 			System.out.println("correo no valido.");
 			return false;
@@ -160,5 +204,4 @@ public class Empleado extends Usuario{
 		}
 		return true;
 	}
-
 }

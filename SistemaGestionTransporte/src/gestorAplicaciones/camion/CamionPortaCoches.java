@@ -4,6 +4,13 @@ import java.io.Serial;
 import java.io.Serializable;
 import java.util.ArrayList;
 
+
+/**
+*  clase CamionPortaCoches es una subclase de la clase Camion
+*  Atributos:
+*  Camiones:  ArrayList estático de objetos de tipo CamionPortaCoches que almacena
+*  todos los camiones PortaCoches creados.
+*/
 public class CamionPortaCoches extends Camion implements Serializable {
 
     //serializador
