@@ -27,7 +27,7 @@ public class Factura implements Serializable{
 
     //constructor
     public Factura() {
-        this.ID = Factura.IDfactura + 1;
+        Factura.IDfactura += 1;
     }
 
     //constrctor

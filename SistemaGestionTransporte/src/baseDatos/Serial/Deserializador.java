@@ -22,7 +22,7 @@ public class Deserializador {
 
         //deserializar usuarios
         try {
-            archivoEntrada = new FileInputStream("src/baseDatos/temp/usuarios.txt");
+            archivoEntrada = new FileInputStream("src/baseDatos/temp/usuarios.dat");
             objetoEntrada = new ObjectInputStream(archivoEntrada);
             Usuario.setUsuarios((ArrayList<Usuario>) objetoEntrada.readObject());
         } catch (IOException | ClassNotFoundException e) {
@@ -31,7 +31,7 @@ public class Deserializador {
 
         //deserializar empleados
         try {
-            archivoEntrada = new FileInputStream("src/baseDatos/temp/empleados.txt");
+            archivoEntrada = new FileInputStream("src/baseDatos/temp/empleados.dat");
             objetoEntrada = new ObjectInputStream(archivoEntrada);
             Empleado.setEmpleados((ArrayList<Empleado>) objetoEntrada.readObject());
         } catch (IOException | ClassNotFoundException e) {
@@ -40,7 +40,7 @@ public class Deserializador {
 
         //deserializar facturas
         try {
-            archivoEntrada = new FileInputStream("src/baseDatos/temp/facturas.txt");
+            archivoEntrada = new FileInputStream("src/baseDatos/temp/facturas.dat");
             objetoEntrada = new ObjectInputStream(archivoEntrada);
             Factura.setFacturas((ArrayList<Factura>) objetoEntrada.readObject());
         } catch (IOException | ClassNotFoundException e) {
@@ -48,7 +48,7 @@ public class Deserializador {
         }
 
         try {
-            archivoEntrada = new FileInputStream("src/baseDatos/temp/facturaID.txt");
+            archivoEntrada = new FileInputStream("src/baseDatos/temp/facturaID.dat");
             objetoEntrada = new ObjectInputStream(archivoEntrada);
             Factura.setIDfactura((Long) objetoEntrada.readObject());
         } catch (IOException | ClassNotFoundException e) {
@@ -57,7 +57,7 @@ public class Deserializador {
 
         //deserializar Camiones
         try {
-            archivoEntrada = new FileInputStream("src/baseDatos/temp/cisternas.txt");
+            archivoEntrada = new FileInputStream("src/baseDatos/temp/cisternas.dat");
             objetoEntrada = new ObjectInputStream(archivoEntrada);
             CamionCisterna.setCamiones((ArrayList<CamionCisterna>) objetoEntrada.readObject());
         } catch (IOException | ClassNotFoundException e) {
@@ -65,7 +65,7 @@ public class Deserializador {
         }
 
         try {
-            archivoEntrada = new FileInputStream("src/baseDatos/temp/frigorificos.txt");
+            archivoEntrada = new FileInputStream("src/baseDatos/temp/frigorificos.dat");
             objetoEntrada = new ObjectInputStream(archivoEntrada);
             CamionFrigorifico.setCamiones((ArrayList<CamionFrigorifico>) objetoEntrada.readObject());
         } catch (IOException | ClassNotFoundException e) {
@@ -73,7 +73,7 @@ public class Deserializador {
         }
 
         try {
-            archivoEntrada = new FileInputStream("src/baseDatos/temp/lonas.txt");
+            archivoEntrada = new FileInputStream("src/baseDatos/temp/lonas.dat");
             objetoEntrada = new ObjectInputStream(archivoEntrada);
             CamionLona.setCamiones((ArrayList<CamionLona>) objetoEntrada.readObject());
         } catch (IOException | ClassNotFoundException e) {
@@ -81,7 +81,7 @@ public class Deserializador {
         }
 
         try {
-            archivoEntrada = new FileInputStream("src/baseDatos/temp/portaCoches.txt");
+            archivoEntrada = new FileInputStream("src/baseDatos/temp/portaCoches.dat");
             objetoEntrada = new ObjectInputStream(archivoEntrada);
             CamionPortaCoches.setCamiones((ArrayList<CamionPortaCoches>) objetoEntrada.readObject());
         } catch (IOException | ClassNotFoundException e) {

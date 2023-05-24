@@ -1,5 +1,6 @@
 package uiMain;
 
+import baseDatos.Serial.Deserializador;
 import baseDatos.Serial.Serializador;
 import gestorAplicaciones.camion.Camion;
 import gestorAplicaciones.pais.Pais;
@@ -25,9 +26,10 @@ public class Main {
         si se ingresa 0 se cieera el programa.
          */
 
-        CargarInformacion.cargarUsuarios();
+        /*CargarInformacion.cargarUsuarios();
         CargarInformacion.cargarCamiones();
-        CargarInformacion.cargarEmpleados();
+        CargarInformacion.cargarEmpleados();*/
+        Deserializador.deserializar();
         Camion.datosCamiones();
 
         System.out.println("--------------------Bienvenidos a Transportes ltda.--------------------");
