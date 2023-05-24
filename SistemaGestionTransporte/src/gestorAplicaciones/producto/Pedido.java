@@ -3,11 +3,17 @@ package gestorAplicaciones.producto;
 import gestorAplicaciones.pais.Ciudad;
 import gestorAplicaciones.pais.Pais;
 import gestorAplicaciones.util.Pair;
+
+import java.io.Serial;
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 
-public class Pedido {
+public class Pedido implements Serializable {
+
+    @Serial
+    private static final long serialVersionUID = 1L;
 
     //atributos
     public static long numPedido  = 0;

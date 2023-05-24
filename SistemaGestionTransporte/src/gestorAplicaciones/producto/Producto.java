@@ -2,9 +2,14 @@ package gestorAplicaciones.producto;
 
 import uiMain.Main;
 
+import java.io.Serial;
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Producto {
+public class Producto implements Serializable {
+
+    @Serial
+    private static final long serialVersionUID = 1L;
 
     //atributos
     private String nombre;

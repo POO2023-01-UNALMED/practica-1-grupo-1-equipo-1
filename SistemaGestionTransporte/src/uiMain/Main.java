@@ -1,5 +1,6 @@
 package uiMain;
 
+import baseDatos.Serial.Serializador;
 import gestorAplicaciones.camion.Camion;
 import gestorAplicaciones.pais.Pais;
 import gestorAplicaciones.producto.Factura;
@@ -44,9 +45,11 @@ public class Main {
                     0. Salir""");
             opcion = Main.getOption();
             switch (opcion) {
-                case 0 ->
+                case 0 -> {
                     //cerrar programa
-                        System.out.println("Vuelva pronto");
+                    System.out.println("Vuelva pronto");
+                    Serializador.serializar();
+                }
                 case 1 -> {
                     //Ingrese como usuario
                     seccion = new SeccionUsuario();
