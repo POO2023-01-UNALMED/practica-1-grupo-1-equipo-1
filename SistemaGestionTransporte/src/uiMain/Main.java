@@ -1,5 +1,8 @@
 package uiMain;
 
+import uiMain.seccion.Seccion;
+import uiMain.seccion.SeccionUsuario;
+
 import java.util.Scanner;
 
 public class Main {
@@ -13,7 +16,7 @@ public class Main {
         //inicio de seccion
         do {
             System.out.println("Presione:\n1. Ingresar como usuario\n2. Ingresar como trabajador\n3. Ingresar como administrador\n0. Salir");
-            opcion = Seccion.getOption();
+            opcion = Main.getOption();
             switch (opcion) {
                 case 0:
                     //cerrar programa
@@ -43,5 +46,39 @@ public class Main {
                     System.out.println("Opcion no valida.\n");
             }
         }while (opcion != 0);
+    }
+
+    public static int getOption() {
+        System.out.println("Eliga una opcion: ");
+        Scanner scanner = new Scanner(System.in);
+        return scanner.nextInt();
+    }
+
+    public static String usurio(){
+        System.out.println("Usuario/ID: ");
+        Scanner scanner = new Scanner(System.in);
+        return scanner.nextLine();
+    }
+
+    public static String clave(){
+        System.out.println("Clave: ");
+        Scanner scanner = new Scanner(System.in);
+        return scanner.nextLine();
+    }
+
+    public static void iniciarSeccion(){
+        String usuario;
+        String clave;
+        System.out.println("USuario: ");
+        Scanner scanner = new Scanner(System.in);
+        usuario = scanner.nextLine();
+        System.out.println("Clave: ");
+        scanner = new Scanner(System.in);
+        clave = scanner.nextLine();
+        /*if (this.validarInformacion(usuario,clave)){
+            System.out.println("correcto");
+        }
+        else{
+            System.out.println("Usuario y/o clave no validas");*/
     }
 }
