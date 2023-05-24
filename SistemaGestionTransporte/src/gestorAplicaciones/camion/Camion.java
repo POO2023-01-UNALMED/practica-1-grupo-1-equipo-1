@@ -1,7 +1,7 @@
 package gestorAplicaciones.camion;
 
 import gestorAplicaciones.entidades.Empleado;
-import gestorAplicaciones.pais.Ciudad;
+import gestorAplicaciones.pais.Pais;
 import gestorAplicaciones.util.Pair;
 
 import java.util.ArrayList;
@@ -9,6 +9,7 @@ import java.util.ArrayList;
 public abstract class Camion {
     //nota: capacidad de los camiones:(1 tn, 20 m3), (8 ton, 35 m3), (17 ton, 42 m3) y 24 (24 ton, 48m3);
     //atributos
+    public final static ArrayList<Camion> camiones = new ArrayList<Camion>();
     private String placa;
     private final double pesoMaximo;
     private final double capacidad;
@@ -25,7 +26,9 @@ public abstract class Camion {
         this.pesoMaximo = pesoMaximo;
         this.pais = pais;
         this.capacidad = capacidad;
+        camiones.add(this);
     }
+
 
     public String getPlaca() {
         return placa;
@@ -132,7 +135,7 @@ public abstract class Camion {
         return ciudadA + " - " + ciudadB;
     }
 
-    public boolean elegirCamion(String origen, double peso) {
+    public boolean camionOptimo(String origen, double peso) {
         if (this.getPesoMaximo() == 20 && peso <= this.getPesoMaximo()) {
             return this.getCiudadActual().equals(origen);
         }
@@ -155,22 +158,22 @@ public abstract class Camion {
         switch (tipoCarga) {
             case "perecedera" -> {
                 for (CamionFrigorifico c : CamionFrigorifico.getCamiones()) {
-                    if (c.elegirCamion(origen, peso)) return c;
+                    if (c.camionOptimo(origen, peso)) return c;
                 }
             }
             case "fragil", "general" -> {
                 for (CamionLona c : CamionLona.getCamiones()) {
-                    if (c.elegirCamion(origen, peso)) return c;
+                    if (c.camionOptimo(origen, peso)) return c;
                 }
             }
             case "ADR" -> {
                 for (CamionCisterna c : CamionCisterna.getCamiones()) {
-                    if (c.elegirCamion(origen, peso)) return c;
+                    if (c.camionOptimo(origen, peso)) return c;
                 }
             }
             case "coches" -> {
                 for (CamionPortaCoches c : CamionPortaCoches.getCamiones()) {
-                    if (c.elegirCamion(origen, peso)) return c;
+                    if (c.camionOptimo(origen, peso)) return c;
                 }
             }
         }
@@ -202,4 +205,34 @@ public abstract class Camion {
         }
         return null;
     }
+
+    public static boolean verificarPlaca(String placa, String nombre) {
+        String letras, num;
+
+        if(nombre.equals("Colombia") && placa.length() == 6){
+            letras = placa.substring(0, 3);
+            num = placa.substring(3);
+            return letras.chars().allMatch(Character::isLetter) && num.chars().allMatch(Character::isDigit);
+        }
+
+        else if(nombre.equals("Panama") && placa.length() == 6 && placa.chars().allMatch(Character::isDigit))
+            return true;
+
+        else if(nombre.equals("Ecuador") && placa.length() == 7){
+            letras = placa.substring(0,3);
+            num = placa.substring(3);
+            return letras.chars().allMatch(Character::isLetter) && num.chars().allMatch(Character::isDigit);
+        }
+
+        return false;
+    }
+
+    public static boolean isPlacaNueva(String placa) {
+        for(Camion camion : Camion.camiones){
+            if(camion.placa.equals(placa)) return false;
+        }
+        return true;
+    }
+
+
 }

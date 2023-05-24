@@ -167,9 +167,4 @@ public class Producto {
         return this.nombre + "\tx" +
                 this.cantidad;
     }
-    //public void Editar(){}
-
-    //public void eliminar(){}
-
-    //public void agregar(){}
 }

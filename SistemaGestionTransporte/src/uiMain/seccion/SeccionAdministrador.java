@@ -1,10 +1,16 @@
 package uiMain.seccion;
 
+import gestorAplicaciones.camion.*;
+import gestorAplicaciones.entidades.Empleado;
 import gestorAplicaciones.entidades.Usuario;
+import gestorAplicaciones.pais.Pais;
 import uiMain.Main;
 
 public class SeccionAdministrador implements Seccion {
     int opcion = 0; //toma el valor de la opcion ingresado por consola
+    Camion camion;
+    Empleado empleado;
+    Pais pais;
     @Override
     public void Inicio() {
         do{
@@ -35,11 +41,13 @@ public class SeccionAdministrador implements Seccion {
             System.out.println("""
 
                     Ingrese:
-                    1. Historial de pedidos.
-                    2. Pedidos en curso.
-                    3. Trabajadores.
-                    4. Vehiculos.
-                    5. Usuarios.
+                    1. Registrar nuevo empleado.
+                    2. Registar nuevo vehiculo.
+                    3. Historial de pedidos.
+                    4. Pedidos en curso.
+                    5. Trabajadores.
+                    6. Vehiculos.
+                    7. Usuarios.
                     0salir.""");
 
             this.opcion = Main.getOption();
@@ -48,19 +56,15 @@ public class SeccionAdministrador implements Seccion {
                     System.out.println("Seccion terminada.");
                     break;
                 case 1:
-                    /*
-                    mostrar historial de pedidos
-                     */
+                    //Registrar  nuevo empleado
+                    this.registrarEmpleado();
                     break;
                 case 2:
-                    /*
-                    Pedidiso en curso
-                     */
+                    //Registar nuevo camion
+                    this.registarCamion();
                     break;
                 case 3:
-                    /*
-                    lista de trabajadores y estado
-                     */
+                    //lista de trabajadores y estado
                     break;
                 case 4:
                     /*
@@ -77,6 +81,92 @@ public class SeccionAdministrador implements Seccion {
             }
         }while(this.opcion != 0);
 
+    }
+
+    private void registarCamion() {
+
+        String placa;
+        double pesoMaximo = 0, capacidad = 0;
+
+        pais = Pais.selecionarPais();
+
+        if (pais == null) return;
+
+        System.out.println("Placa: ");
+        placa = Main.pedirDato();
+        placa = placa.toUpperCase();
+        if(!Camion.verificarPlaca(placa, pais.getNombre())){
+            System.out.println("""
+            
+            Placa no valida
+            Colombia: XXX000
+            Panama: 000000
+            Ecuador: XXX0000
+            """);
+            return;
+        }
+        if(!Camion.isPlacaNueva(placa)){
+            System.out.println("Placa ya existente");
+            return;
+        }
+
+        do {
+            System.out.println("""
+                
+                Vehiculo tipo:
+                1. Liviano 1tn.
+                2. Mediano 8tn.
+                3. Semipesado 17tn.
+                4. Pesado 24tn.
+                0. cancelar.
+                """);
+            this.opcion = Main.getOption();
+            switch (this.opcion) {
+                case 1 -> {
+                    pesoMaximo = 1;
+                    capacidad = 20;
+                }
+                case 2 -> {
+                    pesoMaximo = 8;
+                    capacidad = 35;
+                }
+                case 3 -> {
+                    pesoMaximo = 17;
+                    capacidad = 42;
+                }
+                case 4 -> {
+                    pesoMaximo = 24;
+                    capacidad = 48;
+                }
+                default -> System.out.println("Opcion no valida");
+            }
+        }while(this.opcion != 0);
+
+
+        do {
+            System.out.println("""
+                
+                Tipo de vehiculo:
+                1. Cisterna.
+                2. Frigorifico.
+                3. Lona.
+                4. PortaCoches.
+                0. Cancelar.
+                """);
+
+            switch (this.opcion) {
+                case 1 -> camion = new CamionCisterna(placa, this.pais.getNombre(), pesoMaximo, capacidad);
+                case 2 -> camion = new CamionFrigorifico(placa, this.pais.getNombre(), pesoMaximo, capacidad);
+                case 3 -> camion = new CamionLona(placa, this.pais.getNombre(), pesoMaximo, capacidad);
+                case 4 -> camion = new CamionPortaCoches(placa, this.pais.getNombre(), pesoMaximo, capacidad);
+                default -> System.out.println("Opcion no valida");
+            }
+        }while (this.opcion != 0);
+
+
+    }
+
+    private void registrarEmpleado() {
     }
 
     @Override
