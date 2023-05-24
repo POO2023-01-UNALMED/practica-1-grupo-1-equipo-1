@@ -61,9 +61,9 @@ public class Producto {
     }
 
     //metodos
-    public void Editar(){}
+    //public void Editar(){}
 
-    public void eliminar(){}
+    //public void eliminar(){}
 
-    public void agregar(){}
+    //public void agregar(){}
 }

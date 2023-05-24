@@ -17,7 +17,6 @@ public class Factura {
     //constructor
     public Factura() {
         Factura.IDfactura += 1;
-        Factura.facturas.add(this);
         this.ID = Factura.IDfactura;
     }
 

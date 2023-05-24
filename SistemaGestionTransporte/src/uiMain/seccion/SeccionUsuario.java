@@ -16,7 +16,7 @@ public class SeccionUsuario implements Seccion {
     Usuario usuario;
     Pedido pedido = new Pedido();
     Camion camion;
-    Empleado empleado;
+    Factura factura;
     @Override
     public void Inicio() {
         /*
@@ -93,26 +93,54 @@ public class SeccionUsuario implements Seccion {
     }
 
     private void realizarPedido() {
+        //funcionalidad 1 gestion de productos y seleccion automatica de camion a utilizar y auto a emplear
         //esta funcion se encarga de gestionnar la realizacion de un pedido
         String tipoCarga;
         //Seleccionar pais
         pedido.setPais(this.selecionarPais());
+        if(pedido.getPais() == null){
+            System.out.println("Pais no seleccionado.");
+            return;
+        }
 
         //Seleccionar ciudad de origen
         pedido.setOrigen(this.elegirCiudad(pedido.getPais(),"Origen"));
+        if(pedido.getOrigen() == null){
+            System.out.println("Ciudad no valida.");
+            return;
+        }
 
         //seleccionar ciuddad de destino
         pedido.setDestino(this.elegirCiudad(pedido.getPais(),"Destino"));
-
+        if(pedido.getDestino() == null){
+            System.out.println("Ciudad no valida.");
+            return;
+        }
         //seleccionar tipos de produccto a transportar
         tipoCarga = this.tipoProductos();
+        if(tipoCarga == null){
+            System.out.println("Seleccion no validad.");
+            return;
+        }
         this.seleccionarProductos(tipoCarga);
-
-        //Sleccionar camion
+        if(pedido.getProductos() == null){
+            System.out.println("No has ingresado ningun producto.");
+            return;
+        }
+        //Seleccionar camion
         camion = this.seleccionarCamion(tipoCarga);
-
+        if(camion == null){
+            System.out.println("Camion no disponible por el momento.");
+            return;
+        }
         //Seleccionar empleado a conducir coche
         camion.setEmpleado(this.seleccionarEmpleado(pedido.getOrigen()));
+        if(camion.getEmpleado() == null){
+            System.out.println("No pedemos realizar este pedido, intente mas tarde nuevamente");
+            return;
+        }
+        //funcionalidad 2 tarifa dinamica
+        
 
     }
 
@@ -129,31 +157,32 @@ public class SeccionUsuario implements Seccion {
         double peso = this.pedido.calcularPeso();
         double volumen = this.pedido.calcularVolumen();
         switch (tipoCarga) {
-            case "perecedera":
-                for(CamionFrigorifico c: CamionFrigorifico.getCamiones()){
-                    if(c.elegirCamion(pedido.getOrigen(), peso, volumen)) return c;
+            case "perecedera" -> {
+                for (CamionFrigorifico c : CamionFrigorifico.getCamiones()) {
+                    if (c.elegirCamion(pedido.getOrigen(), peso, volumen)) return c;
                 }
-                break;
-            case "fragil", "general":
-                for(CamionLona c: CamionLona.getCamiones()){
-                    if(c.elegirCamion(pedido.getOrigen(), peso, volumen)) return c;
+            }
+            case "fragil", "general" -> {
+                for (CamionLona c : CamionLona.getCamiones()) {
+                    if (c.elegirCamion(pedido.getOrigen(), peso, volumen)) return c;
                 }
-                break;
-            case "ADR":
-                for(CamionCisterna c: CamionCisterna.getCamiones()){
-                    if(c.elegirCamion(pedido.getOrigen(), peso, volumen)) return c;
+            }
+            case "ADR" -> {
+                for (CamionCisterna c : CamionCisterna.getCamiones()) {
+                    if (c.elegirCamion(pedido.getOrigen(), peso, volumen)) return c;
                 }
-                break;
-            case "coches":
-                for(CamionPortaCoches c: CamionPortaCoches.getCamiones()){
-                    if(c.elegirCamion(pedido.getOrigen(), peso, volumen)) return c;
+            }
+            case "coches" -> {
+                for (CamionPortaCoches c : CamionPortaCoches.getCamiones()) {
+                    if (c.elegirCamion(pedido.getOrigen(), peso, volumen)) return c;
                 }
-                break;
+            }
         }
         return null;
     }
 
     private void seleccionarProductos(String tipo) {
+        //ingresar los productos a transportar y caracteristicas
         String nombre;
         double peso, volumen;
         long cantidad;
@@ -193,6 +222,7 @@ public class SeccionUsuario implements Seccion {
     }
 
     private String tipoProductos() {
+        //Selecionar el tipo de productos a transportar
         System.out.println("Seleccione el tipo de producto a transportar");
         do{
             System.out.println("""
@@ -230,6 +260,7 @@ public class SeccionUsuario implements Seccion {
     }
 
     private String elegirCiudad(Pais pais,String ciudad) {
+        //Seleccionar una ciudad
         String str;
         do{
             System.out.println("""
