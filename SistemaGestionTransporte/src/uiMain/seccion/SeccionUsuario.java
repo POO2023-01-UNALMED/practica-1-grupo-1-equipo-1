@@ -70,10 +70,10 @@ public class SeccionUsuario implements Seccion {
                     
                     break;
                 case 2:
-                    /*
-                    seguimiento de pedido (funcionalidad)
+
+                    //seguimiento de pedido (funcionalidad)
                     this.seguirPedido();
-                     */
+
                     break;
                 case 3:
                     //mostar historial de pedidos
@@ -89,6 +89,13 @@ public class SeccionUsuario implements Seccion {
             }
         }while(this.opcion != 0);
 
+    }
+
+    private void seguirPedido() {
+        long id;
+        System.out.println("Ingrese ID factura: ");
+        id = Long.parseLong(Main.pedirDato());
+        factura = Factura.buscarFactura(id, usuario.getNombre());
     }
 
     private void realizarPedido() {

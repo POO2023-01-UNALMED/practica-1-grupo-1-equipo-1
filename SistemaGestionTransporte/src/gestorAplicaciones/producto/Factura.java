@@ -135,4 +135,16 @@ public class Factura {
             }
         }
     }
+
+    public boolean isFactura(long id, String nombre){
+        return this.ID == id && usuario.getNombre().equals(nombre);
+    }
+
+    public static Factura buscarFactura(long id, String nombre){
+        for (Factura factura : Factura.facturas){
+            if (factura.isFactura(id,nombre)) return factura;
+
+        }
+        return null;
+    }
 }
