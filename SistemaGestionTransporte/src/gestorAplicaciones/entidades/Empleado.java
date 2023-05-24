@@ -14,7 +14,9 @@ public class Empleado extends Usuario {
 	//private String carga;
 	//private String tipoContrato;
 	private boolean estatusActivo;
+	private boolean disponible;
 	private String pais;
+	private String ciudadActual;
 	
 	//constructor
 	public Empleado (String nombre, String clave, long id, String correo, boolean statusActivo) {
@@ -43,6 +45,30 @@ public class Empleado extends Usuario {
 		this.estatusActivo = estatusActivo;
 	}
 
+	public boolean isDisponible() {
+		return disponible;
+	}
+
+	public void setDisponible(boolean disponible) {
+		this.disponible = disponible;
+	}
+
+	public String getPais() {
+		return pais;
+	}
+
+	public void setPais(String pais) {
+		this.pais = pais;
+	}
+
+	public String getCiudadActual() {
+		return ciudadActual;
+	}
+
+	public void setCiudadActual(String ciudadActual) {
+		this.ciudadActual = ciudadActual;
+	}
+
 	//metodos
 	public static boolean comprobarMombre(String nombre){
 		/*
@@ -63,6 +89,10 @@ public class Empleado extends Usuario {
 			if (empleado.getID() == id) return true;
 		}
 		return false;
+	}
+
+	public boolean elegirConductor(String ciudadActual){
+		return this.ciudadActual.equals(ciudadActual) && this.estatusActivo && this.disponible;
 	}
 
 	public String toString(){

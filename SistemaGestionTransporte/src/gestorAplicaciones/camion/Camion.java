@@ -1,6 +1,6 @@
 package gestorAplicaciones.camion;
 
-import gestorAplicaciones.producto.Producto;
+import gestorAplicaciones.entidades.Empleado;
 import gestorAplicaciones.util.Pair;
 
 import java.util.ArrayList;
@@ -16,6 +16,7 @@ public abstract class Camion {
     private boolean disponible;
     private String ciudadActual;
     private ArrayList <Pair<String, Double>> ruta;
+    private Empleado empleado;
 
     //constructor
     public Camion(String placa,String pais, double pesoMaximo,double capacidad){
@@ -92,6 +93,14 @@ public abstract class Camion {
 
     public void setRuta(ArrayList<Pair<String, Double>> ruta) {
         this.ruta = ruta;
+    }
+
+    public Empleado getEmpleado() {
+        return empleado;
+    }
+
+    public void setEmpleado(Empleado empleado) {
+        this.empleado = empleado;
     }
 
     //metodos

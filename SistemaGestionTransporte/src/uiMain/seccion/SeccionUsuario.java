@@ -1,6 +1,7 @@
 package uiMain.seccion;
 
 import gestorAplicaciones.camion.*;
+import gestorAplicaciones.entidades.Empleado;
 import gestorAplicaciones.entidades.Usuario;
 import gestorAplicaciones.pais.Pais;
 import gestorAplicaciones.producto.Factura;
@@ -15,6 +16,7 @@ public class SeccionUsuario implements Seccion {
     Usuario usuario;
     Pedido pedido = new Pedido();
     Camion camion;
+    Empleado empleado;
     @Override
     public void Inicio() {
         /*
@@ -110,7 +112,16 @@ public class SeccionUsuario implements Seccion {
         camion = this.seleccionarCamion(tipoCarga);
 
         //Seleccionar empleado a conducir coche
+        camion.setEmpleado(this.seleccionarEmpleado(pedido.getOrigen()));
 
+    }
+
+    private Empleado seleccionarEmpleado(String origen) {
+        //buscar un empleado disponible y que se encuentre en la ciudad de origen
+        for(Empleado empleado : Empleado.getEmpleados()){
+            if(empleado.elegirConductor(origen)) return empleado;
+        }
+        return null;
     }
 
     public Camion seleccionarCamion(String tipoCarga) {
