@@ -1,10 +1,14 @@
 package uiMain;
 
+import gestorAplicaciones.camion.Camion;
+import gestorAplicaciones.producto.Factura;
+import gestorAplicaciones.producto.Pedido;
 import uiMain.seccion.Seccion;
 import uiMain.seccion.SeccionAdministrador;
 import uiMain.seccion.SeccionTrabajador;
 import uiMain.seccion.SeccionUsuario;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Main {
@@ -66,5 +70,25 @@ public class Main {
         //Esta funcion pide un dato por conosla y lo retorna comp un String
         Scanner scanner = new Scanner(System.in);
         return scanner.nextLine();
+    }
+
+    public static void actualizarInformacion(){
+
+        ArrayList<Factura> facturas = Factura.getFacturas();
+        String estadoAnterior;
+        for (Factura factura : facturas) {
+            if(!factura.getPedido().getEstado().equals("Entregado")) {
+                Pedido pedido = factura.getPedido();
+                estadoAnterior = pedido.getEstado();
+                pedido.verificarEstado(factura.getHoraSalida(), factura.getHoraLLegada());
+                if (!pedido.getEstado().equals(estadoAnterior) && pedido.getEstado().equals("Entregado")) {
+                    Camion camion = Camion.buscarCamion(pedido.getTipoProductos(), pedido.getVehiculo());
+                    camion.setDisponible(true);
+                    camion.setCiudadActual(pedido.getDestino());
+                    camion.getEmpleado().setDisponible(true);
+                    camion.getEmpleado().setCiudadActual(pedido.getDestino());
+                }
+            }
+        }
     }
 }

@@ -6,13 +6,7 @@ public class Empleado extends Usuario {
 	
 	//atributos
 	private final static ArrayList<Empleado> empleados = new ArrayList<Empleado>();
-	//private Vehiculo vehiculo;
-	//private String nombre;
-	//private String clave;
-	//private int documento;
-	//private static String tipoUsuario = "Empleado";
-	//private String carga;
-	//private String tipoContrato;
+
 	private boolean estatusActivo;
 	private boolean disponible;
 	private String pais;
@@ -95,7 +89,7 @@ public class Empleado extends Usuario {
 		return costoPedido;
 	}
 	/*public boolean clausula() {
-		
+
 	}*/
-	
+
 }

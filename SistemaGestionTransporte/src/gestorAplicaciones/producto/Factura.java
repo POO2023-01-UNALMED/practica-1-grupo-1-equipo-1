@@ -40,6 +40,10 @@ public class Factura {
         Factura.IDfactura = IDfactura;
     }
 
+    public static ArrayList<Factura> getFacturas(){
+        return Factura.facturas;
+    }
+
     public Pedido getPedido() {
         return pedido;
     }
@@ -154,12 +158,7 @@ public class Factura {
     public static Factura buscarFactura(long id, String nombre){
         for (Factura factura : Factura.facturas){
             if (factura.isFactura(id,nombre)) return factura;
-
         }
         return null;
-    }
-
-    public static void actualizarInformacion(){
-        
     }
 }

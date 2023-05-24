@@ -185,7 +185,7 @@ public class SeccionUsuario implements Seccion {
         //Seleccionar camion
         camion = Camion.seleccionarCamion(tipoCarga, pedido.getOrigen(),pedido.calcularPeso(), pedido.calcularVolumen());
         if(camion == null){
-            System.out.println("Camion no disponible por el momento.");
+            System.out.println("Camion no disponible en el momento.");
             return false;
         }
         pedido.setVehiculo(camion.getPlaca());

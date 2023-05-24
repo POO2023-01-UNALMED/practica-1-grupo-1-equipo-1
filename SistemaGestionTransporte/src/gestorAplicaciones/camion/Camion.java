@@ -27,11 +27,6 @@ public abstract class Camion {
         this.capacidad = capacidad;
     }
 
-    //metodos getter and setter
-    //public static ArrayList<Camion> getCamiones() {
-        //return camiones;
-    //}
-
     public String getPlaca() {
         return placa;
     }
