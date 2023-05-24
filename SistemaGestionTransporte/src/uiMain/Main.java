@@ -27,6 +27,7 @@ public class Main {
         CargarInformacion.cargarUsuarios();
         CargarInformacion.cargarCamiones();
         CargarInformacion.cargarEmpleados();
+        Camion.datosCamiones();
 
         System.out.println("--------------------Bienvenidos a Transportes ltda.--------------------");
         int opcion;

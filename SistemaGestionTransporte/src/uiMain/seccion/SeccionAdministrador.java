@@ -128,6 +128,7 @@ public class SeccionAdministrador implements Seccion {
         String nombre, clave, id, correo, ciudadActual;
 
         pais = Main.selecionarPais();
+        if (pais == null) return;
 
         //pedir nombre
         System.out.println("nombre: ");
@@ -159,6 +160,8 @@ public class SeccionAdministrador implements Seccion {
         if(ciudadActual==null) return;
 
         admin.registrarEmpleado(nombre, clave, id, correo,pais.getNombre(), ciudadActual);
+
+        System.out.println("Nuevo empleado agregado");
     }
 
     public void nuevoCamion() {
@@ -166,7 +169,6 @@ public class SeccionAdministrador implements Seccion {
         double pesoMaximo = 0, capacidad = 0;
 
         pais = Main.selecionarPais();
-
         if (pais == null) return;
 
         System.out.println("Placa: ");
@@ -220,8 +222,17 @@ public class SeccionAdministrador implements Seccion {
                 }
                 default -> System.out.println("Opcion no valida");
             }
-        }while(this.opcion != 0);
+        }while(this.opcion < 0 || this.opcion > 4);
 
+        System.out.println("ciudad actual del Camion: ");
+        do{
+            ciudadActual = Main.pedirDato();
+            if(pais.isCiudad(ciudadActual)) break;
+            System.out.println("Ciudad no encontrada.");
+            System.out.println("\n\"\"ciudad actual del Camion:  \"");
+        }while(ciudadActual!=null);
+
+        if(ciudadActual==null) return;
 
         do {
             System.out.println("""
@@ -233,20 +244,11 @@ public class SeccionAdministrador implements Seccion {
                 4. PortaCoches.
                 0. Cancelar.
                 """);
-
-            System.out.println("ciudad actual del Camion: ");
-            do{
-                ciudadActual = Main.pedirDato();
-                if(pais.isCiudad(ciudadActual)) break;
-                System.out.println("Ciudad no encontrada.");
-                System.out.println("\n\"ciudad actual del empleado: \"");
-            }while(ciudadActual!=null);
-
-            if(ciudadActual==null) return;
-
+            this.opcion = Main.getOption();
             switch (this.opcion) {
                 case 1,2,3,4 -> {
                     admin.registarCamion(this.opcion, placa,pais.getNombre(), ciudadActual,pesoMaximo,capacidad);
+                    System.out.println("Nuevo camion agregado");
                     return;
                 }
                 default -> System.out.println("Opcion no valida");

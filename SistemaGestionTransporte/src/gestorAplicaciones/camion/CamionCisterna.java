@@ -34,6 +34,6 @@ public class CamionCisterna extends Camion{
                 "\nPlaca: " + this.getPlaca() +
                 "\npais: " + this.getPais() +
                 "\nPeso Maximo: " + this.getPesoMaximo() +
-                "\nCapacidad: " + this.getCapacidad();
+                "\nCapacidad: " + this.getCapacidad() +"\n";
     }
 }
