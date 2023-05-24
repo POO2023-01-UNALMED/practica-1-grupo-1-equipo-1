@@ -100,9 +100,14 @@ public class SeccionUsuario implements Seccion {
         if(factura != null){
             pedido = factura.getPedido();
             camion = Camion.buscarCamion(pedido.getTipoProductos(), pedido.getVehiculo());
+            pedido.verificarEstado(factura.getHoraSalida(),factura.getHoraLLegada());
             System.out.println(factura);
+
             if(pedido.getEstado().equals("Enviado")){
-                System.out.println();
+               double tiempo = pedido.tiempoTranscurrido(factura.getHoraSalida());
+               String ubicacion = camion.ubicacionActual(tiempo);
+               tiempo = camion.tiempoRestante(tiempo);
+                System.out.println(factura.infoViaje(ubicacion, tiempo));
             }
         }
     }

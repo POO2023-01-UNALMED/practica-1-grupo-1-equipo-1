@@ -28,8 +28,6 @@ public class Empleado extends Usuario {
 	public Empleado (String nombre, String clave, long id, String correo, boolean statusActivo, String pais){
 		this(nombre, clave, id, correo, statusActivo);
 		this.pais = pais;
-		//Empleado.empleados.add(this);
-
 	}
 	
 	//metodos getter and setter

@@ -29,14 +29,4 @@ public class CamionLona extends Camion {
         double factor = -0.2857;
         return velocidadBase + this.getCapacidad() * factor;
     }
-
-    @Override
-    public String ubicacion() {
-        return null;
-    }
-
-    @Override
-    public String tiempoRestante() {
-        return null;
-    }
 }

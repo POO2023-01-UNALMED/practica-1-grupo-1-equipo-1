@@ -136,6 +136,17 @@ public class Factura {
         }
     }
 
+    public String infoViaje(String ubicacion, double tiempo){
+        StringBuilder info = new StringBuilder();
+        int horas, minutos;
+        horas = (int)  Math.floor(tiempo);
+        tiempo = (tiempo - (double)horas) * 60;
+        minutos = (int) Math.floor(tiempo);
+        info.append("Ubicacion actual: ").append(ubicacion).append("\n");
+        info.append("Tiempo restante: ").append(horas).append(" h ").append(minutos).append(" m .");
+        return info.toString();
+    }
+
     public boolean isFactura(long id, String nombre){
         return this.ID == id && usuario.getNombre().equals(nombre);
     }
@@ -146,5 +157,9 @@ public class Factura {
 
         }
         return null;
+    }
+
+    public static void actualizarInformacion(){
+        
     }
 }

@@ -1,6 +1,7 @@
 package gestorAplicaciones.camion;
 
 import gestorAplicaciones.entidades.Empleado;
+import gestorAplicaciones.pais.Ciudad;
 import gestorAplicaciones.util.Pair;
 
 import java.util.ArrayList;
@@ -111,9 +112,30 @@ public abstract class Camion {
         return this.placa.equals(placa);
     }
 
-    public abstract String ubicacion();
-    public abstract String tiempoRestante();
+    public double distanciaRecorrida(double tiempo){
+        return this.valocidad() * tiempo;
+    }
 
+    public double tiempoRestante(double tiempo){
+        double distancia = this.distanciaRecorrida(tiempo);
+        return (double) this.calcularTiempo() - distancia;
+    }
+
+    public String ubicacionActual(double tiempo) {
+        double distancia = this.distanciaRecorrida(tiempo);
+        double aux = 0;
+        String ciudadA = null;
+        String ciudadB = null;
+        for (Pair<String, Double> recorrido : this.ruta){
+            aux += recorrido.getValue();
+            ciudadB = ciudadA;
+            if(aux > tiempo){
+                break;
+            }
+            ciudadA = recorrido.getKey();
+        }
+        return ciudadA + " - " + ciudadB;
+    }
 
     public boolean elegirCamion(String origen, double peso) {
         if (this.getPesoMaximo() == 20 && peso <= this.getPesoMaximo()) {

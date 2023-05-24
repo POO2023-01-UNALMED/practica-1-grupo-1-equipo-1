@@ -27,15 +27,4 @@ public class CamionCisterna extends Camion{
         double factor = -0.392957;
         return velocidadBase + this.getCapacidad() * factor;
     }
-
-
-    @Override
-    public String ubicacion() {
-        return null;
-    }
-
-    @Override
-    public String tiempoRestante() {
-        return null;
-    }
 }
