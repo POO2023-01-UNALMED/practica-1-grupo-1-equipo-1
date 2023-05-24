@@ -10,6 +10,20 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 
+/**
+ *Clas Pedido, representa el pedido realizado por un usuario.
+ *
+ * Atributos:
+ * origen: String con el nombre de la ciudad de donde sale el producto.
+ * destino: String con el nombre de la ciudad a donde se dirige el producto.
+ * productos: ArrayList de PRoducto con los productos que van a ser transportados.
+ * pais: Tipo Pais que representa el pais donde se encuentran las ciudades de origen y destino.
+ * estado: String que representa el estado del pedido (Confirmado, Enviado, Entregado).
+ * vehiculo: String que almacena la placa del vehiculo que transporta el pedido.
+ * tipoProductos: String con el tipo de productos que seran transportados.
+ *
+ * @author Julian Salazar, Michael Garcia
+ */
 public class Pedido implements Serializable {
 
     @Serial
@@ -19,9 +33,7 @@ public class Pedido implements Serializable {
     public static long numPedido  = 0;
     private String origen;
     private String destino;
-    private double peso_carga;
     ArrayList<Producto> productos;
-    private double costoPedido;
     private Pais pais;
     private String estado;
     private String vehiculo;
@@ -57,28 +69,12 @@ public class Pedido implements Serializable {
         this.destino = destino;
     }
 
-    public double getPeso_carga() {
-        return peso_carga;
-    }
-
-    public void setPeso_carga(double peso_carga) {
-        this.peso_carga = peso_carga;
-    }
-
     public ArrayList<Producto> getProductos() {
         return productos;
     }
 
     public void setProductos(ArrayList<Producto> productos) {
         this.productos = productos;
-    }
-
-    public double getCostoPedido() {
-        return costoPedido;
-    }
-
-    public void setCostoPedido(double costoPedido) {
-        this.costoPedido = costoPedido;
     }
 
     public Pais getPais() {
@@ -114,11 +110,14 @@ public class Pedido implements Serializable {
     }
 
     //metodos
+
+    /**
+     * este metodo implementa el algoritmo de dijkstra para encontrar el camino mas corto entre dos
+     * las ciudades origen y destino.
+     *
+     * @return retorna un arraylist Pair<String,Double> que es el camino a seguir por el camion
+     */
     public ArrayList<Pair<String,Double>> calcularRuta(){
-        /*
-        este metodo implementa el algoritmo de dijkstra para encontrar el camino mas corto entre dos
-        las ciudades origen y destino.
-         */
 
         //obtener el objeto de la ciudad destino
         Ciudad ciudadPartida = this.pais.getCiudad(this.origen);
@@ -162,8 +161,15 @@ public class Pedido implements Serializable {
         return  this.getRuta(this.getCamino(this.destino,ciudadesVisitadas),costos);
     }
 
+    /**
+     *
+     * @param destino ciudad e destipo.
+     * @param ciudadesVisitadas map que almacena como key una ciudad, la ciudad que conecta y si
+     * se debe parar por la ciudad en el recorrido del pedido.
+     * @return Arraylist de String con las ciudades que hay que recorrer.
+     */
     private ArrayList<String> getCamino(String destino, Map<String, Pair<Boolean, String>> ciudadesVisitadas){
-        //obtener la ruta de una ciudad A a una ciudad B con el el mapa de ciudades visitadas
+        //obtener la ruta de una ciudad A a una ciudad B con el mapa de ciudades visitadas
         ArrayList<String> procedencia = new ArrayList<String>();
         procedencia.add(destino);
         destino = ciudadesVisitadas.get(destino).getValue();
@@ -176,11 +182,15 @@ public class Pedido implements Serializable {
         return procedencia;
     }
 
+    /**
+     *
+     * @param camino Arraylist del camino que debe seguir el pedido
+     * @param costos Arraylist de km recorridos hasta cada ciudad.
+     * @return Arraylist de pair<String, Double> donde el String es la ciudad yel double son los km hasta
+     * esa ciudad.
+     */
     private ArrayList<Pair<String,Double>> getRuta(ArrayList<String> camino, Map<String, Double> costos){
-        /*
-        Este metodo retorna un ArrayList<Pair<String,Double>> que almacena el camino que debe seguir
-        el camion.
-         */
+
         ArrayList<Pair<String,Double>> ruta = new ArrayList<Pair<String,Double>>();
         for(String ciudad : camino){
             ruta.add(new Pair<>(ciudad,costos.get(ciudad)));
@@ -188,8 +198,11 @@ public class Pedido implements Serializable {
         return ruta;
     }
 
+    /**
+     *
+     * @return peso en toneladas de todos los productos del pedido.
+     */
     public double calcularPeso(){
-        //calcular y retornar el peso total de todos los productos
         double peso = 0d;
         for(Producto producto : this.productos){
             peso += (producto.getPeso()*producto.getCantidad());
@@ -199,8 +212,12 @@ public class Pedido implements Serializable {
         return peso/1000;
     }
 
+    /**
+     *
+     * @return volumen en m3 de todos los productos del pedido.
+     */
     public double calcularVolumen(){
-        //Calcular y retornar el volumen total de todos los productos
+
         double volumen = 0d;
         for(Producto producto : this.productos){
             volumen += (producto.getVolumen()*producto.getCantidad());
@@ -220,9 +237,12 @@ public class Pedido implements Serializable {
         return sb.toString();
     }
 
+    /**
+     * calcular la hora de salida en funcion de la hora en que se realizo el pedido.
+     * @return LocalDateTime en con la fecha y hora en que saldra elo pedido.
+     */
     public LocalDateTime calcularHoraSalida() {
 
-        //Este metodo calcula la hora de salida en funcion de la hora en que se realizo el pedido
 
         LocalDateTime salida = LocalDateTime.now();
         String strFecha;
@@ -242,13 +262,25 @@ public class Pedido implements Serializable {
         return LocalDateTime.parse(strFecha, formato);
     }
 
+    /**
+     * Calcula hora de llegda del Pedido en funcion de la hora de llegada y las horas de viaje
+     * @param horas duracion del viaje
+     * @param horaSalida hora de salida del viaje
+     * @return LocalDateTime con la hora de llegada del viaje.
+     */
     public LocalDateTime calcularHoraLLegada(int horas, LocalDateTime horaSalida) {
-        //Calcula hora de llegda del Pedido en funcion de la hora de llegada y las horas de viaje
+
         return horaSalida.plusHours(horas);
     }
 
+    /**
+     * verificar y cambiar de ser neceario el estado del pedido (Confirmado, Entregado, Enviado)
+     * en funcion de la hora actual.
+     * @param salida hora dee salida.
+     * @param llegada hora de llegada.
+     */
     public void verificarEstado(LocalDateTime salida, LocalDateTime llegada){
-        //Este metodo verifica y cambia de ser neceario el estado del pedido en funcion de la hora actual.
+
         LocalDateTime actual = LocalDateTime.now();
 
         int diffHora, duracion, factor;
@@ -261,9 +293,12 @@ public class Pedido implements Serializable {
         else this.estado = "Entregado";
     }
 
+    /**
+     *
+     * @param salida Hora de salida
+     * @return double que representa las horas transcurridas desde la hora de salida.
+     */
     public double tiempoTranscurrido(LocalDateTime salida){
-        //Este metodo retorna double que representa la cantidad de horas transcurridas
-        //desde la hora de salida pasada como srgumento
 
         LocalDateTime actual = LocalDateTime.now();
         return actual.getHour() - salida.getHour() + (double)actual.getMinute()/60;

@@ -3,12 +3,17 @@ package gestorAplicaciones.pais;
 
 import gestorAplicaciones.util.Pair;
 
-import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.PriorityQueue;
 
 
+/**
+ * Representa una ciudad
+ *Atributos:
+ * nombre: String que representa el nombre de la ciudad
+ * nombrePais: String que representa el nombre del país al que pertenece la ciudad.
+ * conexiones:  Map que almacena las conexiones de la ciudad con otras ciudades y sus costos (km).
+ */
 public class Ciudad {
 
     //atributos
@@ -54,13 +59,23 @@ public class Ciudad {
         this.conexiones = conexiones;
     }
 
+    /**
+     * @param ciudadesVisitadas map que almacena el estado de las ciudades visitadas
+     *
+     * Todas las ciudades se inicializan como no visitadas
+     */
     public void inicializarCiudadesVisitadas(Map<String, Pair<Boolean, String>> ciudadesVisitadas){
-        //iniciar el map CiudadesVisitadas.
+
         for (Map.Entry<String, Double> map : conexiones.entrySet()) {
             ciudadesVisitadas.put(map.getKey(),new Pair<>(false,"-"));
         }
     }
 
+    /**
+     *
+     * @param costos map que almacena una ciudad y el costo a esta.
+     * las ciudades con costo -1 (no conectadas), se inicializan con el valor máximo posible de Double.
+     */
     public void inicializarCostos(Map<String, Double> costos){
         //iniciaar el map costos con el valor maximo de Double
         for (Map.Entry<String, Double> map : costos.entrySet()) {
@@ -72,6 +87,6 @@ public class Ciudad {
 
     @Override
     public String toString(){
-        return this.nombre+"\t";
+        return this.nombre+"\n";
     }
 }

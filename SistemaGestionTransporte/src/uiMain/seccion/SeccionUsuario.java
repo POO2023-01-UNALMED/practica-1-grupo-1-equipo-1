@@ -10,12 +10,25 @@ import uiMain.Main;
 
 import java.util.ArrayList;
 
+/**
+ * Clase SeccionUsuario que implementa la interfaz Seccion.
+ * Esta clase representa una sección específica para usuarios.
+ * Realiza acciones como inicio de sesión, registro de usuario, gestión de pedidos, seguimiento de pedidos, etc.
+ * Implementa los métodos definidos en la interfaz Seccion.
+ *
+ * @author Julian Salazar, Michael Garcia
+ */
 public class SeccionUsuario implements Seccion {
     int opcion = 0;
     Usuario usuario;
     Pedido pedido;
     Camion camion;
     Factura factura;
+
+    /**
+     * Se tienen las opciones de salir al menu pricipal, iniciar seccion de usuario y
+     * registar un nuevo usuario
+     */
     @Override
     public void Inicio() {
         /*
@@ -46,9 +59,13 @@ public class SeccionUsuario implements Seccion {
         }while(this.opcion != 0);
     }
 
+    /**
+     * mostar el tipo de acciones que puede realizar el usuario: realizar pedido, seguir pedido
+     * y historial de pedidos
+     */
     @Override
     public void showMenu() {
-        //mostar el tipo de acciones que puede realizar el usuario.
+
         try {
             System.out.println("\nBienvenido/a " + usuario.getNombre());
             do {
@@ -73,7 +90,7 @@ public class SeccionUsuario implements Seccion {
                             this.seguirPedido();
                     case 3 ->
                         //mostar historial de pedidos
-                            Factura.historialFacturas(this.usuario);
+                            System.out.println(Factura.historialFacturas(this.usuario));
                     default -> System.out.println("opcion no valida.");
                 }
             } while (this.opcion != 0);
@@ -83,12 +100,12 @@ public class SeccionUsuario implements Seccion {
 
     }
 
+    /**
+     * pedir por consola el ID de factura e imprime la informacion de la factura y el estado
+     * si se encuentra asociado al usuario ingresado se usa cuando el usuareio ingresa la opcion
+     * para seguir pedido.
+     */
     private void seguirPedido() {
-        /*
-        Esta funcion pide por consola el ID de factura e imprimi la
-        informacion de la factura y el estado si se encuentra asociado al usuario ingresado.
-         */
-
         //funcionalidad 4 seguir estado pedido
         long id;
         System.out.println("Ingrese ID factura: ");
@@ -112,6 +129,11 @@ public class SeccionUsuario implements Seccion {
         }
     }
 
+    /**
+     * Gestionar nuevo pedido a solicituds del usuario, gestionar productos a llevar, ciudad de origen
+     * y destino, calcular tarifa dinamica del envio, el tiempo de salida y duracion del viaje
+     * y solicitar una confirmacion del pedido.
+     */
     private void realizarPedido() {
         //esta funcion se encarga de gestionar la realizacion de un pedido
 
@@ -139,18 +161,23 @@ public class SeccionUsuario implements Seccion {
             factura = null;
             Factura.setIDfactura(Factura.getIDfactura() - 1);
         }
-
     }
 
+    /**
+     * //Calcular la hora de salida y llegada del pedido realizado por el usuario.
+     */
     private void calcularTiempo() {
-        //Calcular la hora de salida y llegada del pedido relaizado por el usuario
 
         factura.setHoraSalida(pedido.calcularHoraSalida());
         factura.setHoraLLegada(pedido.calcularHoraLLegada(camion.calcularTiempo(),factura.getHoraSalida()));
     }
 
+    /**
+     *
+     * //gestion de productos y seleccion automatica de camion a utilizar y empleado a conducir.
+     */
     private boolean gestionarPedido() {
-        //gestion de productos y seleccion automatica de camion a utilizar y empleado a conducir
+
         String tipoCarga;
         pedido = new Pedido();
         //Seleccionar pais
@@ -203,6 +230,9 @@ public class SeccionUsuario implements Seccion {
         return true;
     }
 
+    /**
+     * Mostrar informacion del pedido del usuario y solicitar conformacion o cancelacion de este.
+     */
     private void confirmarPedido() {
 
         System.out.println(factura);
@@ -217,8 +247,10 @@ public class SeccionUsuario implements Seccion {
         }while(this.opcion != 1 && this.opcion != 2);
     }
 
+    /**
+     * Calcular la tarifa del pedido en relacion a la ruta y tipo de camion a emplear.
+     */
     private void calcularTarifa() {
-        //calcular la tarifa del pedido en relacion a la ruta y tipo de camion a emplear.
         factura = new Factura(pedido, usuario);
         camion.setRuta(pedido.calcularRuta());
         camion.calcularCostoCamion();
@@ -227,13 +259,14 @@ public class SeccionUsuario implements Seccion {
         factura.calcularCostoTotal(costoPedido,camion.getCapacidad());
     }
 
+    /**
+     * pedir dos datos, usuario y clave, usario puede ser el nombre o id del usario,
+     * y clave es la clave del usuario y comprueba que los datos ingresador correspondan
+     * a un usuario ya existente.
+     */
     @Override
     public void ingresar() {
-        /*
-        Esta funcion pide dos datos, usuario y clave, usario puede ser el nombre o id del usario,
-         y clave es la clave del usuario y comprueba que los datos ingresador correspondan
-         a un usuario ya existente.
-         */
+
         String usuario,clave;
 
         //pedir usuario o numero de identificacion
@@ -255,12 +288,15 @@ public class SeccionUsuario implements Seccion {
         }
     }
 
+    /**
+     *
+     * @param usuario El nombre de usuario.
+     * @param clave   La contraseña del usuario.
+     * @return objeto de tipo Usuario
+     *         que coincida con los datos ingresados, de lo contrario retorna null.
+     */
     @Override
     public  Usuario validarInformacion(String usuario, String clave) {
-        /*
-        Esta funcion recibe dos String y retorna un objeto de tipo Usuario
-        que coincida con los datos ingresados, de lo contrario retorna null.
-         */
 
         if(usuario != null && usuario.chars().allMatch(c -> c == ' ' || Character.isLetter(c))){
             for (Usuario u : Usuario.getUsuarios()){
@@ -275,11 +311,11 @@ public class SeccionUsuario implements Seccion {
         return null;
     }
 
+    /**
+     * solicitar por consola datos para crear una instancia de Usuario
+     */
     public void registrarUsuario(){
-        /*
-        Esta funcion registra un nuervo usuario en caso de que se cumplan
-        todas las condiciones
-        */
+
         String nombre, clave, id, correo;
 
         //pedir nombre
@@ -303,6 +339,13 @@ public class SeccionUsuario implements Seccion {
         this.usuario = Usuario.crearUsuario(nombre, clave, Long.parseLong(id), correo);
         this.showMenu();
     }
+
+    /**
+     *
+     * @param ciudad pra indicar si se pide ciudad de origen o de destino
+     * @return retorna un String con el nombre de una ciudad si esta asociado al pais ingresad,
+     * de lo contrario retorna null.
+     */
     public String elegirCiudad(String ciudad) {
         //Seleccionar una ciudad
         int opcion;
@@ -328,12 +371,15 @@ public class SeccionUsuario implements Seccion {
                     else System.out.println("pais no encontrado.");
                     break;
                 case 2:
-                    pedido.getPais().mostarCiudades();
+                    System.out.println(pedido.getPais().mostarCiudades());
             }
         }while(opcion != 0);
         return null;
     }
 
+    /**
+     * Seleccionar el tipo de producto a ser transportado para elegir el camion indicado para dicha tarea.
+     */
     public  String tipoProductos() {
         //Selecionar el tipo de productos a transportar
         System.out.println("Seleccione el tipo de producto a transportar");
@@ -368,8 +414,15 @@ public class SeccionUsuario implements Seccion {
 
         return null;
     }
+
+    /**
+     *
+     * @param tipo representa el tipo de camion a transportar los productos que van a ser ingresados
+     * (Frigorifico, Lona, Cisterna, PortaCohes)
+     * @return ArrayList de tipo Prodcuto con los productos que van a ser tranportados.
+     */
     public  ArrayList<Producto> seleccionarProductos(String tipo) {
-        //ingresar los productos a transportar y caracteristicas
+
         ArrayList<Producto> productos = new ArrayList<Producto>();
         String nombre;
         double peso, volumen;

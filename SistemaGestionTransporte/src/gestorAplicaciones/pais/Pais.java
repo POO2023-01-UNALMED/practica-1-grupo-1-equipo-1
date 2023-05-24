@@ -8,6 +8,14 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 
+/**
+ * enumeración que representa diferentes países (Colombia, Panama y Ecuador)
+ * //Atrbutos
+ * nombre: Es un atributo que almacena el nombre del país.
+ * ciudades:  Es un ArrayList que almacena las ciudades asociadas al país.
+ *
+ * @author Julian Salazar, Michael Garcia
+ */
 public enum Pais {
     COLOMBIA("Colombia"),
     PANAMA("Panama"),
@@ -51,16 +59,25 @@ public enum Pais {
 
     }
 
-    public void mostarCiudades() {
+    /**
+     *
+     * @return String con el nombre de las ciudades asociadas al pais.
+     */
+    public String mostarCiudades() {
         //muesta las ciudades asociadas al pais
-        System.out.println("ciudades de " + this.nombre);
+        StringBuilder ciudades = new StringBuilder();
+        ciudades.append("ciudades de ").append(this.nombre).append("\n");
         for (Ciudad ciudad : this.ciudades) {
-            System.out.print(ciudad.toString()+"\t");
+            ciudades.append(ciudad).append("\t");
         }
+        return ciudades.toString();
     }
 
+    /**
+     * Leer un archivo de texto que contiene información sobre las conexiones entre las ciudades
+     * y crea el grafo de conexiones.
+     */
     private void generarConexiones() {
-        //generar el grafo de conexiones entre las ciudades
         String ruta = "src/baseDatos/temp/paises/" + this.nombre + ".txt";
         String mapa = LeerArchivo(ruta);
         String[] lineas = mapa.split("\n");
@@ -73,8 +90,12 @@ public enum Pais {
         }
     }
 
+    /**
+     *
+     * @param nombreCiudad nombre de una ciudad
+     * @return si la ciudad pertenece a ciudades retorna true de lo contrario retorna false.
+     */
     public boolean isCiudad(String nombreCiudad) {
-        //Si enombreCiudad coincide con el atributo nombre de una instancia de ciudades retorna true.
 
         for (Ciudad ciudad : this.ciudades) {
             if (ciudad.getNombre().equals(nombreCiudad)) return true;
@@ -82,13 +103,21 @@ public enum Pais {
         return false;
     }
 
+    /**
+     * Crea una nueva instancia de Ciudad y la agrega a la lista de ciudades del país.
+     * @param nombreCiudad nombre nueva ciudad
+     */
     private void agregarCiudad(String nombreCiudad) {
-        //Crea una nueva intsacia de tipo ciudad y lo agraga a ciudades.
+
         this.ciudades.add(new Ciudad(nombreCiudad, this.nombre));
         this.conexionesIniciales();
 
     }
 
+    /**
+     * Establece conexiones iniciales entre la nueva ciudad agregada y las ciudades existentes en el país
+     * que or defecto es -1 (no coectadas directamente)
+     */
     private void conexionesIniciales() {
         //cada que se añada una nueva ciudad se conecta con las demas opciones con -1 (no conectada)
         Ciudad ciudad = ciudades.get(ciudades.size() - 1);
@@ -100,8 +129,14 @@ public enum Pais {
         }
     }
 
+    /**
+     * km entre una ciudad y la otra conectadas directamente
+     * @param nombreCiudad1 ciudad1
+     * @param nombreCiudad2 ciudad2
+     * @param costo km de separacion
+     */
     public void costoCiudades(String nombreCiudad1, String nombreCiudad2, double costo) {
-        //conecta dos ciudades directamente
+
         for (Ciudad ciudad1 : this.ciudades) {
             if (ciudad1.getNombre().equals(nombreCiudad1)) {
                 for (Ciudad ciudad2 : this.ciudades) {
@@ -116,6 +151,11 @@ public enum Pais {
         }
     }
 
+    /**
+     *
+     * @param fileName ruta del archivo donde se almacena la lista de ciudades.
+     * @return String con la informacion del archivo.
+     */
     public String LeerArchivo(String fileName) {
         //cargar grafo de las ciudades.
         StringBuilder texto = new StringBuilder();

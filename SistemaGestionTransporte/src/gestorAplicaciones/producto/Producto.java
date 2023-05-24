@@ -1,11 +1,19 @@
 package gestorAplicaciones.producto;
 
-import uiMain.Main;
-
 import java.io.Serial;
 import java.io.Serializable;
-import java.util.ArrayList;
 
+/**
+ * es una clase que representa un producto.
+ * Atributos:
+ *  nombre: String quye representa el nombre del producto.
+ *  tipo: String que indica el tipo o categoría del producto.
+ *  peso: double que representa el peso del producto.
+ *  volumen: double que representa el volumen del producto.
+ *  cantidad: int que indica la cantidad de productos. de este producto.
+ *
+ * @author Julian Salazar, Michael Garcia
+ */
 public class Producto implements Serializable {
 
     @Serial
@@ -69,6 +77,15 @@ public class Producto implements Serializable {
         this.cantidad = cantidad;
     }
 
+    /**
+     *
+     * @param nombre
+     * @param tipo
+     * @param peso
+     * @param volumen
+     * @param cantidad
+     * @return instancia de Producto con esos valores.
+     */
     public static Producto crearProducto(String nombre,String tipo,double peso,double volumen,long cantidad) {
         //retorna una instacia de Producto con los valores pasados cmo argumentos.
         return new Producto(nombre,tipo,peso,volumen,cantidad);

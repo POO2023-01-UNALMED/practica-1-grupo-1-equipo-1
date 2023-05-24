@@ -14,6 +14,13 @@ import uiMain.seccion.SeccionUsuario;
 import java.util.Scanner;
 
 
+
+/**
+ *Iniciar programa y funciones globales usadas en todos los metodos
+ *
+ * @author Julian Salazar, Michael Garcia
+ *
+ */
 public class Main {
     public static void main(String[] args) {
 
@@ -77,27 +84,40 @@ public class Main {
         }
     }
 
+    /**
+     * Pide por consola un numero y lo retorna el valor ingresado como un int
+     *
+     * @return int de la informacion ingresada por consola
+     */
     public static int getOption() {
-        //esta funcion dide que se ingrese un numero por consola y retorna el dato tipo int.
+
         System.out.println("Eliga una opcion: ");
         Scanner scanner = new Scanner(System.in);
         return scanner.nextInt();
     }
 
+    /**
+     * Pide por consola un numero y retorna el valor como String
+     * @return String de la informacion ingresada por consola.
+     */
     public static String pedirDato(){
         //Esta funcion pide un dato por conosla y lo retorna comp un String
         Scanner scanner = new Scanner(System.in);
         return scanner.nextLine();
     }
 
+    /**
+     *
+     * @param factura parametro una instancia de Factura que va a ser modificado
+     *
+     *actualiza el atributo estado de la instancia Pedido, atribtu de factura.
+     */
     public static void actualizarInformacion(Factura factura){
-        //Esta funcion recibe como parametro una instancia de factura y
-        //actualiza el atributo estado de la clase Factura.
 
         //funcionalidad 5: actualizar informacionede envio
 
         String estadoAnterior;
-        //for (Factura factura : facturas) {
+
         if(!factura.getPedido().getEstado().equals("Entregado")) {
             Pedido pedido = factura.getPedido();
             estadoAnterior = pedido.getEstado();
@@ -110,8 +130,13 @@ public class Main {
                 camion.getEmpleado().setCiudadActual(pedido.getDestino());
             }
         }
-        //}
     }
+
+    /**
+     * Permite al usuario seleccionar el país donde se realizará el transporte del pedido.
+     *
+     * @return El país seleccionado (Pais.COLOMBIA, Pais.ECUADOR o Pais.PANAMA) o null si se elige salir.
+     */
     public  static Pais selecionarPais() {
         //seleccionar pais donde se realizara el transporte del pedido.
         int opcion;

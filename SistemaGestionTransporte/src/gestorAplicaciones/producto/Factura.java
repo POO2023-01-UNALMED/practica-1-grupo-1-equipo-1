@@ -9,6 +9,18 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
+/**
+ * Representa la factura generada por un usuario al realizar un pedido.
+ * Atributos
+ * pedido: tipo Pedido que almacena toda la informacion del pedido.
+ * usuario: representa el usuario que hizo el pedido.
+ * ID: long que es unico para cada instancia de la factura.
+ * costo: costo del pedido.
+ * horaSalida: LocalDateTime que representa la hora de salida del pedido.
+ * Hora llegada: LocalDateTime que representa la hora de llegada del pedido.
+ *
+ * @author Julian Salazar, Michael Garcia
+ */
 public class Factura implements Serializable{
 
     //serializador
@@ -20,7 +32,6 @@ public class Factura implements Serializable{
     private final double ganancia = 1.25;
     private Pedido pedido;
     private Usuario usuario;
-    private String Fecha;
     private long ID;
     private double costo;
     private LocalDateTime horaSalida;
@@ -70,14 +81,6 @@ public class Factura implements Serializable{
 
     public void setUsuario(Usuario usuario) {
         this.usuario = usuario;
-    }
-
-    public String getFecha() {
-        return Fecha;
-    }
-
-    public void setFecha(String fecha) {
-        Fecha = fecha;
     }
 
     public long getID() {
@@ -130,30 +133,51 @@ public class Factura implements Serializable{
                 "\nCosto: $" + this.getCosto();
     }
 
+    /**
+     * Calcular costo total del pedido
+     *
+     * @param costoCamion el costo que trae para el camion realizar el pedido solicitado
+     * @param capacidad capacidad del camion
+     */
     public void calcularCostoTotal(double costoCamion, double capacidad){
-        //Calcular costo total del pedido
         this.costo = capacidad * 0.05 * costoCamion * this.ganancia;
 
     }
 
+    /**
+     *
+     * @param factura agragra instanica de factura al arrayList facturas
+     */
     public static void agregarFactura(Factura factura){
         Factura.facturas.add(factura);
     }
 
-    public static void historialFacturas(Usuario usuario){
+    /**
+     *
+     * @param usuario repesenta un usario
+     * @return String con la infromacion de las facturas realizadas por el usuario ingresado.
+     */
+    public static String historialFacturas(Usuario usuario){
         /*
             imprime toString() de los objetos de tipo Factura que tieden como atributo al Usuario
             pasado como argumento.
         */
-
+        StringBuilder f = new StringBuilder();
         for (Factura factura : Factura.facturas){
             if(factura.getUsuario().getID() == usuario.getID()){
                 Main.actualizarInformacion(factura);
-                System.out.println(factura);
+                f.append(factura).append('\n');
             }
         }
+        return f.toString();
     }
 
+    /**
+     *
+     * @param ubicacion String con la ubicacion actual del pedido
+     * @param tiempo tiempo rstante del pedido
+     * @return String con la informacion de la ubicacion actual del pedio y el tiempo restante.
+     */
     public String infoViaje(String ubicacion, double tiempo){
         /*
         Este metodo retorna un String Con la ubicacion actual del pedido y el tiempo restante pasados como
@@ -169,10 +193,23 @@ public class Factura implements Serializable{
         return info.toString();
     }
 
+    /**
+     *
+     * @param id id de la factura
+     * @param nombre nombre de usaurio
+     * @return true si la factura coincide con el id y el nombre pasdos como parametros, de lo contrario
+     * retorna false.
+     */
     public boolean isFactura(long id, String nombre){
         return this.ID == id && usuario.getNombre().equals(nombre);
     }
 
+    /**
+     *
+     * @param id id de la factura
+     * @param nombre nombre de usaurio
+     * @return retorna una factura que coincidad con el id y nombre ingresados, si no se encuentra retorna null.
+     */
     public static Factura buscarFactura(long id, String nombre){
         /*
         Esta funcion retorna una instancia de Factura que coincidad con los atributos id y nombre

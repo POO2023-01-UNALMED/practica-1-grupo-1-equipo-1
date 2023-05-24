@@ -7,8 +7,14 @@ import gestorAplicaciones.entidades.Usuario;
 import gestorAplicaciones.pais.Pais;
 import uiMain.Main;
 
-import javax.sound.midi.Soundbank;
-
+/**
+ * Clase SeccionAdministrador que implementa la interfaz Seccion.
+ * Esta clase representa una sección específica para el administardor.
+ * Realiza acciones como inicio de sesión, registro de empleado, registro de camion y ver lista de facturas,
+ * empleados, usuarios, y camiones.
+ *
+ * @author Julian Salazar, Michael Garcia
+ */
 public class SeccionAdministrador implements Seccion {
     int opcion = 0; //toma el valor de la opcion ingresado por consola
     Pais pais;
@@ -16,10 +22,13 @@ public class SeccionAdministrador implements Seccion {
     String p;
 
     Administrador admin = new Administrador();
+
+    /**
+     * Se tienen las opciones de salir al menu pricipal e iniciar seccion de empleado.
+     */
     @Override
     public void Inicio() {
         do{
-        //Se tienen las opciones de ingresar como administardor o salir al menu principal en Main
             System.out.println("""
 
                     Ingrese:
@@ -39,9 +48,13 @@ public class SeccionAdministrador implements Seccion {
         }while(this.opcion != 0);
     }
 
+    /**
+     * mostar el tipo de acciones que puede realizar el administrador, registar empleado o vehiculo o
+     * mostar informacion de facturas, vehiculos, usuarios y empleados.
+     */
     @Override
     public void showMenu() {
-        //mostar el tipo de acciones que puede realizar el administrador.
+
         try {
             do {
                 System.out.println("""
@@ -100,6 +113,9 @@ public class SeccionAdministrador implements Seccion {
 
     }
 
+    /**
+     * Pedir por consola un pais y mostar las facturas relacinadas a dicho pais
+     */
     private void Facturas() {
         this.p = Main.selecionarPais().getNombre();
         if (p != null) {
@@ -108,6 +124,9 @@ public class SeccionAdministrador implements Seccion {
 
     }
 
+    /**
+     * Pedir por consola un pais y mostar empleados relacinados a dicho pais
+     */
     private void Empleados() {
         this.p = Main.selecionarPais().getNombre();
         if (p != null) {
@@ -115,10 +134,17 @@ public class SeccionAdministrador implements Seccion {
         }
     }
 
+    /**
+     * Mostar usuarios.
+     */
     private void Usuarios() {
         System.out.println(admin.mostarUsuarios());
     }
 
+    /**
+     * Pedir por consola un pais y tipo de camion mostar los camiones relacinadas a dicho pais y
+     * del tipo ingresado.
+     */
     private void Camiones() {
         this.p = Main.selecionarPais().getNombre();
         if(p == null) return;
@@ -159,12 +185,13 @@ public class SeccionAdministrador implements Seccion {
         System.out.println(admin.mostarCamiones(p,tipoCarga));
     }
 
+    /**
+     *  Esta funcion pide  la clave de dministardor ycomprueba que los datos ingresador correspondan
+     *   a los datos del administrador..
+     */
     @Override
     public void ingresar() {
-             /*
-        Esta funcion pide  la clave de dministardor ycomprueba que los datos ingresador correspondan
-         a los datos del administrador..
-         */
+
         String usuario,clave;
         usuario = "Administrador";
         System.out.println("Clave: ");
@@ -183,6 +210,10 @@ public class SeccionAdministrador implements Seccion {
     public Usuario validarInformacion(String usuario, String clave) {
         return null;
     }
+
+    /**
+     * Pedir los datos necesarios y verificarlos para crear un nuevo objeto de tipo Empleado.
+     */
     public void nuevoEmpleado() {
         String nombre, clave, id, correo, ciudadActual;
 
@@ -223,6 +254,9 @@ public class SeccionAdministrador implements Seccion {
         System.out.println("Nuevo empleado agregado");
     }
 
+    /**
+     * Pedir los datos necesarios y verificarlos para crear un nuevo objeto de tipo Camion.
+     */
     public void nuevoCamion() {
         String placa, ciudadActual;
         double pesoMaximo = 0, capacidad = 0;

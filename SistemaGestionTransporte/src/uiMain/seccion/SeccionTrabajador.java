@@ -5,14 +5,23 @@ import gestorAplicaciones.entidades.Usuario;
 
 import uiMain.Main;
 
+/**
+ * Clase SeccionTrabajador que implementa la interfaz Seccion.
+ * Esta clase representa una sección específica para empleados.
+ * Realiza acciones como inicio de sesión y mostar y cambiar esatdo del empleado.
+ *
+ * @author Julian Salazar, Michael Garcia
+ */
 public class SeccionTrabajador implements Seccion{
     int opcion = 0;
 
     Empleado empleado;
+
+    /**
+     * Se tienen las opciones de salir al menu pricipal e iniciar seccion de empleado.
+     */
     @Override
     public void Inicio() {
-
-        //Se tienen las opciones de salir al menu pricipal e iniciar seccion de empleado,
 
         do {
             System.out.println("""
@@ -34,9 +43,13 @@ public class SeccionTrabajador implements Seccion{
         }while(this.opcion != 0);
     }
 
+    /**
+     * mostar el tipo de acciones que puede realizar el empleado: mostar estado en la empresa y cambiar
+     * estado en la empresa.
+     */
     @Override
     public void showMenu() {
-        //mostar el tipo de acciones que puede realizar el usuario.
+
         try {
             System.out.println("\nBienvenido/a " + empleado.getNombre());
             do {
@@ -66,26 +79,33 @@ public class SeccionTrabajador implements Seccion{
         }
     }
 
+    /**
+     * Cambia el estatusAcivo de  la instancia de la clase empleado.
+     */
     private void cambiarEstado() {
-        //Cambia el estatusAcivo de  la instancia de la clase empleado.
+
         this.empleado.setEstatusActivo(!this.empleado.isEstatusActivo());
         this.mostarEstado();
         System.out.println("Tu estado en la empresa ha cambiado.");
     }
 
+    /**
+     * imprime el estado del empleado de acuerdo a el atributo statusActivo.
+     */
     private void mostarEstado() {
-        //imprime el estado del empleado de acuerdo a el atributo statusActivo
+
         if(this.empleado.isEstatusActivo()) System.out.println("Estado: Activo");
         else System.out.println("Estado: Inantivo");
     }
 
+    /**
+     * Esta funcion pide dos datos, usuario y clave, usario puede ser el nombre o id del empleado,
+     * y clave es la clave del empleado y comprueba que los datos ingresador correspondan
+     * a un empleado ya existente.
+      */
     @Override
     public void ingresar() {
-        /*
-        Esta funcion pide dos datos, usuario y clave, usario puede ser el nombre o id del empleado,
-         y clave es la clave del empleado y comprueba que los datos ingresador correspondan
-         a un empleado ya existente.
-         */
+
         String usuario,clave;
 
         System.out.println("Usuario/ID: ");
@@ -104,12 +124,14 @@ public class SeccionTrabajador implements Seccion{
         }
     }
 
+    /**
+     *
+     * @param empleado El nombre de mpleado.
+     * @param clave   La contraseña del empleado.
+     * @return objeto de tipo Usuario que coincida con los datos ingresados, de lo contrario retorna null.
+     */
     @Override
     public Usuario validarInformacion(String empleado, String clave) {
-        /*
-        Esta funcion recibe dos String y retorna un objeto de tipo Usuario
-        que coincida con los datos ingresados, de lo contrario retorna null.
-         */
 
         if(empleado != null && empleado.chars().allMatch(c -> c == ' ' || Character.isLetter(c))){
             for (Empleado u : Empleado.getEmpleados()){
