@@ -11,7 +11,6 @@ import uiMain.seccion.SeccionAdministrador;
 import uiMain.seccion.SeccionTrabajador;
 import uiMain.seccion.SeccionUsuario;
 
-import java.util.ArrayList;
 import java.util.Scanner;
 
 
@@ -30,47 +29,52 @@ public class Main {
         CargarInformacion.cargarCamiones();
         CargarInformacion.cargarEmpleados();*/
 
-        Deserializador.deserializar();
-        Camion.datosCamiones();
+        try {
+            Deserializador.deserializar();
+            Camion.datosCamiones();
 
-        System.out.println("--------------------Bienvenidos a Transportes ltda.--------------------");
-        int opcion;
-        Seccion seccion;
+            System.out.println("--------------------Bienvenidos a Transportes ltda.--------------------");
+            int opcion;
+            Seccion seccion;
 
-        //inicio de seccion
-        do {
-            System.out.println("""
-                    
-                    Presione:
-                    1. Ingresar como usuario
-                    2. Ingresar como empleado
-                    3. Ingresar como administrador
-                    0. Salir""");
-            opcion = Main.getOption();
-            switch (opcion) {
-                case 0 -> {
-                    //cerrar programa
-                    System.out.println("Vuelva pronto!");
-                    Serializador.serializar();
+            //inicio de seccion
+            do {
+                System.out.println("""
+                                        
+                        Presione:
+                        1. Ingresar como usuario
+                        2. Ingresar como empleado
+                        3. Ingresar como administrador
+                        0. Salir""");
+                opcion = Main.getOption();
+                switch (opcion) {
+                    case 0 -> {
+                        //cerrar programa
+                        System.out.println("Vuelva pronto!");
+                        Serializador.serializar();
+                    }
+                    case 1 -> {
+                        //Ingrese como usuario
+                        seccion = new SeccionUsuario();
+                        seccion.Inicio();
+                    }
+                    case 2 -> {
+                        //Igreso como trabajador
+                        seccion = new SeccionTrabajador();
+                        seccion.Inicio();
+                    }
+                    case 3 -> {
+                        //Ingreso como administrador
+                        seccion = new SeccionAdministrador();
+                        seccion.Inicio();
+                    }
+                    default -> System.out.println("Opcion no valida.\n");
                 }
-                case 1 -> {
-                    //Ingrese como usuario
-                    seccion = new SeccionUsuario();
-                    seccion.Inicio();
-                }
-                case 2 -> {
-                    //Igreso como trabajador
-                    seccion = new SeccionTrabajador();
-                    seccion.Inicio();
-                }
-                case 3 -> {
-                    //Ingreso como administrador
-                    seccion = new SeccionAdministrador();
-                    seccion.Inicio();
-                }
-                default -> System.out.println("Opcion no valida.\n");
-            }
-        }while (opcion != 0);
+            } while (opcion != 0);
+        }catch (Exception e){
+            System.out.println("\n---------------Error de ejecucion.--------------");
+            Serializador.serializar();
+        }
     }
 
     public static int getOption() {

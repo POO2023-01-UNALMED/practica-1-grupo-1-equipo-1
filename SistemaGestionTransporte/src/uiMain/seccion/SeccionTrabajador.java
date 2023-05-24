@@ -2,7 +2,7 @@ package uiMain.seccion;
 
 import gestorAplicaciones.entidades.Empleado;
 import gestorAplicaciones.entidades.Usuario;
-import gestorAplicaciones.producto.Factura;
+
 import uiMain.Main;
 
 public class SeccionTrabajador implements Seccion{
@@ -38,29 +38,33 @@ public class SeccionTrabajador implements Seccion{
     @Override
     public void showMenu() {
         //mostar el tipo de acciones que puede realizar el usuario.
-        System.out.println("\nBienvenido/a "+empleado.getNombre());
-        do{
-            System.out.println("""
+        try {
+            System.out.println("\nBienvenido/a " + empleado.getNombre());
+            do {
+                System.out.println("""
 
-                    Ingrese:
-                    1. Mostar estado en la empresa.
-                    2. Cambiar estado en la empresa.
-                    0. salir.""");
+                        Ingrese:
+                        1. Mostar estado en la empresa.
+                        2. Cambiar estado en la empresa.
+                        0. salir.""");
 
-            this.opcion = Main.getOption();
-            switch (this.opcion) {
-                case 0 -> System.out.println("Seccion terminada. Vuelva pronto");
-                case 1 -> {
-                    //realizar pedido
-                    this.mostarEstado();
-                    this.opcion = -1;
+                this.opcion = Main.getOption();
+                switch (this.opcion) {
+                    case 0 -> System.out.println("Seccion terminada. Vuelva pronto");
+                    case 1 -> {
+                        //realizar pedido
+                        this.mostarEstado();
+                        this.opcion = -1;
+                    }
+                    case 2 ->
+                        //seguimiento de pedido (funcionalidad)
+                            this.cambiarEstado();
+                    default -> System.out.println("opcion no valida.");
                 }
-                case 2 ->
-                    //seguimiento de pedido (funcionalidad)
-                        this.cambiarEstado();
-                default -> System.out.println("opcion no valida.");
-            }
-        }while(this.opcion != 0);
+            } while (this.opcion != 0);
+        }catch (Exception e){
+            System.out.println("\n----------Error de ejecion. Intente nuevamente----------");
+        }
     }
 
     private void cambiarEstado() {

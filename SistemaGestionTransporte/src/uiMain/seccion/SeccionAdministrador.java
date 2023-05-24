@@ -42,57 +42,61 @@ public class SeccionAdministrador implements Seccion {
     @Override
     public void showMenu() {
         //mostar el tipo de acciones que puede realizar el administrador.
-        do{
-            System.out.println("""
+        try {
+            do {
+                System.out.println("""
 
-                    Ingrese:
-                    1. Registrar nuevo empleado.
-                    2. Registar nuevo vehiculo.
-                    3. Facturas.
-                    4. Vehiculos.
-                    5. Usuarios.
-                    6. Empleados.
-                    0. salir.""");
+                        Ingrese:
+                        1. Registrar nuevo empleado.
+                        2. Registar nuevo vehiculo.
+                        3. Facturas.
+                        4. Vehiculos.
+                        5. Usuarios.
+                        6. Empleados.
+                        0. salir.""");
 
-            this.opcion = Main.getOption();
-            switch (this.opcion) {
-                case 0:
-                    System.out.println("Seccion terminada.");
-                    break;
-                case 1:
-                    //Registrar  nuevo empleado
-                    this.nuevoEmpleado();
-                    this.opcion = -1;
-                    break;
-                case 2:
-                    //Registar nuevo camion
-                    this.nuevoCamion();
-                    this.opcion = -1;
-                    break;
-                case 3:
+                this.opcion = Main.getOption();
+                switch (this.opcion) {
+                    case 0:
+                        System.out.println("Seccion terminada.");
+                        break;
+                    case 1:
+                        //Registrar  nuevo empleado
+                        this.nuevoEmpleado();
+                        this.opcion = -1;
+                        break;
+                    case 2:
+                        //Registar nuevo camion
+                        this.nuevoCamion();
+                        this.opcion = -1;
+                        break;
+                    case 3:
 
-                    this.Facturas();
-                    this.opcion = -1;
-                    break;
-                case 4:
-                    //lista de vehiculos
-                    this.Camiones();
-                    this.opcion = -1;
-                    break;
-                case 5:
-                    //lista de usuarios
-                    this.Usuarios();
-                    this.opcion = -1;
-                    break;
-                case 6:
-                    //lista de mepleados
-                    this.Empleados();
-                    this.opcion = -1;
-                    break;
-                default:
-                    System.out.println("opcion no valida.");
-            }
-        }while(this.opcion != 0);
+                        this.Facturas();
+                        this.opcion = -1;
+                        break;
+                    case 4:
+                        //lista de vehiculos
+                        this.Camiones();
+                        this.opcion = -1;
+                        break;
+                    case 5:
+                        //lista de usuarios
+                        this.Usuarios();
+                        this.opcion = -1;
+                        break;
+                    case 6:
+                        //lista de mepleados
+                        this.Empleados();
+                        this.opcion = -1;
+                        break;
+                    default:
+                        System.out.println("opcion no valida.");
+                }
+            } while (this.opcion != 0);
+        }catch (Exception e){
+            System.out.println("\n-------------Error de ejecucion--------------");
+        }
 
     }
 

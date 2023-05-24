@@ -49,33 +49,37 @@ public class SeccionUsuario implements Seccion {
     @Override
     public void showMenu() {
         //mostar el tipo de acciones que puede realizar el usuario.
-        System.out.println("\nBienvenido/a "+usuario.getNombre());
-        do{
-            System.out.println("""
+        try {
+            System.out.println("\nBienvenido/a " + usuario.getNombre());
+            do {
+                System.out.println("""
 
-                    Ingrese:
-                    1. Realizar pedido.
-                    2. Seguir pedido.
-                    3. historial de pedido.
-                    0. salir.""");
+                        Ingrese:
+                        1. Realizar pedido.
+                        2. Seguir pedido.
+                        3. historial de pedido.
+                        0. salir.""");
 
-            this.opcion = Main.getOption();
-            switch (this.opcion) {
-                case 0 -> System.out.println("Seccion terminada. Vuelva pronto");
-                case 1 -> {
-                    //realizar pedido
-                    this.realizarPedido();
-                    this.opcion = -1;
+                this.opcion = Main.getOption();
+                switch (this.opcion) {
+                    case 0 -> System.out.println("Seccion terminada. Vuelva pronto");
+                    case 1 -> {
+                        //realizar pedido
+                        this.realizarPedido();
+                        this.opcion = -1;
+                    }
+                    case 2 ->
+                        //seguimiento de pedido (funcionalidad)
+                            this.seguirPedido();
+                    case 3 ->
+                        //mostar historial de pedidos
+                            Factura.historialFacturas(this.usuario);
+                    default -> System.out.println("opcion no valida.");
                 }
-                case 2 ->
-                    //seguimiento de pedido (funcionalidad)
-                        this.seguirPedido();
-                case 3 ->
-                    //mostar historial de pedidos
-                        Factura.historialFacturas(this.usuario);
-                default -> System.out.println("opcion no valida.");
-            }
-        }while(this.opcion != 0);
+            } while (this.opcion != 0);
+        }catch (Exception e){
+            System.out.println("\n----------Error de ejecucion Ingrese nuevamente----------");
+        }
 
     }
 
