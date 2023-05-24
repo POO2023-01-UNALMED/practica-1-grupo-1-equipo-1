@@ -1,70 +1,56 @@
 package gestorAplicaciones;
 
-public class Administrador {
+public class Administrador extends Empleado{
 	
 	//atributos
-	private String nombre;
-	private String clave;
-	private int documento;
-	private static String tipoUsuario = "Administrador";
-	private int cantidadVehiculos;
-		
 	//constructor
-	public Administrador(String nombre, String clave, int id, int vehiculos) {
-		this.nombre = nombre;
-		this.clave = clave;
-		documento = id;
-		cantidadVehiculos = vehiculos;
+	public Administrador(String clave) {
+		super("Administrador","Clave",0,"Administrador@egt.com",true);
 	}
-	
 	//metodos get y set
 	
-	public String getNombre() {
-		return nombre;
-	}
-	public void setNombre(String Nombre) {
-		nombre = Nombre;
-	}
-	public String getClave() {
-		return clave;
-	}
-	public void setClave(String Clave) {
-		clave = Clave;
-	}
-	public int getDocumento() {
-		return documento;
-	}
-	public void setDocumento(int id) {
-		documento = id;
-	}
-	public String getTipoUsuario() {
-		return tipoUsuario;
-	}
-	public int getCantidadVehiculos() {
-		return cantidadVehiculos;
-	}
-	public void setCantidadVehiculos(int cantidad) {
-		cantidadVehiculos =cantidad;
-	}
-	
 	//metodos
-	public boolean comprobarDocumento(int documento) {
-		
-	}
-	public boolean comprobarNombre(String nombre) {
-		
-	}
-	public boolean comprobarClave(String clave) {
-		
-	}
 	public void estadistica() {
 		
 	}
 	public void modificarCosto() {
 		
 	}
-	public void pagarNomina() {
-		
+	public String MostrarEmpleados() {
+		StringBuilder infoEmpleados = new StringBuilder();
+		for (Empleado empleado : Empleado.getEmpleados()) {
+			infoEmpleados.append(empleado.toString());
+		}
+		return infoEmpleados.toString();
 	}
+
+	public Empleado mostarEmpleado(String nombre) {
+		for (Empleado empleado : Empleado.getEmpleados()) {
+			if (empleado.getNombre().equals(nombre)) {
+				return empleado;
+			}
+		}
+		return null;
+	}
+
+	public String mostarUsuarios() {
+		StringBuilder infoUsuarios = new StringBuilder();
+		for(Empleado empleado : Empleado.getEmpleados()){
+			infoUsuarios.append(empleado);
+		}
+		return infoUsuarios.toString();
+	}
+
+	public Usuario mostarUsuario(String nombre) {
+		for (Usuario usuario : Usuario.getUsuarios()){
+			if(usuario.getNombre().equals(nombre)){
+				return usuario;
+			}
+		}
+		return null;
+	}
+	/*public void pagarNomina() {
+		
+	}*/
 
 }

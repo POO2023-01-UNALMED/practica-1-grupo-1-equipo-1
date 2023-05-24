@@ -84,6 +84,27 @@ public class Usuario{
 	public boolean comprobarUsuario(long id, String clave){
 		return this.ID == id && this.clave.equals(clave);
 	}
+
+	public static boolean comprobarMombre(String nombre){
+		for (Usuario usuario : Usuario.usuarios){
+			if (usuario.getNombre().equals(nombre)) return true;
+		}
+		return false;
+	}
+	public static boolean comprobarID(long id){
+		for (Usuario usuario : Usuario.usuarios){
+			if (usuario.getID() == id) return true;
+		}
+		return false;
+	}
+
+	@Override
+	public String toString(){
+		return "nombre\t" + this.nombre
+				+ "\nid\t" + this.ID
+				+ "\ncorreo\t" + this.correo
+				+ "\n";
+	}
 	/*public String recargarCuenta(float plata) {
 		saldo += plata;
 		return "Su saldo es" + getSaldo();
