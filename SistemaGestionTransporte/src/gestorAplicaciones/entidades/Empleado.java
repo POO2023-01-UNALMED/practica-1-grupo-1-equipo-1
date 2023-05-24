@@ -70,29 +70,17 @@ public class Empleado extends Usuario {
 	}
 
 	//metodos
-	public static boolean comprobarMombre(String nombre){
-		/*
-		este metodo de  clase retorna true si el String pasado como argumento coincide con el
-		atributo nombre de un objeto de la clase Empleado lo contrario retorna false.
-		 */
-		for (Empleado empleado : Empleado.empleados){
-			if (empleado.getNombre().equals(nombre)) return true;
-		}
-		return false;
-	}
-	public static boolean comprobarID(long id){
-		/*
-		este metodo de  clase retorna true si el numero pasado como argumento coincide con el
-		atributo ID de un objeto de la clase Empleado lo contrario retorna false.
-		 */
-		for (Empleado empleado: Empleado.empleados){
-			if (empleado.getID() == id) return true;
-		}
-		return false;
-	}
 
 	public boolean elegirConductor(String ciudadActual){
 		return this.ciudadActual.equals(ciudadActual) && this.estatusActivo && this.disponible;
+	}
+
+	public static Empleado seleccionarEmpleado(String origen) {
+		//buscar un empleado disponible y que se encuentre en la ciudad de origen
+		for(Empleado empleado : Empleado.getEmpleados()){
+			if(empleado.elegirConductor(origen)) return empleado;
+		}
+		return null;
 	}
 
 	public String toString(){
@@ -103,6 +91,10 @@ public class Empleado extends Usuario {
 				+ "Activo\t" + this.estatusActivo
 				+ "Pais\t" + this.pais
 				+ "\n";
+	}
+
+	public double calcularPago(double costoPedido) {
+		return costoPedido;
 	}
 	/*public boolean clausula() {
 		

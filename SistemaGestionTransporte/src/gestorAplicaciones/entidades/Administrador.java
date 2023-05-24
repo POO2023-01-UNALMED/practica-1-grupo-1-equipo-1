@@ -51,6 +51,8 @@ public class Administrador extends Empleado{
 		}
 		return null;
 	}
+
+
 	/*public void pagarNomina() {
 		
 	}*/

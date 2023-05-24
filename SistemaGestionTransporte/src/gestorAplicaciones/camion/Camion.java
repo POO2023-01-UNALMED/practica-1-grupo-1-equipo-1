@@ -104,13 +104,57 @@ public abstract class Camion {
     }
 
     //metodos
-    public abstract double calcularCostoCamion();
+    public abstract void calcularCostoCamion();
 
     public abstract boolean comprobarPlaca(String placa);
 
     public abstract String ubicacion();
     public abstract String tiempoRestante();
 
-    public abstract boolean elegirCamion(String origen,double peso, double volumen);
+
+    public boolean elegirCamion(String origen, double peso) {
+        if (this.getPesoMaximo() == 20 && peso <= this.getPesoMaximo()) {
+            return this.getCiudadActual().equals(origen);
+        }
+        else if(this.getPesoMaximo() == 35 && peso <= this.getPesoMaximo() && peso > 20) {
+            return this.getCiudadActual().equals(origen);
+        }
+        else if(this.getPesoMaximo() == 42 && peso <= this.getPesoMaximo() && peso > 35) {
+            return this.getCiudadActual().equals(origen);
+        }
+        else if(this.getPesoMaximo() == 48 && peso <= this.getPesoMaximo() && peso > 48) {
+            return this.getCiudadActual().equals(origen);
+        }
+        return false;
+    }
+
+    public static Camion seleccionarCamion(String tipoCarga, String origen,double peso, double volumen) {
+        //selecccionar camion disponible para realizar pedido
+        //double peso = this.pedido.calcularPeso();
+        //double volumen = this.pedido.calcularVolumen();
+        switch (tipoCarga) {
+            case "perecedera" -> {
+                for (CamionFrigorifico c : CamionFrigorifico.getCamiones()) {
+                    if (c.elegirCamion(origen, peso)) return c;
+                }
+            }
+            case "fragil", "general" -> {
+                for (CamionLona c : CamionLona.getCamiones()) {
+                    if (c.elegirCamion(origen, peso)) return c;
+                }
+            }
+            case "ADR" -> {
+                for (CamionCisterna c : CamionCisterna.getCamiones()) {
+                    if (c.elegirCamion(origen, peso)) return c;
+                }
+            }
+            case "coches" -> {
+                for (CamionPortaCoches c : CamionPortaCoches.getCamiones()) {
+                    if (c.elegirCamion(origen, peso)) return c;
+                }
+            }
+        }
+        return null;
+    }
 
 }

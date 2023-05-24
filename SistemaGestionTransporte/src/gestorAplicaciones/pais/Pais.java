@@ -1,5 +1,7 @@
 package gestorAplicaciones.pais;
 
+import uiMain.Main;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
@@ -128,6 +130,66 @@ public enum Pais {
         return texto.toString();
     }
 
+    public static Pais selecionarPais() {
+        //seleccionar pais donde se realizara el transporte del pedido.
+        int opcion;
+        do{
+            System.out.println("""
+
+                    Ingrese:
+                    1. Colombia.
+                    2. Ecuador.
+                    3. Panama.
+                    0. Salir.""");
+
+            opcion = Main.getOption();
+            switch (opcion){
+                case 0:
+                    break;
+                case 1:
+                    return Pais.COLOMBIA;
+                case 2:
+                    return Pais.ECUADOR;
+                case 3:
+                    return Pais.PANAMA;
+                default:
+                    System.out.println("Opcion no valida.");
+            }
+
+        }while (opcion != 0);
+        return null;
+    }
+
+    public String elegirCiudad(String ciudad) {
+        //Seleccionar una ciudad
+        int opcion;
+        String str;
+        do{
+            System.out.println("""
+            
+            Ingrese:
+            1. Ingresar ciudad de\s""" +ciudad+
+            """
+            
+            2. ver lista de ciudades.
+            0. Salir.""");
+
+            opcion = Main.getOption();
+            switch (opcion){
+                case 0:
+                    break;
+                case 1:
+                    System.out.println("Ingrese ciudad de "+ciudad+": ");
+                    str = Main.pedirDato();
+                    if (this.isCiudad(str)) return str;
+                    else System.out.println("pais no encontrado.");
+                    break;
+                case 2:
+                    this.mostarCiudades();
+            }
+        }while(opcion != 0);
+        return null;
+    }
     public void EditarArchivo(String fileName, String text) {
 
     }

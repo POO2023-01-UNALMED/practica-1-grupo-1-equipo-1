@@ -72,13 +72,6 @@ public class Ciudad {
 
     @Override
     public String toString(){
-        //sobreescritura del metodo toString
-        StringBuilder result = new StringBuilder();
-        result.append("Ciudad: ").append(this.nombre);
-        result.append("\nAdyacente\tcosto\n");
-        for (Map.Entry<String, Double> map : conexiones.entrySet()){
-            result.append(map.getKey()).append("\n").append(map.getValue()).append("\n");
-        }
-        return result.toString();
+        return this.nombre+"\t";
     }
 }

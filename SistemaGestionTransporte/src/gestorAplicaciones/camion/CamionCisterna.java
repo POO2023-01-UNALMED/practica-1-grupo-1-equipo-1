@@ -14,8 +14,10 @@ public class CamionCisterna extends Camion{
     }
 
     @Override
-    public double calcularCostoCamion() {
-        return 0;
+    public void calcularCostoCamion() {
+        double factor = 0.005;
+        double km = this.getRuta().get(this.getRuta().size()-1).getValue();
+        this.setCosto(km * this.getCapacidad() * factor);
     }
 
     @Override
@@ -31,13 +33,5 @@ public class CamionCisterna extends Camion{
     @Override
     public String tiempoRestante() {
         return null;
-    }
-
-    @Override
-    public boolean elegirCamion(String origen, double peso, double volumen) {
-        if(this.getCiudadActual().equals(origen) && peso <= this.getPesoMaximo() && volumen <= this.getCapacidad()){
-            return true;
-        }
-        return false;
     }
 }

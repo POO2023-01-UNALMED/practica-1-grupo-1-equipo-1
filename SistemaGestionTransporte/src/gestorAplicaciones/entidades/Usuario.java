@@ -84,36 +84,84 @@ public class Usuario{
 		return this.ID == id && this.clave.equals(clave);
 	}
 
-	public static boolean comprobarNombre(String nombre){
+	public boolean comprobarNombre(String nombre){
 		/*
 		este metodo de  clase retorna true si el String pasado como argumento coincide con el
-		atributo nombre de un objeto de la clase Usuario lo contrario retorna false.
+		atributo nombre del objeto de la clase Usuario de lo contrario retorna false.
 		 */
-		for (Usuario usuario : Usuario.usuarios){
-			if (usuario.getNombre().equals(nombre)) return true;
-		}
-		return false;
+		return this.nombre.equals(nombre);
 	}
-	public static boolean comprobarID(long id){
+	public  boolean comprobarID(long id){
 		/*
 		este metodo de clase retorna true si el numero pasado como argumento coincide con el
-		atributo ID de un objeto de la clase Usuario lo contrario retorna false.
+		atributo ID del objeto de la clase Usuario de lo contrario retorna false.
 		 */
-		for (Usuario usuario : Usuario.usuarios){
-			if (usuario.getID() == id) return true;
-		}
-		return false;
+		return this.ID == id;
 	}
 
-	public static boolean comprobarCorreo(String correo){
+	public  boolean comprobarCorreo(String correo){
 		/*
 		este metodo de clase retorna true si el String pasado como argumento coincide con el
-		atributo correo de un objeto de la clase Usuario lo contrario retorna false.
+		atributo correo del objeto de la clase Usuario de lo contrario retorna false.
 		 */
-		for(Usuario usuario : Usuario.usuarios){
-			if(usuario.getCorreo().equals(correo)) return true;
+			return this.correo.equals(correo);
+	}
+
+	public static boolean isNombreValido(String nombre){
+        /*
+        Esta funcion retorna false si el argumento que se ingresa no contione espacio y caracteres
+        alfabetiscos o si ya es un atributo de nombre de un objeto de tipo usuario,
+        de lo contrario retorna true.
+         */
+		if(nombre == null || !nombre.chars().allMatch(c -> c == ' ' || Character.isLetter(c))){
+			System.out.println("El nombre solo debe tener caracteres alfanumericos.");
+			return false;
 		}
-		return false;
+		for(Usuario usuario : Usuario.usuarios) {
+			if (usuario.comprobarNombre(nombre)) {
+				System.out.println("nombre ya registrado.");
+				return false;
+			}
+		}
+		return true;
+
+	}
+
+	public static boolean isIDValido(String id){
+        /*
+        Esta funcion retorna false si el argumento que se ingresa no contione solo caracteres
+        numericos o si ya es un atributo de ID de un objeto de tipo usuario,
+        de lo contrario retorna true.
+         */
+		if(id == null || !id.chars().allMatch(Character::isDigit)){
+			System.out.println("la identificacion debe contener solo caracteres numericos.");
+			return false;
+		}
+		for(Usuario usuario : Usuario.usuarios) {
+			if (usuario.comprobarID(Long.parseLong(id))) {
+				System.out.println("numero de identificacion ya registrado.");
+				return false;
+			}
+		}
+		return true;
+	}
+
+	public static boolean isCorreoValido(String correo){
+        /*
+        Esta funcion retorna false si el argumento que se ingresa contiene el caracter '@' o si
+        solo contiene en la ultima posicion, de lo contrario retorna true.
+         */
+		if(!correo.contains("@") || correo.charAt(correo.length()-1) == '@'){
+			System.out.println("correo no valido.");
+			return false;
+		}
+		for(Usuario usuario : Usuario.usuarios) {
+			if (usuario.comprobarCorreo(correo)) {
+				System.out.println("correo ya registrado.");
+				return false;
+			}
+		}
+		return true;
 	}
 
 	@Override

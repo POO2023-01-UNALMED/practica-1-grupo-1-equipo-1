@@ -82,11 +82,15 @@ public class Factura {
 
     //metodos
 
-    /*@Override
+    @Override
     public String toString() {
-        return "Factura No: " + this.ID
-                + ""
-    }*/
+        StringBuilder sb = new StringBuilder();
+        sb.append("Factura Nro: ").append(this.getID()).append("\n");
+        sb.append(this.pedido.toString());
+        sb.append("Vendido a:\n").append(this.usuario.toString());
+
+        return sb.toString();
+    }
 
     public void calcularCostoTotal(double costoCamion, double capacidad){
         //Calcular costo total del pedido

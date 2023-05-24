@@ -3,6 +3,7 @@ package gestorAplicaciones.producto;
 import gestorAplicaciones.pais.Ciudad;
 import gestorAplicaciones.pais.Pais;
 import gestorAplicaciones.util.Pair;
+import uiMain.Main;
 
 import java.util.*;
 
@@ -189,12 +190,14 @@ public class Pedido {
         return volumen;
     }
 
-    public void asignarVehiculo(){
-
+    public String toString(){
+        StringBuilder sb = new StringBuilder();
+        for(Producto producto : this.productos){
+            sb.append(producto.toString()).append("\n");
+        }
+        return sb.toString();
     }
-    public void asignarConductor(){
 
-    }
 
     /*public static void main(String[] args){
         Pedido pedido= new Pedido();
