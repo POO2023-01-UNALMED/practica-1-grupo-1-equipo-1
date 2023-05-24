@@ -22,6 +22,7 @@ public class Empleado extends Usuario {
 		this.estatusActivo = statusActivo;
 		this.pais = pais;
 		this.ciudadActual = ciudadActual;
+		this.disponible = true;
 		Empleado.empleados.add(this);
 	}
 	

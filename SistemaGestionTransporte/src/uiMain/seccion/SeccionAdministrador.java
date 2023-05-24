@@ -62,10 +62,12 @@ public class SeccionAdministrador implements Seccion {
                 case 1:
                     //Registrar  nuevo empleado
                     this.nuevoEmpleado();
+                    this.opcion = -1;
                     break;
                 case 2:
                     //Registar nuevo camion
                     this.nuevoCamion();
+                    this.opcion = -1;
                     break;
                 case 3:
                     admin.estadistica();
@@ -73,7 +75,6 @@ public class SeccionAdministrador implements Seccion {
                 case 4:
                     //lista de vehiculos
                     this.Camiones();
-
                     break;
                 case 5:
                     //lista de usuarios

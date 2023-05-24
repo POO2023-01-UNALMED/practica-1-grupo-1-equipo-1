@@ -376,10 +376,10 @@ public class SeccionUsuario implements Seccion {
                     System.out.println("nombre del producto: ");
                     nombre = Main.pedirDato();
 
-                    System.out.println("peso del producto: ");
+                    System.out.println("peso del producto (kg): ");
                     peso = Double.parseDouble(Main.pedirDato());
 
-                    System.out.println("volumen del producto: ");
+                    System.out.println("volumen del producto (m3): ");
                     volumen = Double.parseDouble(Main.pedirDato());
 
                     System.out.println("Cantidad de ese producto: ");

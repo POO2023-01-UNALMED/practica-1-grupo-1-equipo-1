@@ -140,16 +140,16 @@ public abstract class Camion {
     }
 
     public boolean camionOptimo(String origen, double peso) {
-        if (this.getPesoMaximo() == 20 && peso <= this.getPesoMaximo()) {
+        if (this.getCapacidad() == 20 && peso <= this.getPesoMaximo()) {
             return this.getCiudadActual().equals(origen);
         }
-        else if(this.getPesoMaximo() == 35 && peso <= this.getPesoMaximo() && peso > 20) {
+        else if(this.getCapacidad() == 35 && peso <= this.getPesoMaximo() && peso > 1) {
             return this.getCiudadActual().equals(origen);
         }
-        else if(this.getPesoMaximo() == 42 && peso <= this.getPesoMaximo() && peso > 35) {
+        else if(this.getCapacidad() == 42 && peso <= this.getPesoMaximo() && peso > 8) {
             return this.getCiudadActual().equals(origen);
         }
-        else if(this.getPesoMaximo() == 48 && peso <= this.getPesoMaximo() && peso > 48) {
+        else if(this.getCapacidad() == 48 && peso <= this.getPesoMaximo() && peso > 17) {
             return this.getCiudadActual().equals(origen);
         }
         return false;
