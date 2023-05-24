@@ -66,7 +66,7 @@ public enum Pais {
         String[] lineas = mapa.split("\n");
         String[] conexion;
         for (String linea : lineas) {
-            conexion = linea.split(" ");
+            conexion = linea.split(":");
             if (!this.isCiudad(conexion[0])) agregarCiudad(conexion[0]);
             if (!this.isCiudad(conexion[1])) agregarCiudad(conexion[1]);
             this.costoCiudades(conexion[0], conexion[1], Double.parseDouble(conexion[2]));

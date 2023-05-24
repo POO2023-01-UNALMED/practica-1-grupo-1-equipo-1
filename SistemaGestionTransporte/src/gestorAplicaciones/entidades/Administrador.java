@@ -3,7 +3,7 @@ package gestorAplicaciones.entidades;
 public class Administrador extends Empleado{
 
 	//constructor
-	public Administrador(String clave) {
+	public Administrador() {
 		super("Administrador","Clave",0,"Administrador@egt.com",true);
 	}
 	
@@ -50,6 +50,10 @@ public class Administrador extends Empleado{
 			}
 		}
 		return null;
+	}
+
+	public void registrarEmpleado() {
+
 	}
 
 

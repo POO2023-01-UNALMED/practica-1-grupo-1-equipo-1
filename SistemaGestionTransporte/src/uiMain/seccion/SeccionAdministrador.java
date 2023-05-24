@@ -1,6 +1,7 @@
 package uiMain.seccion;
 
 import gestorAplicaciones.camion.*;
+import gestorAplicaciones.entidades.Administrador;
 import gestorAplicaciones.entidades.Empleado;
 import gestorAplicaciones.entidades.Usuario;
 import gestorAplicaciones.pais.Pais;
@@ -11,6 +12,8 @@ public class SeccionAdministrador implements Seccion {
     Camion camion;
     Empleado empleado;
     Pais pais;
+
+    Administrador admin = new Administrador();
     @Override
     public void Inicio() {
         do{
@@ -48,7 +51,7 @@ public class SeccionAdministrador implements Seccion {
                     5. Trabajadores.
                     6. Vehiculos.
                     7. Usuarios.
-                    0salir.""");
+                    0. salir.""");
 
             this.opcion = Main.getOption();
             switch (this.opcion) {
@@ -57,14 +60,14 @@ public class SeccionAdministrador implements Seccion {
                     break;
                 case 1:
                     //Registrar  nuevo empleado
-                    this.registrarEmpleado();
+                    admin.registrarEmpleado();
                     break;
                 case 2:
                     //Registar nuevo camion
                     this.registarCamion();
                     break;
                 case 3:
-                    //lista de trabajadores y estado
+                    //historial de pedidos
                     break;
                 case 4:
                     /*
@@ -72,9 +75,8 @@ public class SeccionAdministrador implements Seccion {
                      */
                     break;
                 case 5:
-                    /*
-                    lista de usuarios
-                     */
+                    //lista de usuarios
+
                     break;
                 default:
                     System.out.println("opcion no valida.");
