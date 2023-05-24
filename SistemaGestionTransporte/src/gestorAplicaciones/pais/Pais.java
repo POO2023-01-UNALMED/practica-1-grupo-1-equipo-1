@@ -53,7 +53,7 @@ public enum Pais {
         //muesta las ciudades asociadas al pais
         System.out.println("ciudades de " + this.nombre);
         for (Ciudad ciudad : this.ciudades) {
-            System.out.println(ciudad.toString());
+            System.out.print(ciudad.toString()+"\t");
         }
     }
 

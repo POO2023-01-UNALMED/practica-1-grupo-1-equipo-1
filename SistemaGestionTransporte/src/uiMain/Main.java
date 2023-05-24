@@ -17,7 +17,7 @@ public class Main {
         como administaror ssi se ingresa 3 por consola.
         si se ingresa 0 se cieera el programa.
          */
-        System.out.println("--------------------Bienvenidos a transportes ltda.--------------------");
+        System.out.println("--------------------Bienvenidos a Transportes ltda.--------------------");
         int opcion;
         Seccion seccion;
 

@@ -1,12 +1,17 @@
 package uiMain.seccion;
 
 import gestorAplicaciones.entidades.Usuario;
+import gestorAplicaciones.pais.Pais;
 import gestorAplicaciones.producto.Factura;
+import gestorAplicaciones.producto.Pedido;
 import uiMain.Main;
 
+import java.lang.runtime.SwitchBootstraps;
+
 public class SeccionUsuario implements Seccion {
-    int opcion = 0; //toma el valor de la opcion ingresado por consola
-    Usuario usuario; //insatncia de usuario, representa el usaurio que ha ingresado.
+    int opcion = 0;
+    Usuario usuario;
+    Pedido pedido;
     @Override
     public void Inicio() {
         /*
@@ -42,9 +47,10 @@ public class SeccionUsuario implements Seccion {
                     System.out.println("Seccion terminada. Vuelva pronto");
                     break;
                 case 1:
-                    /*
-                    Realizar pedido
-                     */
+                    //realizar pedido
+                    this.realizarPedido();
+                    this.opcion = -1;
+
                     break;
                 case 2:
                     /*
@@ -64,6 +70,70 @@ public class SeccionUsuario implements Seccion {
                     System.out.println("opcion no valida.");
             }
         }while(this.opcion != 0);
+
+    }
+
+    private void realizarPedido() {
+        //esta funcion se encarga de gestionnar la realizacion de un pedido
+        String origen, destino;
+        Pais pais;
+
+        //Seleccionar pais
+        pais = this.selecionarPais();
+
+        //Seleccionar ciudad de origen
+        origen = this.ElegirCiudad(pais,"Origen");
+
+        //seleccionar ciuddad de destino
+        destino = this.ElegirCiudad(pais,"Destino");
+
+        //seleccionar tipos de prodcto a transportar
+        
+    }
+
+    private String ElegirCiudad(Pais pais,String ciudad) {
+        String str;
+        do{
+            System.out.println("\nIngrese:\n1. Ingresar ciudad de "+ciudad+".\n2. ver lista de ciudades.\n0. Salir.");
+            switch (opcion){
+                case 0:
+                    break;
+                case 1:
+                    System.out.println("Ingrese ciudad de "+ciudad+": ");
+                    str = Main.pedirDato();
+                    if (pais.isCiudad(str)) return str;
+                    else System.out.println("pais no encontrado.");
+                    break;
+                case 2:
+                    pais.mostarCiudades();
+            }
+        }while(this.opcion != 0);
+
+        this.opcion = -1;
+        return null;
+    }
+
+    private Pais selecionarPais() {
+        //seleccionar pais donde se realiza el pedido.
+        do{
+            System.out.println("\nIngrese:\n1. Colombia.\n2. Ecuador.\n3. Panama.\n0. Salir.");
+            this.opcion = Main.getOption();
+            switch (this.opcion){
+                case 0:
+                    break;
+                case 1:
+                    return Pais.COLOMBIA;
+                case 2:
+                    return Pais.ECUADOR;
+                case 3:
+                    return Pais.PANAMA;
+                default:
+                    System.out.println("Opcion no valida.");
+            }
+
+        }while (this.opcion != 0);
+        this.opcion = -1;
+        return null;
 
     }
 
