@@ -6,10 +6,10 @@ import gestorAplicaciones.camion.Camion;
 import gestorAplicaciones.pais.Pais;
 import gestorAplicaciones.producto.Factura;
 import gestorAplicaciones.producto.Pedido;
-import uiMain.seccion.Seccion;
-import uiMain.seccion.SeccionAdministrador;
-import uiMain.seccion.SeccionTrabajador;
-import uiMain.seccion.SeccionUsuario;
+import uiMain.sesion.Sesion;
+import uiMain.sesion.SesionAdministrador;
+import uiMain.sesion.SesionTrabajador;
+import uiMain.sesion.SesionUsuario;
 
 import java.util.Scanner;
 
@@ -44,7 +44,7 @@ public class Main {
 
             System.out.println("--------------------Bienvenidos a Transportes ltda.--------------------");
             int opcion;
-            Seccion seccion;
+            Sesion sesion;
 
             //inicio de seccion
             do {
@@ -64,18 +64,18 @@ public class Main {
                     }
                     case 1 -> {
                         //Ingrese como usuario
-                        seccion = new SeccionUsuario();
-                        seccion.Inicio();
+                        sesion = new SesionUsuario();
+                        sesion.Inicio();
                     }
                     case 2 -> {
                         //Igreso como trabajador
-                        seccion = new SeccionTrabajador();
-                        seccion.Inicio();
+                        sesion = new SesionTrabajador();
+                        sesion.Inicio();
                     }
                     case 3 -> {
                         //Ingreso como administrador
-                        seccion = new SeccionAdministrador();
-                        seccion.Inicio();
+                        sesion = new SesionAdministrador();
+                        sesion.Inicio();
                     }
                     default -> System.out.println("Opcion no valida.\n");
                 }
@@ -93,7 +93,7 @@ public class Main {
      */
     public static int getOption() {
 
-        System.out.println("Eliga una opcion: ");
+        System.out.println("Elija una opcion: ");
         Scanner scanner = new Scanner(System.in);
         return scanner.nextInt();
     }

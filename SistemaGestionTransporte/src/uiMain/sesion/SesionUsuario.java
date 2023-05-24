@@ -1,4 +1,4 @@
-package uiMain.seccion;
+package uiMain.sesion;
 
 import gestorAplicaciones.camion.*;
 import gestorAplicaciones.entidades.Empleado;
@@ -18,7 +18,7 @@ import java.util.ArrayList;
  *
  * @author Julian Salazar, Michael Garcia
  */
-public class SeccionUsuario implements Seccion {
+public class SesionUsuario implements Sesion {
     int opcion = 0;
     Usuario usuario;
     Pedido pedido;
@@ -26,13 +26,13 @@ public class SeccionUsuario implements Seccion {
     Factura factura;
 
     /**
-     * Se tienen las opciones de salir al menu pricipal, iniciar seccion de usuario y
+     * Se tienen las opciones de salir al menu pricipal, iniciar sesion de usuario y
      * registar un nuevo usuario
      */
     @Override
     public void Inicio() {
         /*
-        Se tienen las opciones de salir al menu pricipal, iniciar seccion de usuario,
+        Se tienen las opciones de salir al menu pricipal, iniciar sesion de usuario,
         registar un nuevo usuario.
          */
         do {
@@ -198,6 +198,11 @@ public class SeccionUsuario implements Seccion {
         pedido.setDestino(this.elegirCiudad("Destino"));
         if(pedido.getDestino() == null){
             System.out.println("Ciudad no valida.");
+            return false;
+        }
+
+        if(pedido.getOrigen().equals(pedido.getDestino())){
+            System.out.println("No es posible realizar pedido a la misma ciudad.");
             return false;
         }
         //seleccionar tipos de produccto a transportar

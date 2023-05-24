@@ -1,4 +1,4 @@
-package uiMain.seccion;
+package uiMain.sesion;
 
 import gestorAplicaciones.camion.*;
 import gestorAplicaciones.entidades.Administrador;
@@ -15,7 +15,7 @@ import uiMain.Main;
  *
  * @author Julian Salazar, Michael Garcia
  */
-public class SeccionAdministrador implements Seccion {
+public class SesionAdministrador implements Sesion {
     int opcion = 0; //toma el valor de la opcion ingresado por consola
     Pais pais;
 

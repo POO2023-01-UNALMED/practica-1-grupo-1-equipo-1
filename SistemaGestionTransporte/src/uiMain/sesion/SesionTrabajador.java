@@ -1,4 +1,4 @@
-package uiMain.seccion;
+package uiMain.sesion;
 
 import gestorAplicaciones.entidades.Empleado;
 import gestorAplicaciones.entidades.Usuario;
@@ -12,13 +12,13 @@ import uiMain.Main;
  *
  * @author Julian Salazar, Michael Garcia
  */
-public class SeccionTrabajador implements Seccion{
+public class SesionTrabajador implements Sesion {
     int opcion = 0;
 
     Empleado empleado;
 
     /**
-     * Se tienen las opciones de salir al menu pricipal e iniciar seccion de empleado.
+     * Se tienen las opciones de salir al menu pricipal e iniciar sesion de empleado.
      */
     @Override
     public void Inicio() {

@@ -1,11 +1,11 @@
-package uiMain.seccion;
+package uiMain.sesion;
 
 import gestorAplicaciones.entidades.Usuario;
 
 /**
  * @author Julian Salazar, Michael Garcia
  */
-public interface Seccion {
+public interface Sesion {
     /**
      * Método para iniciar la sección.
      */
