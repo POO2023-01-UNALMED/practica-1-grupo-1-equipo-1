@@ -22,6 +22,8 @@ import java.util.Map;
  * ciudadActual: Es una cadena que representa la ciudad actual donde se encuentra el camion.
  * ruta: ArrayList Pair que contiene información sobre la ruta del camion.
  * empleado: Es un objeto de tipo Empleado que representa al empleado asociado con el camion.
+ *
+ * @author Julian Salazar, Michael Garcia
  */
 public abstract class Camion implements Serializable {
     //nota: capacidad de los camiones:(1 tn, 20 m3), (8 ton, 35 m3), (17 ton, 42 m3) y 24 (24 ton, 48m3);

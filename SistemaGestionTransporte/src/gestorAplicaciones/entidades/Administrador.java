@@ -10,7 +10,7 @@ import java.util.ArrayList;
  * La clase Administrador es una subclase de la clase Empleado y representa al administrador
  * del sistema.
  *
- *
+ *@author Julian Salazar, Michael Garcia
  */
 
 public class Administrador extends Empleado{

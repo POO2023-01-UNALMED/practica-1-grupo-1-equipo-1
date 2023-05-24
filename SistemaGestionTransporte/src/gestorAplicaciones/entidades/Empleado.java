@@ -10,6 +10,8 @@ import java.util.ArrayList;
  * disponible: boolean que indica si el empleado está disponible para trabajar o no.
  * pais: almacena el país donde se encuentra el empleado.
  * ciudadActual: almacena la ciudad actual donde se encuentra el empleado.
+ *
+ * @author Julian Salazar, Michael Garcia
  */
 public class Empleado extends Usuario{
 	

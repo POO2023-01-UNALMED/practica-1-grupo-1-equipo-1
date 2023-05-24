@@ -10,6 +10,8 @@ import java.util.ArrayList;
 *  Atributos:
 *  Camiones:  ArrayList estático de objetos de tipo CamionPortaCoches que almacena
 *  todos los camiones PortaCoches creados.
+ *
+ *  @author Julian Salazar, Michael Garcia
 */
 public class CamionPortaCoches extends Camion implements Serializable {
 

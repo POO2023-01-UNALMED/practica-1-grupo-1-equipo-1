@@ -22,7 +22,7 @@ import java.util.Scanner;
  *
  */
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String[] a1rgs) {
 
         /*
         menu para ingresar:
@@ -32,9 +32,11 @@ public class Main {
         si se ingresa 0 se cieera el programa.
          */
 
+
         /*CargarInformacion.cargarUsuarios();
         CargarInformacion.cargarCamiones();
         CargarInformacion.cargarEmpleados();*/
+
 
         try {
             Deserializador.deserializar();

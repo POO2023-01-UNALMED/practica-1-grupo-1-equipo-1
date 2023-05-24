@@ -9,6 +9,8 @@ import java.util.ArrayList;
  *  Atributos:
  *  Camiones:  ArrayList estático de objetos de tipo CamionCisterna que almacena
  *  todos los camiones cisterna creados.
+ *
+ *  @author Julian Salazar, Michael Garcia
  */
 public class CamionCisterna extends Camion implements Serializable {
 

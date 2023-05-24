@@ -10,6 +10,8 @@ import java.util.Map;
 *  clase CamionLona es una subclase de la clase Camion*  Atributos:
 *  Camiones:  ArrayList estático de objetos de tipo CamionLona que almacena
 *  todos los camiones lona creados.
+ *
+ *  @author Julian Salazar, Michael Garcia
 */
 
 public class CamionLona extends Camion implements Serializable {

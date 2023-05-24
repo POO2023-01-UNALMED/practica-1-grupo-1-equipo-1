@@ -12,6 +12,8 @@ import java.util.ArrayList;
  * clave: String que almacena la clave de acceso del usuario.
  * ID: long que almacena el ID del usuario.
  * correo: String que almacena el correo del usuario.
+ *
+ * @author Julian Salazar, Michael Garcia
  */
 public class Usuario implements Serializable {
 	

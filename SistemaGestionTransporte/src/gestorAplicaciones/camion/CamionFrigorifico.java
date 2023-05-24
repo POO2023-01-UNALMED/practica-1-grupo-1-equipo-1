@@ -9,6 +9,8 @@ import java.util.ArrayList;
 *  Atributos:
 *  Camiones:  ArrayList estático de objetos de tipo CamionFrigorifico que almacena
 *  todos los camiones frigorificos creados.
+ *
+ *  @author Julian Salazar, Michael Garcia
 */
 public class CamionFrigorifico extends Camion implements Serializable {
     //serializador

@@ -13,6 +13,8 @@ import java.util.Map;
  * nombre: String que representa el nombre de la ciudad
  * nombrePais: String que representa el nombre del país al que pertenece la ciudad.
  * conexiones:  Map que almacena las conexiones de la ciudad con otras ciudades y sus costos (km).
+ *
+ * @author Julian Salazar, Michael Garcia
  */
 public class Ciudad {
 
