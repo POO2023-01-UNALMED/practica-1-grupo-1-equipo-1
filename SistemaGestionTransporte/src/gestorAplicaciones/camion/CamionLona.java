@@ -10,6 +10,7 @@ public class CamionLona extends Camion {
 
     public CamionLona(String placa, String pais, double pesoMaximo, double capacidad) {
         super(placa, pais, pesoMaximo, capacidad);
+        camiones.add(this);
     }
 
     public static ArrayList<CamionLona> getCamiones() {

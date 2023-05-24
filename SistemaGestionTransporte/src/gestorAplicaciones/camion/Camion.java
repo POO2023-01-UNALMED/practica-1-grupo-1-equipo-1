@@ -1,15 +1,17 @@
 package gestorAplicaciones.camion;
 
 import gestorAplicaciones.entidades.Empleado;
-import gestorAplicaciones.pais.Pais;
 import gestorAplicaciones.util.Pair;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public abstract class Camion {
     //nota: capacidad de los camiones:(1 tn, 20 m3), (8 ton, 35 m3), (17 ton, 42 m3) y 24 (24 ton, 48m3);
     //atributos
-    public final static ArrayList<Camion> camiones = new ArrayList<Camion>();
+    //public final static ArrayList<Camion> camiones = new ArrayList<Camion>();
+    public final static Map<String,ArrayList<? extends Camion>> camiones = new HashMap<>();
     private String placa;
     private final double pesoMaximo;
     private final double capacidad;
@@ -26,7 +28,6 @@ public abstract class Camion {
         this.pesoMaximo = pesoMaximo;
         this.pais = pais;
         this.capacidad = capacidad;
-        camiones.add(this);
     }
 
 
@@ -97,6 +98,7 @@ public abstract class Camion {
     }
 
 
+
     //metodos
     public abstract void calcularCostoCamion();
 
@@ -152,56 +154,19 @@ public abstract class Camion {
     }
 
     public static Camion seleccionarCamion(String tipoCarga, String origen,double peso, double volumen) {
-        //selecccionar camion disponible para realizar pedido
-        //double peso = this.pedido.calcularPeso();
-        //double volumen = this.pedido.calcularVolumen();
-        switch (tipoCarga) {
-            case "perecedera" -> {
-                for (CamionFrigorifico c : CamionFrigorifico.getCamiones()) {
-                    if (c.camionOptimo(origen, peso)) return c;
-                }
-            }
-            case "fragil", "general" -> {
-                for (CamionLona c : CamionLona.getCamiones()) {
-                    if (c.camionOptimo(origen, peso)) return c;
-                }
-            }
-            case "ADR" -> {
-                for (CamionCisterna c : CamionCisterna.getCamiones()) {
-                    if (c.camionOptimo(origen, peso)) return c;
-                }
-            }
-            case "coches" -> {
-                for (CamionPortaCoches c : CamionPortaCoches.getCamiones()) {
-                    if (c.camionOptimo(origen, peso)) return c;
-                }
-            }
+
+        ArrayList<? extends Camion> camiones = Camion.camiones.get(tipoCarga);
+        for(Camion c: camiones){
+            if (c.camionOptimo(origen,peso)) return c;
         }
         return null;
     }
 
     public static Camion buscarCamion(String tipoCarga, String placa){
-        switch (tipoCarga) {
-            case "perecedera" -> {
-                for (CamionFrigorifico c : CamionFrigorifico.getCamiones()) {
-                    if (c.comprobarPlaca(placa)) return c;
-                }
-            }
-            case "fragil", "general" -> {
-                for (CamionLona c : CamionLona.getCamiones()) {
-                    if (c.comprobarPlaca(placa)) return c;
-                }
-            }
-            case "ADR" -> {
-                for (CamionCisterna c : CamionCisterna.getCamiones()) {
-                    if (c.comprobarPlaca(placa)) return c;
-                }
-            }
-            case "coches" -> {
-                for (CamionPortaCoches c : CamionPortaCoches.getCamiones()) {
-                    if (c.comprobarPlaca(placa)) return c;
-                }
-            }
+
+        ArrayList<? extends Camion> camiones = Camion.camiones.get(tipoCarga);
+        for(Camion c: camiones){
+            if (c.comprobarPlaca(placa)) return c;
         }
         return null;
     }
@@ -228,10 +193,20 @@ public abstract class Camion {
     }
 
     public static boolean isPlacaNueva(String placa) {
-        for(Camion camion : Camion.camiones){
-            if(camion.placa.equals(placa)) return false;
+
+        for (Map.Entry<String, ArrayList<? extends Camion>> entry : Camion.camiones.entrySet()){
+            ArrayList<? extends Camion> camiones = entry.getValue();
+            for(Camion camion : camiones){
+                if(camion.placa.equals(placa)) return false;
+            }
         }
         return true;
+    }
+    public static void datosCamiones(){
+        Camion.camiones.put("Cisterna", CamionCisterna.getCamiones());
+        Camion.camiones.put("Frigorifico", CamionFrigorifico.getCamiones());
+        Camion.camiones.put("Lona", CamionLona.getCamiones());
+        Camion.camiones.put("PortaCoches", CamionPortaCoches.getCamiones());
     }
 
 

@@ -6,6 +6,7 @@ public class CamionPortaCoches extends Camion{
     public final static ArrayList<CamionPortaCoches> camiones = new ArrayList<CamionPortaCoches>();
     public CamionPortaCoches(String placa, String pais, double pesoMaximo, double capacidad) {
         super(placa, pais, pesoMaximo, capacidad);
+        camiones.add(this);
     }
 
     public static ArrayList<CamionPortaCoches> getCamiones(){

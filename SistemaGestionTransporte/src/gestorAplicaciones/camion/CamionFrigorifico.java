@@ -6,6 +6,7 @@ public class CamionFrigorifico extends Camion{
     public final static ArrayList<CamionFrigorifico> camiones = new ArrayList<CamionFrigorifico>();
     public CamionFrigorifico(String placa, String pais, double pesoMaximo, double capacidad) {
         super(placa, pais, pesoMaximo, capacidad);
+        camiones.add(this);
 
     }
 

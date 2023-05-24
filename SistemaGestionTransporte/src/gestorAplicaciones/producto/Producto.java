@@ -82,19 +82,16 @@ public class Producto {
             opcion = Main.getOption();
             switch (opcion) {
                 case 1 -> {
-                    return "perecedera";
+                    return "Frigorifico";
                 }
-                case 2 -> {
-                    return "fragil";
+                case 2, 5 -> {
+                    return "Lona";
                 }
                 case 3 -> {
-                    return "ADR";
+                    return "Cisterna";
                 }
                 case 4 -> {
-                    return "coches";
-                }
-                case 5 -> {
-                    return "general";
+                    return "PortaCoches";
                 }
                 default -> System.out.println("Opcion no valida");
             }
