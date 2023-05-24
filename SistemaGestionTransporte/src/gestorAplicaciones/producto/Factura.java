@@ -1,5 +1,9 @@
 package gestorAplicaciones.producto;
 
+import gestorAplicaciones.camion.CamionCisterna;
+import gestorAplicaciones.camion.CamionFrigorifico;
+import gestorAplicaciones.camion.CamionLona;
+import gestorAplicaciones.camion.CamionPortaCoches;
 import gestorAplicaciones.entidades.Usuario;
 
 import java.util.ArrayList;
@@ -13,11 +17,11 @@ public class Factura {
     private Usuario usuario;
     private String Fecha;
     private long ID;
+    private double costo;
 
     //constructor
     public Factura() {
-        Factura.IDfactura += 1;
-        this.ID = Factura.IDfactura;
+        this.ID = Factura.IDfactura + 1;
     }
 
     //constrctor
@@ -73,6 +77,14 @@ public class Factura {
         return ganancia;
     }
 
+    public double getCosto() {
+        return costo;
+    }
+
+    public void setCosto(double costo) {
+        this.costo = costo;
+    }
+
     //metodos
 
     /*@Override
@@ -80,6 +92,12 @@ public class Factura {
         return "Factura No: " + this.ID
                 + ""
     }*/
+
+    public void calcularCostoTotal(double costoCamion, double capacidad){
+        //Calcular costo total del pedido
+        this.costo = capacidad*0.05*costoCamion*this.ganancia;
+
+    }
 
     public static void historialFacturas(Usuario usuairo){
         /*

@@ -17,6 +17,7 @@ public class Pedido {
     private double costoPedido;
     private Pais pais;
     private String estado;
+    private String vehiculo;
 
     //constructor
     public Pedido() {
@@ -86,6 +87,14 @@ public class Pedido {
 
     public void setEstado(String estado) {
         this.estado = estado;
+    }
+
+    public String getVehiculo() {
+        return vehiculo;
+    }
+
+    public void setVehiculo(String vehiculo) {
+        this.vehiculo = vehiculo;
     }
 
     //metodos

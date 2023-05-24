@@ -140,8 +140,17 @@ public class SeccionUsuario implements Seccion {
             return;
         }
         //funcionalidad 2 tarifa dinamica
-        
+        this.calcularTarifa();
 
+    }
+
+    private void calcularTarifa() {
+        //calcular la tarifa del pedido
+        factura = new Factura();
+        factura = new Factura(pedido, usuario);
+        camion.setRuta(pedido.calcularRuta());
+        double costoCamion = camion.calcularCostoCamion();
+        factura.calcularCostoTotal(costoCamion,camion.getCapacidad());
     }
 
     private Empleado seleccionarEmpleado(String origen) {
