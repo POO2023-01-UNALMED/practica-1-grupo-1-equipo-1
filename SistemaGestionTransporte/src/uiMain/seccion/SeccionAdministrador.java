@@ -101,11 +101,6 @@ public class SeccionAdministrador implements Seccion {
     }
 
     @Override
-    public void guardar() {
-
-    }
-
-    @Override
     public void ingresar() {
              /*
         Esta funcion pide  la clave de dministardor ycomprueba que los datos ingresador correspondan

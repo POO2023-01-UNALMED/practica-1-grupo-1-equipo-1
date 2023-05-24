@@ -211,11 +211,6 @@ public class SeccionUsuario implements Seccion {
     }
 
     @Override
-    public void guardar() {
-
-    }
-
-    @Override
     public void ingresar() {
         /*
         Esta funcion pide dos datos, usuario y clave, usario puede ser el nombre o id del usario,
