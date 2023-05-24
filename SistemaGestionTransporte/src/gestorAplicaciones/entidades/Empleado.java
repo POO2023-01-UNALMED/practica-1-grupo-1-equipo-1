@@ -96,7 +96,7 @@ public class Empleado extends Usuario{
 	}
 
 	public double calcularPago(double costoPedido) {
-		return costoPedido;
+		return costoPedido + costoPedido*0.2;
 	}
 
 	public static void crearEmpleado(String nombre, String clave, long id, String correo, String pais, String ciudadActual) {

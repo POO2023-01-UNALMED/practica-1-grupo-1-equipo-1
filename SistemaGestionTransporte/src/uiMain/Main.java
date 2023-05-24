@@ -50,7 +50,7 @@ public class Main {
             switch (opcion) {
                 case 0 -> {
                     //cerrar programa
-                    System.out.println("Vuelva pronto");
+                    System.out.println("Vuelva pronto!");
                     Serializador.serializar();
                 }
                 case 1 -> {
