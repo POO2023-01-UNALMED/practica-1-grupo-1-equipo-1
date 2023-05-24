@@ -1,8 +1,15 @@
 package gestorAplicaciones.camion;
 
+import java.util.ArrayList;
+
 public class CamionFrigorifico extends Camion{
-    public CamionFrigorifico(String placa, String tamanio, String pais) {
-        super(placa, tamanio, pais);
+    public final static ArrayList<CamionFrigorifico> camiones = new ArrayList<CamionFrigorifico>();
+    public CamionFrigorifico(String placa, String pais, double pesoMaximo, double capacidad) {
+        super(placa, pais, pesoMaximo, capacidad);
+    }
+
+    public static ArrayList<CamionFrigorifico> getCamiones(){
+        return CamionFrigorifico.camiones;
     }
 
     @Override
@@ -23,5 +30,12 @@ public class CamionFrigorifico extends Camion{
     @Override
     public String tiempoRestante() {
         return null;
+    }
+
+    public boolean elegirCamion(String origen, double peso, double volumen) {
+        if(this.getCiudadActual().equals(origen) && peso <= this.getPesoMaximo() && volumen <= this.getCapacidad()){
+            return true;
+        }
+        return false;
     }
 }

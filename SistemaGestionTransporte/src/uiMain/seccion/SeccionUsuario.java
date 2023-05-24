@@ -5,7 +5,10 @@ import gestorAplicaciones.entidades.Usuario;
 import gestorAplicaciones.pais.Pais;
 import gestorAplicaciones.producto.Factura;
 import gestorAplicaciones.producto.Pedido;
+import gestorAplicaciones.producto.Producto;
 import uiMain.Main;
+
+import java.util.ArrayList;
 
 public class SeccionUsuario implements Seccion {
     int opcion = 0;
@@ -106,10 +109,36 @@ public class SeccionUsuario implements Seccion {
         //Sleccionar camion
         camion = this.seleccionarCamion(tipoCarga);
 
+        //Seleccionar empleado a conducir coche
+
     }
 
     public Camion seleccionarCamion(String tipoCarga) {
-
+        //selecccionar camion disponible para realizar pedido
+        double peso = this.pedido.calcularPeso();
+        double volumen = this.pedido.calcularVolumen();
+        switch (tipoCarga) {
+            case "perecedera":
+                for(CamionFrigorifico c: CamionFrigorifico.getCamiones()){
+                    if(c.elegirCamion(pedido.getOrigen(), peso, volumen)) return c;
+                }
+                break;
+            case "fragil", "general":
+                for(CamionLona c: CamionLona.getCamiones()){
+                    if(c.elegirCamion(pedido.getOrigen(), peso, volumen)) return c;
+                }
+                break;
+            case "ADR":
+                for(CamionCisterna c: CamionCisterna.getCamiones()){
+                    if(c.elegirCamion(pedido.getOrigen(), peso, volumen)) return c;
+                }
+                break;
+            case "coches":
+                for(CamionPortaCoches c: CamionPortaCoches.getCamiones()){
+                    if(c.elegirCamion(pedido.getOrigen(), peso, volumen)) return c;
+                }
+                break;
+        }
         return null;
     }
 
@@ -122,8 +151,8 @@ public class SeccionUsuario implements Seccion {
             System.out.println("""
     
             Ingrese:
-            1. Ingresar ciudad de "+ciudad+".
-            2. ver lista de ciudades.
+            1. Ingresr producto.
+            2. Ver productos ingresados.
             0. Salir.""");
 
             switch (opcion) {
@@ -143,6 +172,10 @@ public class SeccionUsuario implements Seccion {
                     cantidad = Long.parseLong(Main.pedirDato());
 
                     //this.pedido.setProductos(this.pedido.getProductos().add(new Producto(nombre,tipo,peso,volumen,cantidad)));
+                    ArrayList<Producto> productos = this.pedido.getProductos();
+                    Producto producto = new Producto(nombre,tipo,peso,volumen,cantidad);
+                    productos.add(producto);
+                    this.pedido.setProductos(productos);
                     break;
             }
         }while(this.opcion != 0);
@@ -157,24 +190,28 @@ public class SeccionUsuario implements Seccion {
                     1. Carga perecedera.
                     2. Carga fragil.
                     3. Carga ADR.
-                    4. Carga de automiviles.
+                    4. Carga de coches.
                     5. Carga general.
                     0. Salir.""");
 
             this.opcion = Main.getOption();
-            switch(opcion){
-                case 1:
-                    break;
-                case 2:
-                    break;
-                case 3:
-                    break;
-                case 4:
-                    break;
-                case 5:
-                    break;
-                default:
-                    System.out.println("Opcion no valida");
+            switch (opcion) {
+                case 1 -> {
+                    return "perecedera";
+                }
+                case 2 -> {
+                    return "fragil";
+                }
+                case 3 -> {
+                    return "ADR";
+                }
+                case 4 -> {
+                    return "coches";
+                }
+                case 5 -> {
+                    return "general";
+                }
+                default -> System.out.println("Opcion no valida");
             }
         }while(this.opcion != 0);
 

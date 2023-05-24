@@ -1,8 +1,15 @@
 package gestorAplicaciones.camion;
 
+import java.util.ArrayList;
+
 public class CamionLona extends Camion{
-    public CamionLona(String placa, String tamanio, String pais) {
-        super(placa, tamanio, pais);
+    public final static ArrayList<CamionLona> camiones = new ArrayList<CamionLona>();
+    public CamionLona(String placa, String pais, double pesoMaximo, double capacidad) {
+        super(placa, pais, pesoMaximo, capacidad);
+    }
+
+    public static ArrayList<CamionLona> getCamiones(){
+        return CamionLona.camiones;
     }
 
     @Override
@@ -23,5 +30,13 @@ public class CamionLona extends Camion{
     @Override
     public String tiempoRestante() {
         return null;
+    }
+
+    @Override
+    public boolean elegirCamion(String origen, double peso, double volumen) {
+        if(this.getCiudadActual().equals(origen) && peso <= this.getPesoMaximo() && volumen <= this.getCapacidad()){
+            return true;
+        }
+        return false;
     }
 }

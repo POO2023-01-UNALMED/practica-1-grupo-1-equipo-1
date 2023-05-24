@@ -6,29 +6,29 @@ import gestorAplicaciones.util.Pair;
 import java.util.ArrayList;
 
 public abstract class Camion {
-    //nota: capacidad de los camiones: (8 ton, 35 m3), (17 ton, 42 m3) y 24 (24 ton, 48m3);
+    //nota: capacidad de los camiones:(1 tn, 20 m3), (8 ton, 35 m3), (17 ton, 42 m3) y 24 (24 ton, 48m3);
     //atributos
-    public final static ArrayList<Camion> camiones = new ArrayList<Camion>();
     private String placa;
-    private String tamanio;
+    private double pesoMaximo;
     private double capacidad;
     private double costo;
     private String pais;
     private boolean disponible;
+    private String ciudadActual;
     private ArrayList <Pair<String, Double>> ruta;
 
     //constructor
-    public Camion(String placa, String tamanio, String pais){
+    public Camion(String placa,String pais, double pesoMaximo,double capacidad){
         this.placa = placa;
-        this.tamanio = tamanio;
+        this.pesoMaximo = pesoMaximo;
         this.pais = pais;
-        camiones.add(this);
+        this.capacidad = capacidad;
     }
 
     //metodos getter and setter
-    public static ArrayList<Camion> getCamiones() {
-        return camiones;
-    }
+    //public static ArrayList<Camion> getCamiones() {
+        //return camiones;
+    //}
 
     public String getPlaca() {
         return placa;
@@ -38,12 +38,12 @@ public abstract class Camion {
         this.placa = placa;
     }
 
-    public String getTamanio() {
-        return tamanio;
+    public double getPesoMaximo() {
+        return pesoMaximo;
     }
 
-    public void setTamanio(String tamanio) {
-        this.tamanio = tamanio;
+    public void setPesoMaximo(double pesoMaximo) {
+        this.pesoMaximo = pesoMaximo;
     }
 
     public double getCapacidad() {
@@ -78,6 +78,14 @@ public abstract class Camion {
         this.disponible = disponible;
     }
 
+    public String getCiudadActual() {
+        return ciudadActual;
+    }
+
+    public void setCiudadActual(String ciudadActual) {
+        this.ciudadActual = ciudadActual;
+    }
+
     public ArrayList<Pair<String, Double>> getRuta() {
         return ruta;
     }
@@ -94,9 +102,6 @@ public abstract class Camion {
     public abstract String ubicacion();
     public abstract String tiempoRestante();
 
-    public static Camion elegirCamion(String tipoCarga, Producto producto){
-
-        return null;
-    }
+    public abstract boolean elegirCamion(String origen,double peso, double volumen);
 
 }

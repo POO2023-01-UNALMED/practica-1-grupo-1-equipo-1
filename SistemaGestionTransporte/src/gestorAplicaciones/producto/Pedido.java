@@ -159,8 +159,25 @@ public class Pedido {
         return ruta;
     }
 
-    public double CalcularPeso(){
-        return 0d;
+    public double calcularPeso(){
+        //calcular y retornar el peso total de todos los productos
+        double peso = 0d;
+        for(Producto producto : this.productos){
+            peso += (producto.getPeso()*producto.getCantidad());
+        }
+
+        //convertir kg a toneladas
+        return peso/1000;
+    }
+
+    public double calcularVolumen(){
+        //Calcular y retornar el volumen total de todos los productos
+        double volumen = 0d;
+        for(Producto producto : this.productos){
+            volumen += (producto.getVolumen()*producto.getCantidad());
+        }
+
+        return volumen;
     }
 
     public void asignarVehiculo(){

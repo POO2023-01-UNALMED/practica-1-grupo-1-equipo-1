@@ -66,6 +66,4 @@ public class Producto {
     public void eliminar(){}
 
     public void agregar(){}
-
-    public void precioFinal(){}
 }
