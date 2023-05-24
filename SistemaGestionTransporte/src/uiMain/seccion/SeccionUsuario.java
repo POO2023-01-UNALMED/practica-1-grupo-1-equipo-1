@@ -56,32 +56,23 @@ public class SeccionUsuario implements Seccion {
                     1. Realizar pedido.
                     2. Seguir pedido.
                     3. historial de pedido.
-                    4. PQRS.
                     0. salir.""");
 
             this.opcion = Main.getOption();
             switch (this.opcion) {
-                case 0:
-                    System.out.println("Seccion terminada. Vuelva pronto");
-                    break;
-                case 1:
+                case 0 -> System.out.println("Seccion terminada. Vuelva pronto");
+                case 1 -> {
                     //realizar pedido
                     this.realizarPedido();
                     this.opcion = -1;
-                    
-                    break;
-                case 2:
-
+                }
+                case 2 ->
                     //seguimiento de pedido (funcionalidad)
-                    this.seguirPedido();
-
-                    break;
-                case 3:
+                        this.seguirPedido();
+                case 3 ->
                     //mostar historial de pedidos
-                    Factura.historialFacturas(this.usuario);
-                    break;
-                default:
-                    System.out.println("opcion no valida.");
+                        Factura.historialFacturas(this.usuario);
+                default -> System.out.println("opcion no valida.");
             }
         }while(this.opcion != 0);
 

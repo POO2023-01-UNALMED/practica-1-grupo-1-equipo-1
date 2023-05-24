@@ -26,4 +26,13 @@ public class CamionPortaCoches extends Camion{
         double factor = -0.42857;
         return velocidadBase + this.getCapacidad() * factor;
     }
+
+    @Override
+    public String toString() {
+        return "\nTipo: Portacohes" +
+                "\nPlaca: " + this.getPlaca() +
+                "\npais: " + this.getPais() +
+                "\nPeso Maximo: " + this.getPesoMaximo() +
+                "\nCapacidad: " + this.getCapacidad();
+    }
 }

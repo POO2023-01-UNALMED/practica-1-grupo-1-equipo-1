@@ -209,5 +209,7 @@ public abstract class Camion {
         Camion.camiones.put("PortaCoches", CamionPortaCoches.getCamiones());
     }
 
-
+    public static ArrayList<? extends Camion> listaCamiones(String tipoCarga) {
+        return Camion.camiones.get(tipoCarga);
+    }
 }

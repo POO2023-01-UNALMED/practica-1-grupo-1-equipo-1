@@ -70,19 +70,34 @@ public class SeccionAdministrador implements Seccion {
                     admin.estadistica();
                     break;
                 case 4:
-                    /*
-                    lista de vehiculos
-                     */
+                    //lista de vehiculos
+                    this.Camiones();
+
                     break;
                 case 5:
                     //lista de usuarios
-
+                    this.Usuarios();
                     break;
+                case 6:
+                    //lista de mepleados
+                    this.Empleados();
                 default:
                     System.out.println("opcion no valida.");
             }
         }while(this.opcion != 0);
 
+    }
+
+    private void Empleados() {
+        System.out.println(admin.mostrarEmpleados());
+    }
+
+    private void Usuarios() {
+        System.out.println(admin.mostarUsuarios());
+    }
+
+    private void Camiones() {
+        System.out.println(admin.mostarCamiones());
     }
 
     @Override

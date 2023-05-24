@@ -30,4 +30,13 @@ public class CamionLona extends Camion {
         double factor = -0.2857;
         return velocidadBase + this.getCapacidad() * factor;
     }
+
+    @Override
+    public String toString() {
+        return "\nTipo: Lona" +
+                "\nPlaca: " + this.getPlaca() +
+                "\npais: " + this.getPais() +
+                "\nPeso Maximo: " + this.getPesoMaximo() +
+                "\nCapacidad: " + this.getCapacidad();
+    }
 }

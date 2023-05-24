@@ -27,4 +27,13 @@ public class CamionCisterna extends Camion{
         double factor = -0.392957;
         return velocidadBase + this.getCapacidad() * factor;
     }
+
+    @Override
+    public String toString() {
+        return "\nTipo: Cisterna" +
+                "\nPlaca: " + this.getPlaca() +
+                "\npais: " + this.getPais() +
+                "\nPeso Maximo: " + this.getPesoMaximo() +
+                "\nCapacidad: " + this.getCapacidad();
+    }
 }

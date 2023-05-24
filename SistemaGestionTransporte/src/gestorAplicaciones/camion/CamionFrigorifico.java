@@ -27,4 +27,13 @@ public class CamionFrigorifico extends Camion{
         double factor = -0.357;
         return velocidadBase + this.getCapacidad() * factor;
     }
+
+    @Override
+    public String toString() {
+        return "\nTipo: Frigorifico" +
+                "\nPlaca: " + this.getPlaca() +
+                "\npais: " + this.getPais() +
+                "\nPeso Maximo: " + this.getPesoMaximo() +
+                "\nCapacidad: " + this.getCapacidad();
+    }
 }

@@ -4,6 +4,8 @@ import gestorAplicaciones.camion.*;
 import gestorAplicaciones.pais.Pais;
 import uiMain.Main;
 
+import java.util.ArrayList;
+
 public class Administrador extends Empleado{
 
 	Pais pais;
@@ -21,7 +23,7 @@ public class Administrador extends Empleado{
 	public void modificarCosto() {
 		
 	}
-	public String MostrarEmpleados() {
+	public String mostrarEmpleados() {
 		//mostar dotos los objetos de tipo Empleado
 		StringBuilder infoEmpleados = new StringBuilder();
 		for (Empleado empleado : Empleado.getEmpleados()) {
@@ -43,10 +45,25 @@ public class Administrador extends Empleado{
 	public String mostarUsuarios() {
 		//mostar dotos los objetos de tipo Usuario
 		StringBuilder infoUsuarios = new StringBuilder();
-		for(Empleado empleado : Empleado.getEmpleados()){
-			infoUsuarios.append(empleado);
+		for(Usuario usuario : Usuario.getUsuarios()){
+			infoUsuarios.append(usuario.toString());
 		}
 		return infoUsuarios.toString();
+	}
+
+	public String mostarCamiones(){
+		//mostar informacion de los objetos que heredan de la clase Camion
+		StringBuilder infoCamiones = new StringBuilder();
+		ArrayList<? extends Camion> camiones;
+		String[] tipoCamiones = {"Cisterna", "Frigorifico", "Lona", "PortaCoches"};
+		for (String tipoCarga : tipoCamiones) {
+
+			camiones = Camion.listaCamiones(tipoCarga);
+			for (Camion camion : camiones) {
+				infoCamiones.append(camion.toString());
+			}
+		}
+		return infoCamiones.toString();
 	}
 
 	public Usuario mostarUsuario(String nombre) {
@@ -74,5 +91,4 @@ public class Administrador extends Empleado{
 				default -> System.out.println("Opcion no valida");
 			}
 	}
-
 }
