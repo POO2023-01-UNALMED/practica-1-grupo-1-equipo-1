@@ -6,6 +6,7 @@ import gestorAplicaciones.entidades.Usuario;
 import gestorAplicaciones.producto.Factura;
 import gestorAplicaciones.producto.Pedido;
 import gestorAplicaciones.producto.Producto;
+import gestorAplicaciones.util.Pair;
 import uiMain.Main;
 
 import java.util.ArrayList;
@@ -221,8 +222,11 @@ public class SesionUsuario implements Sesion {
         //Seleccionar camion
         camion = Camion.seleccionarCamion(tipoCarga, pedido.getOrigen(),pedido.calcularPeso(), pedido.calcularVolumen());
         if(camion == null){
-            System.out.println("Camion no disponible en el momento.");
-            return false;
+           camion = this.camionCercano(tipoCarga, pedido.getOrigen(), pedido.calcularPeso());
+           if(camion == null) {
+               System.out.println("Camion no disponible en el momento.");
+               return false;
+           }
         }
         pedido.setVehiculo(camion.getPlaca());
 
@@ -233,6 +237,55 @@ public class SesionUsuario implements Sesion {
             return false;
         }
         return true;
+    }
+
+    /**
+     *
+     * @param tipoCarga tipo de carga a trsnporta
+     * @param origen ciudad de salida del envio
+     * @param peso peso en tn del envio
+     * @return camion mas cercano a la ciudad de envio.
+     */
+    private Camion camionCercano(String tipoCarga, String origen, double peso) {
+
+        if(peso <= 1) peso = 1;
+        else if(peso <= 8) peso = 8;
+        else if(peso <= 17) peso  = 17;
+        else peso = 24;
+
+        Camion camion = null;
+        double distancia = Double.MAX_VALUE;
+
+        for(Camion c : Camion.camiones.get(tipoCarga)) {
+            Pedido pedido = new Pedido();
+            pedido.setDestino(origen);
+            if (c.getPesoMaximo() == peso && c.isDisponible()) {
+                pedido.setOrigen(c.getCiudadActual());
+                c.setRuta(pedido.calcularRuta());
+
+                for (Pair<String, Double> d : c.getRuta()) {
+                    if (d.getKey().equals(origen) && d.getValue() < distancia) {
+                        distancia = d.getValue();
+                        camion = c;
+                    }
+                }
+            }
+        }
+
+        if(camion != null) {;
+
+            for (Empleado empleado : Empleado.getEmpleados()) {
+                if (empleado.getCiudadActual().equals(camion.getCiudadActual()) && empleado.isEstatusActivo() && empleado.isDisponible()) {
+                    empleado.setCiudadActual(origen);
+                    camion.setCiudadActual(origen);
+                    return camion;
+                }
+            }
+        }
+
+
+
+        return null;
     }
 
     /**

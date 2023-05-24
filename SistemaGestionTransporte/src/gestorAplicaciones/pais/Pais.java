@@ -66,7 +66,7 @@ public enum Pais {
     public String mostarCiudades() {
         //muesta las ciudades asociadas al pais
         StringBuilder ciudades = new StringBuilder();
-        ciudades.append("ciudades de ").append(this.nombre).append("\n");
+        ciudades.append("ciudades de ").append(this.nombre).append(":\n\t");
         for (Ciudad ciudad : this.ciudades) {
             ciudades.append(ciudad).append("\t");
         }
