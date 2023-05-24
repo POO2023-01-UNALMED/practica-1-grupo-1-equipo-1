@@ -2,10 +2,10 @@ package gestorAplicaciones.entidades;
 
 import java.util.ArrayList;
 
-public class Empleado extends Usuario {
+public class Empleado extends Usuario{
 	
 	//atributos
-	private final static ArrayList<Empleado> empleados = new ArrayList<Empleado>();
+	private static ArrayList<Empleado> empleados = new ArrayList<Empleado>();
 
 	private boolean estatusActivo;
 	private boolean disponible;
@@ -29,6 +29,10 @@ public class Empleado extends Usuario {
 	//metodos getter and setter
 	public static ArrayList<Empleado> getEmpleados() {
 		return empleados;
+	}
+
+	public static void setEmpleados(ArrayList<Empleado> empleados){
+		Empleado.empleados = empleados;
 	}
 
 

@@ -2,13 +2,19 @@ package gestorAplicaciones.producto;
 
 import gestorAplicaciones.entidades.Usuario;
 
+import java.io.Serial;
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
-public class Factura {
+public class Factura implements Serializable{
+
+    //serializador
+    @Serial
+    private static final long serialVersionUID = 1L;
     //atributos
-    private static final ArrayList<Factura> facturas = new ArrayList<Factura>();
+    private static ArrayList<Factura> facturas = new ArrayList<Factura>();
     private static  long IDfactura = 100000000;
     private final double ganancia = 1.25;
     private Pedido pedido;
@@ -43,6 +49,10 @@ public class Factura {
 
     public static ArrayList<Factura> getFacturas(){
         return Factura.facturas;
+    }
+
+    public static void setFacturas(ArrayList<Factura> facturas){
+        Factura.facturas = facturas;
     }
 
     public Pedido getPedido() {

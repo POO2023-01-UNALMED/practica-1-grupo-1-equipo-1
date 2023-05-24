@@ -1,12 +1,16 @@
 package gestorAplicaciones.camion;
 
-import gestorAplicaciones.util.Pair;
-
+import java.io.Serial;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Map;
 
-public class CamionLona extends Camion {
-    public final static ArrayList<CamionLona> camiones = new ArrayList<CamionLona>();
+public class CamionLona extends Camion implements Serializable {
+    //serializador
+    @Serial
+    private static final long serialVersionUID = 1L;
+
+    public static ArrayList<CamionLona> camiones = new ArrayList<CamionLona>();
 
     public CamionLona(String placa, String pais, String CiudadActual, double pesoMaximo, double capacidad) {
         super(placa, pais, CiudadActual, pesoMaximo, capacidad);
@@ -15,6 +19,10 @@ public class CamionLona extends Camion {
 
     public static ArrayList<CamionLona> getCamiones() {
         return CamionLona.camiones;
+    }
+
+    public static void setCamiones(ArrayList<CamionLona> camiones){
+        CamionLona.camiones = camiones;
     }
 
     @Override

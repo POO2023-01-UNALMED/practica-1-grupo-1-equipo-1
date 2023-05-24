@@ -1,14 +1,17 @@
 package gestorAplicaciones.entidades;
 
+import java.io.Serial;
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Usuario{
+public class Usuario implements Serializable {
 	
 	//serializador
-	//private static final long serialVersionUID = 1L;
+	@Serial
+	private static final long serialVersionUID = 1L;
 
 	//atributos
-	private final static ArrayList<Usuario> usuarios = new ArrayList<Usuario>();
+	private static ArrayList<Usuario> usuarios = new ArrayList<Usuario>();
 	private final String nombre;
 	private String clave;
 	private long ID;
@@ -39,6 +42,10 @@ public class Usuario{
 
 	public static ArrayList<Usuario> getUsuarios() {
 		return usuarios;
+	}
+
+	public static void setUsuarios(ArrayList<Usuario> usuarios){
+		Usuario.usuarios = usuarios;
 	}
 
 	public String getNombre() {
