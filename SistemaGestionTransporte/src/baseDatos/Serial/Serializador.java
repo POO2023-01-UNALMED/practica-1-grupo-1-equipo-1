@@ -22,7 +22,7 @@ public class Serializador {
 
         //Serilizar usuario
         try {
-            archivoSalida = new FileOutputStream("../src/baseDatos/temp/usuarios.dat");
+            archivoSalida = new FileOutputStream("src/baseDatos/temp/usuarios.dat");
             objetoSalida = new ObjectOutputStream(archivoSalida);
             objetoSalida.writeObject(Usuario.getUsuarios());
             objetoSalida.close();
@@ -33,7 +33,7 @@ public class Serializador {
 
         //Serilizar Empleados
         try {
-            archivoSalida = new FileOutputStream("../src/baseDatos/temp/empleados.dat");
+            archivoSalida = new FileOutputStream("src/baseDatos/temp/empleados.dat");
             objetoSalida = new ObjectOutputStream(archivoSalida);
             objetoSalida.writeObject(Empleado.getEmpleados());
             objetoSalida.close();
@@ -44,7 +44,7 @@ public class Serializador {
 
         //Serilizar Facturas
         try {
-            archivoSalida = new FileOutputStream("../src/baseDatos/temp/facturas.dat");
+            archivoSalida = new FileOutputStream("src/baseDatos/temp/facturas.dat");
             objetoSalida = new ObjectOutputStream(archivoSalida);
             objetoSalida.writeObject(Factura.getFacturas());
             objetoSalida.close();
@@ -54,7 +54,7 @@ public class Serializador {
         }
 
         try {
-            archivoSalida = new FileOutputStream("../src/baseDatos/temp/facturaID.dat");
+            archivoSalida = new FileOutputStream("src/baseDatos/temp/facturaID.dat");
             objetoSalida = new ObjectOutputStream(archivoSalida);
             objetoSalida.writeObject(Factura.getIDfactura());
             objetoSalida.close();
@@ -65,7 +65,7 @@ public class Serializador {
 
         //Serilizar Camionnes
         try {
-            archivoSalida = new FileOutputStream("../src/baseDatos/temp/cisternas.dat");
+            archivoSalida = new FileOutputStream("src/baseDatos/temp/cisternas.dat");
             objetoSalida = new ObjectOutputStream(archivoSalida);
             objetoSalida.writeObject(CamionCisterna.getCamiones());
             objetoSalida.close();
@@ -75,7 +75,7 @@ public class Serializador {
         }
 
         try {
-            archivoSalida = new FileOutputStream("../src/baseDatos/temp/frigorificos.dat");
+            archivoSalida = new FileOutputStream("src/baseDatos/temp/frigorificos.dat");
             objetoSalida = new ObjectOutputStream(archivoSalida);
             objetoSalida.writeObject(CamionFrigorifico.getCamiones());
             objetoSalida.close();
@@ -85,7 +85,7 @@ public class Serializador {
         }
 
         try {
-            archivoSalida = new FileOutputStream("../src/baseDatos/temp/lonas.dat");
+            archivoSalida = new FileOutputStream("src/baseDatos/temp/lonas.dat");
             objetoSalida = new ObjectOutputStream(archivoSalida);
             objetoSalida.writeObject(CamionLona.getCamiones());
             objetoSalida.close();
@@ -95,7 +95,7 @@ public class Serializador {
         }
 
         try {
-            archivoSalida = new FileOutputStream("../src/baseDatos/temp/portaCoches.dat");
+            archivoSalida = new FileOutputStream("src/baseDatos/temp/portaCoches.dat");
             objetoSalida = new ObjectOutputStream(archivoSalida);
             objetoSalida.writeObject(CamionPortaCoches.getCamiones());
             objetoSalida.close();
