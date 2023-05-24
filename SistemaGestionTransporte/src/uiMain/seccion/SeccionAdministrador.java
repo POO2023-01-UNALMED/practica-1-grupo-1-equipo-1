@@ -1,5 +1,6 @@
 package uiMain.seccion;
 
+import gestorAplicaciones.entidades.Usuario;
 import uiMain.Main;
 
 public class SeccionAdministrador implements Seccion {
@@ -7,7 +8,7 @@ public class SeccionAdministrador implements Seccion {
     @Override
     public void Inicio() {
         do{
-            System.out.println("Ingrese:\n1.ingresar como administrador.\n0salir.");
+            System.out.println("Ingrese:\n1. ingresar como administrador.\n0. salir.");
 
         this.opcion = Main.getOption();
         switch (this.opcion) {
@@ -25,7 +26,7 @@ public class SeccionAdministrador implements Seccion {
     @Override
     public void showMenu() {
         do{
-            System.out.println("Ingrese:\n1. Historial de pedidos.\n2 Pedidos en curso.\n3. Trabajadores\n4. Vehiculos\n5. Usuarios.\n0salir.");
+            System.out.println("Ingrese:\n1. Historial de pedidos.\n2. Pedidos en curso.\n3. Trabajadores.\n4. Vehiculos.\n5. Usuarios.\n0salir.");
             this.opcion = Main.getOption();
             switch (this.opcion) {
                 case 0:
@@ -71,9 +72,10 @@ public class SeccionAdministrador implements Seccion {
     @Override
     public void ingresar() {
         String usuario,clave;
-        usuario = Main.usurio();
-        clave = Main.clave();
-        if (this.validarInformacion(usuario,clave)){
+        usuario = "Administrador";
+        System.out.println("Clave: ");
+        clave = Main.pedirDato();
+        if (this.validarInformacion(usuario,clave )!= null){
             System.out.println("correcto");
         }
         else{
@@ -82,7 +84,7 @@ public class SeccionAdministrador implements Seccion {
     }
 
     @Override
-    public boolean validarInformacion(String usuario, String clave) {
-        return false;
+    public Usuario validarInformacion(String usuario, String clave) {
+        return null;
     }
 }

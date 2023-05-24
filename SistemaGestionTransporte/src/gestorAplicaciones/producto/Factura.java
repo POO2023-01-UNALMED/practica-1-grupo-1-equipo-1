@@ -74,4 +74,12 @@ public class Factura {
         return "Factura No: " + this.ID
                 + ""
     }*/
+
+    public static void historialFacturas(Usuario usuairo){
+        for (Factura factura : Factura.facturas){
+            if(factura.getUsuario() == usuairo){
+                System.out.println(factura);
+            }
+        }
+    }
 }

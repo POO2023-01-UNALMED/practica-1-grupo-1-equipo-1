@@ -1,5 +1,7 @@
 package uiMain.seccion;
 
+import gestorAplicaciones.entidades.Usuario;
+
 import java.util.Scanner;
 
 public interface Seccion {
@@ -7,7 +9,7 @@ public interface Seccion {
     public  void showMenu();
     public  void guardar();
     public void ingresar();
-    public boolean validarInformacion(String usuario, String clave);
+    public Usuario validarInformacion(String usuario, String clave);
 }
 
 

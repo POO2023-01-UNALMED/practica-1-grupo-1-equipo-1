@@ -11,10 +11,6 @@ public class Usuario{
 	private String clave;
 	private long ID;
 	private String correo;
-
-	//private float saldo;
-	//private Pedido pedido;
-	//private String tipoUsuario;
 	
 	//constructores
 	
@@ -22,9 +18,7 @@ public class Usuario{
 		this(nombre, clave, correo);
 		this.ID = id;
 		Usuario.usuarios.add(this);
-		//saldo = 0;
-		//pedido = null;
-		//tipoUsuario = "cliente";
+
 	}
 	public Usuario (String nombre, String clave, String correo) {
 		this.nombre = nombre;
@@ -69,14 +63,9 @@ public class Usuario{
 
 	//metodos
 	
-	public static void crearUsuario(String nombre, String clave,long id, String correo) {
-		new Usuario(nombre, clave, id, correo);
+	public static Usuario crearUsuario(String nombre, String clave, long id, String correo) {
+		return new Usuario(nombre, clave, id, correo);
 	}
-	/*public String iniciarSesion(int id, String clave) {
-		boolean estado = false;
-		estado = comprobarDocumento(id);
-		estado = comprobarClave(clave);
-	}*/
 
 	public boolean comprobarUsuario(String nombre, String clave){
 		return this.nombre.equals(nombre) && this.clave.equals(clave);
@@ -85,7 +74,7 @@ public class Usuario{
 		return this.ID == id && this.clave.equals(clave);
 	}
 
-	public static boolean comprobarMombre(String nombre){
+	public static boolean comprobarNombre(String nombre){
 		for (Usuario usuario : Usuario.usuarios){
 			if (usuario.getNombre().equals(nombre)) return true;
 		}
@@ -98,6 +87,13 @@ public class Usuario{
 		return false;
 	}
 
+	public static boolean comprobarCorreo(String correo){
+		for(Usuario usuario : Usuario.usuarios){
+			if(usuario.getCorreo().equals(correo)) return true;
+		}
+		return false;
+	}
+
 	@Override
 	public String toString(){
 		return "nombre\t" + this.nombre
@@ -105,20 +101,4 @@ public class Usuario{
 				+ "\ncorreo\t" + this.correo
 				+ "\n";
 	}
-	/*public String recargarCuenta(float plata) {
-		saldo += plata;
-		return "Su saldo es" + getSaldo();
-	}
-	public String mostrarSaldo() {
-		return "Su saldo es" + getSaldo();
-	}
-	public String retirarSaldo(float plata) {
-		if (plata <= saldo) {
-			saldo -= plata;
-			return "Su saldo es" + getSaldo();
-		}else {
-			return "Saldo insuficiente";
-		}
-	}*/
-	//public Pedido historialPedidos() {}
 }
