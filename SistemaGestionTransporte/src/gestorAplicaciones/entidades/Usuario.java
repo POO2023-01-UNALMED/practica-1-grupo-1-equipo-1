@@ -6,7 +6,7 @@ public class Usuario{
 	
 	//atributos serializador
 	//private static final long serialVersionUID = 1L;
-	private static ArrayList<Usuario> usuarios = new ArrayList<Usuario>();
+	private final static ArrayList<Usuario> usuarios = new ArrayList<Usuario>();
 	private final String nombre;
 	private String clave;
 	private long ID;
@@ -38,9 +38,9 @@ public class Usuario{
 		return usuarios;
 	}
 
-	public static void setUsuarios(ArrayList<Usuario> usuarios) {
+	/*public static void setUsuarios(ArrayList<Usuario> usuarios) {
 		Usuario.usuarios = usuarios;
-	}
+	}*/
 
 	public String getNombre() {
 		return nombre;

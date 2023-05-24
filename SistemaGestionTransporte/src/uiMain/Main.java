@@ -65,20 +65,4 @@ public class Main {
         Scanner scanner = new Scanner(System.in);
         return scanner.nextLine();
     }
-
-    public static void iniciarSeccion(){
-        String usuario;
-        String clave;
-        System.out.println("USuario: ");
-        Scanner scanner = new Scanner(System.in);
-        usuario = scanner.nextLine();
-        System.out.println("Clave: ");
-        scanner = new Scanner(System.in);
-        clave = scanner.nextLine();
-        /*if (this.validarInformacion(usuario,clave)){
-            System.out.println("correcto");
-        }
-        else{
-            System.out.println("Usuario y/o clave no validas");*/
-    }
 }

@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public class Empleado extends Usuario {
 	
 	//atributos
-	private static ArrayList<Empleado> empleados = new ArrayList<Empleado>();
+	private final static ArrayList<Empleado> empleados = new ArrayList<Empleado>();
 	//private Vehiculo vehiculo;
 	//private String nombre;
 	//private String clave;
@@ -35,9 +35,9 @@ public class Empleado extends Usuario {
 		return empleados;
 	}
 
-	public static void setEmpleados(ArrayList<Empleado> empleados) {
+	/*public static void setEmpleados(ArrayList<Empleado> empleados) {
 		Empleado.empleados = empleados;
-	}
+	}*/
 
 	public boolean isEstatusActivo() {
 		return estatusActivo;

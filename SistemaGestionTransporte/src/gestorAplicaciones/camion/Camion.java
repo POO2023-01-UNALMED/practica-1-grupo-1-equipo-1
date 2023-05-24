@@ -6,7 +6,7 @@ import java.util.ArrayList;
 
 public abstract class Camion {
     //atributos
-    public static ArrayList<Camion> camiones = new ArrayList<Camion>();
+    public final static ArrayList<Camion> camiones = new ArrayList<Camion>();
     private String placa;
     private String tamanio;
     private String capacidad;
@@ -28,9 +28,9 @@ public abstract class Camion {
         return camiones;
     }
 
-    public static void setCamiones(ArrayList<Camion> camiones) {
+    /*public static void setCamiones(ArrayList<Camion> camiones) {
         Camion.camiones = camiones;
-    }
+    }*/
 
     public String getPlaca() {
         return placa;
