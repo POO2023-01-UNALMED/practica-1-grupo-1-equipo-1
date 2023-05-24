@@ -11,9 +11,9 @@ import javax.sound.midi.Soundbank;
 
 public class SeccionAdministrador implements Seccion {
     int opcion = 0; //toma el valor de la opcion ingresado por consola
-    Camion camion;
-    Empleado empleado;
     Pais pais;
+
+    String p;
 
     Administrador admin = new Administrador();
     @Override
@@ -48,7 +48,7 @@ public class SeccionAdministrador implements Seccion {
                     Ingrese:
                     1. Registrar nuevo empleado.
                     2. Registar nuevo vehiculo.
-                    3. Estadisticas.
+                    3. Facturas.
                     4. Vehiculos.
                     5. Usuarios.
                     6. Empleados.
@@ -70,19 +70,25 @@ public class SeccionAdministrador implements Seccion {
                     this.opcion = -1;
                     break;
                 case 3:
-                    admin.estadistica();
+
+                    this.Facturas();
+                    this.opcion = -1;
                     break;
                 case 4:
                     //lista de vehiculos
                     this.Camiones();
+                    this.opcion = -1;
                     break;
                 case 5:
                     //lista de usuarios
                     this.Usuarios();
+                    this.opcion = -1;
                     break;
                 case 6:
                     //lista de mepleados
                     this.Empleados();
+                    this.opcion = -1;
+                    break;
                 default:
                     System.out.println("opcion no valida.");
             }
@@ -90,8 +96,19 @@ public class SeccionAdministrador implements Seccion {
 
     }
 
+    private void Facturas() {
+        this.p = Main.selecionarPais().getNombre();
+        if (p != null) {
+            System.out.println(admin.mostrarFacturas(p));
+        }
+
+    }
+
     private void Empleados() {
-        System.out.println(admin.mostrarEmpleados());
+        this.p = Main.selecionarPais().getNombre();
+        if (p != null) {
+            System.out.println(admin.mostrarEmpleados(p));
+        }
     }
 
     private void Usuarios() {
@@ -99,7 +116,43 @@ public class SeccionAdministrador implements Seccion {
     }
 
     private void Camiones() {
-        System.out.println(admin.mostarCamiones());
+        this.p = Main.selecionarPais().getNombre();
+        if(p == null) return;
+
+        String tipoCarga = null;
+        do {
+            System.out.println("""
+                                    
+                    Tipo de vehiculo:
+                    1. Cisterna.
+                    2. Frigorifico.
+                    3. Lona.
+                    4. PortaCoches.
+                    0. Cancelar.
+                    """);
+            this.opcion = Main.getOption();
+
+            switch (this.opcion) {
+                case 0 -> {
+                    return;
+                }
+                case 1 -> {
+                    tipoCarga = "Cisterna";
+                }
+                case 2 -> {
+                    tipoCarga = "Frigorifico";
+                }
+                case 3 -> {
+                    tipoCarga = "Lona";
+                }
+                case 4 -> {
+                    tipoCarga = "PortaCoches";
+                }
+                default -> System.out.println("Opcion no valida");
+            }
+        } while(this.opcion < 0 || this.opcion > 4);
+
+        System.out.println(admin.mostarCamiones(p,tipoCarga));
     }
 
     @Override

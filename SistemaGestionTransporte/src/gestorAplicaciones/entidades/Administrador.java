@@ -2,6 +2,8 @@ package gestorAplicaciones.entidades;
 
 import gestorAplicaciones.camion.*;
 import gestorAplicaciones.pais.Pais;
+import gestorAplicaciones.producto.Factura;
+
 import java.util.ArrayList;
 
 public class Administrador extends Empleado{
@@ -15,29 +17,15 @@ public class Administrador extends Empleado{
 	}
 	
 	//metodos
-	public void estadistica() {
-		
-	}
-	public void modificarCosto() {
-		
-	}
-	public String mostrarEmpleados() {
+	public String mostrarEmpleados(String pais) {
 		//mostar dotos los objetos de tipo Empleado
 		StringBuilder infoEmpleados = new StringBuilder();
 		for (Empleado empleado : Empleado.getEmpleados()) {
-			infoEmpleados.append(empleado.toString());
-		}
-		return infoEmpleados.toString();
-	}
-
-	public Empleado mostarEmpleado(String nombre) {
-		//retorna la instancia de Empleado que sea igual al atributo de tipo String pasado como argumento
-		for (Empleado empleado : Empleado.getEmpleados()) {
-			if (empleado.getNombre().equals(nombre)) {
-				return empleado;
+			if(empleado.getPais().equals(pais)) {
+				infoEmpleados.append(empleado);
 			}
 		}
-		return null;
+		return infoEmpleados.toString();
 	}
 
 	public String mostarUsuarios() {
@@ -49,29 +37,29 @@ public class Administrador extends Empleado{
 		return infoUsuarios.toString();
 	}
 
-	public String mostarCamiones(){
+	public String mostarCamiones(String pais, String tipoCamion){
 		//mostar informacion de los objetos que heredan de la clase Camion
 		StringBuilder infoCamiones = new StringBuilder();
 		ArrayList<? extends Camion> camiones;
-		String[] tipoCamiones = {"Cisterna", "Frigorifico", "Lona", "PortaCoches"};
-		for (String tipoCarga : tipoCamiones) {
 
-			camiones = Camion.listaCamiones(tipoCarga);
-			for (Camion camion : camiones) {
-				infoCamiones.append(camion.toString());
+		camiones = Camion.camiones.get(tipoCamion);
+		for(Camion camion : camiones){
+			if(camion.getPais().equals(pais)){
+				infoCamiones.append(camion);
 			}
 		}
 		return infoCamiones.toString();
 	}
 
-	public Usuario mostarUsuario(String nombre) {
-		//retorna la instancia de Usuario que sea igual al atributo de tipo String pasado como argumento
-		for (Usuario usuario : Usuario.getUsuarios()){
-			if(usuario.getNombre().equals(nombre)){
-				return usuario;
+	public String mostrarFacturas(String pais) {
+		//Retorna un String con las facturas en el pais pasado como argumento
+		StringBuilder infoFacturas = new StringBuilder();
+		for(Factura factura : Factura.getFacturas()){
+			if(factura.getPedido().getPais().getNombre().equals(pais)){
+				infoFacturas.append(factura);
 			}
 		}
-		return null;
+		return infoFacturas.toString();
 	}
 
 	public void registrarEmpleado(String nombre, String clave, String id, String correo, String pais,String CiudadActual) {

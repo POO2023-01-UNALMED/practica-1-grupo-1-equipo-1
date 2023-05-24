@@ -29,6 +29,7 @@ public class Main {
         /*CargarInformacion.cargarUsuarios();
         CargarInformacion.cargarCamiones();
         CargarInformacion.cargarEmpleados();*/
+
         Deserializador.deserializar();
         Camion.datosCamiones();
 

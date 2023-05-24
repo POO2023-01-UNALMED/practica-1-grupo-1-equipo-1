@@ -49,6 +49,7 @@ public class SeccionUsuario implements Seccion {
     @Override
     public void showMenu() {
         //mostar el tipo de acciones que puede realizar el usuario.
+        System.out.println("\nBenvenido/a "+usuario.getNombre());
         do{
             System.out.println("""
 
