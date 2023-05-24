@@ -255,15 +255,15 @@ public class SesionUsuario implements Sesion {
 
         Camion camion = null;
         double distancia = Double.MAX_VALUE;
-
+        Pedido pedido = new Pedido();
+        pedido.setPais(this.pedido.getPais());
+        pedido.setDestino(origen);
         for(Camion c : Camion.camiones.get(tipoCarga)) {
-            Pedido pedido = new Pedido();
-            pedido.setDestino(origen);
-            if (c.getPesoMaximo() == peso && c.isDisponible()) {
-                pedido.setOrigen(c.getCiudadActual());
-                c.setRuta(pedido.calcularRuta());
 
-                for (Pair<String, Double> d : c.getRuta()) {
+            if (c.getPesoMaximo() == peso && c.isDisponible() && c.getPais().equals(pedido.getPais().getNombre())) {
+                pedido.setOrigen(c.getCiudadActual());
+
+                for (Pair<String, Double> d : pedido.calcularRuta()) {
                     if (d.getKey().equals(origen) && d.getValue() < distancia) {
                         distancia = d.getValue();
                         camion = c;
