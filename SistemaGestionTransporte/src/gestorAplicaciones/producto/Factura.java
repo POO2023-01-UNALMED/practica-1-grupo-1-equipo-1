@@ -1,9 +1,5 @@
 package gestorAplicaciones.producto;
 
-import gestorAplicaciones.camion.CamionCisterna;
-import gestorAplicaciones.camion.CamionFrigorifico;
-import gestorAplicaciones.camion.CamionLona;
-import gestorAplicaciones.camion.CamionPortaCoches;
 import gestorAplicaciones.entidades.Usuario;
 
 import java.util.ArrayList;
@@ -32,7 +28,6 @@ public class Factura {
     }
 
     //metodos getter and setter
-
     public static long getIDfactura() {
         return IDfactura;
     }
@@ -97,6 +92,10 @@ public class Factura {
         //Calcular costo total del pedido
         this.costo = capacidad*0.05*costoCamion*this.ganancia;
 
+    }
+
+    public static void agregarFactura(Factura factura){
+        Factura.facturas.add(factura);
     }
 
     public static void historialFacturas(Usuario usuairo){

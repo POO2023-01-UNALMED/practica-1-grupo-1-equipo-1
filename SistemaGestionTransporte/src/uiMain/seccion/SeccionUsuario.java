@@ -14,7 +14,7 @@ import java.util.ArrayList;
 public class SeccionUsuario implements Seccion {
     int opcion = 0;
     Usuario usuario;
-    Pedido pedido = new Pedido();
+    Pedido pedido;
     Camion camion;
     Factura factura;
     @Override
@@ -41,7 +41,7 @@ public class SeccionUsuario implements Seccion {
                         this.ingresar();
                 case 2 ->
                     //Registar usuario
-                        this.registrarUSuario();
+                        this.registrarUsuario();
                 default -> System.out.println("Opcion no valida.\n");
             }
         }while(this.opcion != 0);
@@ -74,6 +74,7 @@ public class SeccionUsuario implements Seccion {
                 case 2:
                     /*
                     seguimiento de pedido (funcionalidad)
+                    this.seguirPedido();
                      */
                     break;
                 case 3:
@@ -96,6 +97,7 @@ public class SeccionUsuario implements Seccion {
         //funcionalidad 1 gestion de productos y seleccion automatica de camion a utilizar y auto a emplear
         //esta funcion se encarga de gestionnar la realizacion de un pedido
         String tipoCarga;
+        pedido = new Pedido();
         //Seleccionar pais
         pedido.setPais(this.selecionarPais());
         if(pedido.getPais() == null){
@@ -142,6 +144,36 @@ public class SeccionUsuario implements Seccion {
         //funcionalidad 2 tarifa dinamica
         this.calcularTarifa();
 
+        //confirmar pedido
+        this.confirmarPedido();
+        if(this.opcion == 1){
+            //pasar a armar pedido
+            camion.setDisponible(false);
+            camion.getEmpleado().setDisponible(false);
+            Factura.agregarFactura(this.factura);
+            /*
+            1. Encontar hora de salida y hora de llegada
+            2. Buscar camion mismas caracteristicas en ciudad destino y conductor y enviar a origen
+             */
+        }
+        else{
+            factura.setID(factura.getID() - 1);
+
+        }
+
+    }
+
+    private void confirmarPedido() {
+        System.out.println(factura);
+        do{
+            System.out.println("""
+                    
+                    Seleccione.
+                    1. Confirmar pedido.
+                    2. Cancelar pedido.
+                    """);
+            this.opcion = Main.getOption();
+        }while(this.opcion != 0);
     }
 
     private void calcularTarifa() {
@@ -381,7 +413,7 @@ public class SeccionUsuario implements Seccion {
         return null;
     }
 
-    public void registrarUSuario(){
+    public void registrarUsuario(){
         /*
         Esta funcion registra un nuervo usuario en caso de que se cumplan
         todas las condiciones
