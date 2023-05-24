@@ -120,9 +120,11 @@ public class SeccionUsuario implements Seccion {
             pedido.setVehiculo(camion.getPlaca());
             pedido.setEstado("Confirmado");
             Factura.agregarFactura(this.factura);
+            System.out.println("Pedido realizado");
         }
         else{
-            factura.setID(factura.getID() - 1);
+            factura = null;
+            Factura.setIDfactura(Factura.getIDfactura() - 1);
         }
 
     }

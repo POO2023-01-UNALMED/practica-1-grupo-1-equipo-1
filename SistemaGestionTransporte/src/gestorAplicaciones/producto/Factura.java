@@ -29,6 +29,7 @@ public class Factura {
         super();
         this.pedido = pedido;
         this.usuario = usuario;
+        this.ID = Factura.IDfactura;
     }
 
     //metodos getter and setter

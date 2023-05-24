@@ -242,7 +242,7 @@ public class Pedido {
         factor = actual.getDayOfYear() - salida.getDayOfYear();
         diffHora = factor*24 + actual.getHour() - salida.getHour();
 
-        if(diffHora < 0) this.estado = "Confrmado";
+        if(diffHora < 0) this.estado = "Confirmado";
         else if(diffHora < duracion) this.estado = "Enviado";
         else this.estado = "Entregado";
     }
