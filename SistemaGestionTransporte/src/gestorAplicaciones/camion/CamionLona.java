@@ -31,11 +31,6 @@ public class CamionLona extends Camion {
     }
 
     @Override
-    public boolean comprobarPlaca(String placa) {
-        return false;
-    }
-
-    @Override
     public String ubicacion() {
         return null;
     }

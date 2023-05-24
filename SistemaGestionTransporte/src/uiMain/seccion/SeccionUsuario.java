@@ -92,22 +92,31 @@ public class SeccionUsuario implements Seccion {
     }
 
     private void seguirPedido() {
+        //funcionalidad 4 seguir estado pedido
         long id;
         System.out.println("Ingrese ID factura: ");
         id = Long.parseLong(Main.pedirDato());
         factura = Factura.buscarFactura(id, usuario.getNombre());
+        if(factura != null){
+            pedido = factura.getPedido();
+            camion = Camion.buscarCamion(pedido.getTipoProductos(), pedido.getVehiculo());
+            System.out.println(factura);
+            if(pedido.getEstado().equals("Enviado")){
+                System.out.println();
+            }
+        }
     }
 
     private void realizarPedido() {
         //esta funcion se encarga de gestionar la realizacion de un pedido
 
-        //funcionalidad 1 gestionn de pedido
+        //funcionalidad 1 gestion de pedido
         if(!this.gestionarPedido()) return;
 
         //funcionalidad 2 tarifa dinamica
         this.calcularTarifa();
 
-        //Calcular hora de salida y llegada
+        //funcionalidad 3 Calcular hora de salida y llegada
         this.calcularTiempo();
 
         //confirmar pedido
@@ -116,11 +125,9 @@ public class SeccionUsuario implements Seccion {
             //pasar a armar pedido
             camion.setDisponible(false);
             camion.getEmpleado().setDisponible(false);
+            pedido.setVehiculo(camion.getPlaca());
+            pedido.setEstado("Confirmado");
             Factura.agregarFactura(this.factura);
-            /*
-            1. Encontar hora de salida y hora de llegada
-            2. Buscar camion mismas caracteristicas en ciudad destino y conductor y enviar a origen
-             */
         }
         else{
             factura.setID(factura.getID() - 1);
@@ -163,6 +170,8 @@ public class SeccionUsuario implements Seccion {
             System.out.println("Seleccion no validad.");
             return false;
         }
+        pedido.setTipoProductos(tipoCarga);
+
         pedido.setProductos(Producto.seleccionarProductos(tipoCarga));
         if(pedido.getProductos() == null){
             System.out.println("No has ingresado ningun producto.");

@@ -3,7 +3,6 @@ package gestorAplicaciones.producto;
 import gestorAplicaciones.pais.Ciudad;
 import gestorAplicaciones.pais.Pais;
 import gestorAplicaciones.util.Pair;
-
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
@@ -20,6 +19,7 @@ public class Pedido {
     private Pais pais;
     private String estado;
     private String vehiculo;
+    private String tipoProductos;
 
     //constructor
     public Pedido() {
@@ -97,6 +97,14 @@ public class Pedido {
 
     public void setVehiculo(String vehiculo) {
         this.vehiculo = vehiculo;
+    }
+
+    public String getTipoProductos() {
+        return tipoProductos;
+    }
+
+    public void setTipoProductos(String tipoProductos) {
+        this.tipoProductos = tipoProductos;
     }
 
     //metodos
@@ -197,6 +205,8 @@ public class Pedido {
         for(Producto producto : this.productos){
             sb.append(producto.toString()).append("\n");
         }
+        if(this.estado != null) sb.append("Estado: ").append(this.estado).append("\n");
+        else sb.append("Estado: Por confirmar\n");
         return sb.toString();
     }
 
@@ -223,10 +233,29 @@ public class Pedido {
         return horaSalida.plusHours(horas);
     }
 
-    public static void main(String[] args){
-        Pedido pedido= new Pedido();
-        pedido.setPais(Pais.COLOMBIA);
-        pedido.calcularHoraSalida();
-        pedido.calcularHoraLLegada(8,pedido.calcularHoraSalida());
+    public void verificarEstado(LocalDateTime salida, LocalDateTime llegada){
+
+        LocalDateTime actual = LocalDateTime.now();
+
+        int diffHora, duracion, factor;
+        duracion = llegada.getHour() - salida.getHour();
+        factor = actual.getDayOfYear() - salida.getDayOfYear();
+        diffHora = factor*24 + actual.getHour() - salida.getHour();
+
+        if(diffHora < 0) this.estado = "Confrmado";
+        else if(diffHora < duracion) this.estado = "Enviado";
+        else this.estado = "Entregado";
+    }
+
+    public double tiempoTranscurrido(LocalDateTime salida){
+        LocalDateTime actual = LocalDateTime.now();
+        return actual.getHour() - salida.getHour() + (double)actual.getMinute()/60;
+    }
+
+    public static void main(String[] args) {
+        LocalDateTime actual = LocalDateTime.now();
+        DateTimeFormatter fecha = DateTimeFormatter.ofPattern("yyyy-MM-dd HH-mm-ss");
+        System.out.println(actual.format(fecha));
+        System.out.println(actual.getSecond());
     }
 }

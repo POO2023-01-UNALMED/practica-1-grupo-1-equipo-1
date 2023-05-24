@@ -28,10 +28,6 @@ public class CamionCisterna extends Camion{
         return velocidadBase + this.getCapacidad() * factor;
     }
 
-    @Override
-    public boolean comprobarPlaca(String placa) {
-        return false;
-    }
 
     @Override
     public String ubicacion() {

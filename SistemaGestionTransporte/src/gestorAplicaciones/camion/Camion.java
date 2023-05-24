@@ -107,7 +107,9 @@ public abstract class Camion {
     }
     public abstract double valocidad();
 
-    public abstract boolean comprobarPlaca(String placa);
+    public boolean comprobarPlaca(String placa){
+        return this.placa.equals(placa);
+    }
 
     public abstract String ubicacion();
     public abstract String tiempoRestante();
@@ -158,4 +160,29 @@ public abstract class Camion {
         return null;
     }
 
+    public static Camion buscarCamion(String tipoCarga, String placa){
+        switch (tipoCarga) {
+            case "perecedera" -> {
+                for (CamionFrigorifico c : CamionFrigorifico.getCamiones()) {
+                    if (c.comprobarPlaca(placa)) return c;
+                }
+            }
+            case "fragil", "general" -> {
+                for (CamionLona c : CamionLona.getCamiones()) {
+                    if (c.comprobarPlaca(placa)) return c;
+                }
+            }
+            case "ADR" -> {
+                for (CamionCisterna c : CamionCisterna.getCamiones()) {
+                    if (c.comprobarPlaca(placa)) return c;
+                }
+            }
+            case "coches" -> {
+                for (CamionPortaCoches c : CamionPortaCoches.getCamiones()) {
+                    if (c.comprobarPlaca(placa)) return c;
+                }
+            }
+        }
+        return null;
+    }
 }
