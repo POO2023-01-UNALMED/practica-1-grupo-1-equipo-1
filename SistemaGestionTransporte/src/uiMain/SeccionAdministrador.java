@@ -1,13 +1,13 @@
 package uiMain;
 
-public class SeccionAdministrador extends Seccion{
-
+public class SeccionAdministrador implements Seccion {
+    int opcion = 0;
     @Override
     public void Inicio() {
         do{
             System.out.println("Ingrese:\n1.ingresar como administrador.\n0salir.");
 
-        this.opcion = Seccion.getOption();
+        this.opcion = Main.getOption();
         switch (this.opcion) {
             case 0 ->
                 //salir
@@ -24,7 +24,7 @@ public class SeccionAdministrador extends Seccion{
     public void showMenu() {
         do{
             System.out.println("Ingrese:\n1. Historial de pedidos.\n2 Pedidos en curso.\n3. Trabajadores\n4. Vehiculos\n5. Usuarios.\n0salir.");
-            this.opcion = Seccion.getOption();
+            this.opcion = Main.getOption();
             switch (this.opcion) {
                 case 0:
                     System.out.println("Seccion terminada.");
@@ -64,6 +64,19 @@ public class SeccionAdministrador extends Seccion{
     @Override
     public void guardar() {
 
+    }
+
+    @Override
+    public void ingresar() {
+        String usuario,clave;
+        usuario = Main.usurio();
+        clave = Main.clave();
+        if (this.validarInformacion(usuario,clave)){
+            System.out.println("correcto");
+        }
+        else{
+            System.out.println("Usuario y/o clave no validas");
+        }
     }
 
     @Override
