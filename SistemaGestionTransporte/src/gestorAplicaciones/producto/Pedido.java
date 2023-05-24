@@ -170,7 +170,7 @@ public class Pedido {
 
     }
 
-    public static void main(String[] args){
+    /*public static void main(String[] args){
         Pedido pedido= new Pedido();
         pedido.setPais(Pais.COLOMBIA);
         pedido.setOrigen("T");
@@ -179,5 +179,5 @@ public class Pedido {
         for(Pair<String,Double> ciudad : ruta){
             System.out.println(ciudad.getKey()+"\t"+ciudad.getValue());
         }
-    }
+    }*/
 }

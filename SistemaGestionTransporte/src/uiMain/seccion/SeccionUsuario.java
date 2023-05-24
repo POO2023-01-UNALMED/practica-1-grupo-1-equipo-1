@@ -6,8 +6,6 @@ import gestorAplicaciones.producto.Factura;
 import gestorAplicaciones.producto.Pedido;
 import uiMain.Main;
 
-import java.lang.runtime.SwitchBootstraps;
-
 public class SeccionUsuario implements Seccion {
     int opcion = 0;
     Usuario usuario;
@@ -19,7 +17,13 @@ public class SeccionUsuario implements Seccion {
         registar un nuevo usuario o salir al menu principal en Main
          */
         do {
-            System.out.println(" \nIngrese:\n1. iniciar Seccion.\n2. Registrarse.\n0. salir.");
+            System.out.println("""
+                    
+                    Ingrese:
+                    1. iniciar Seccion.
+                    2. Registrarse.
+                    0. salir.""");
+
             this.opcion = Main.getOption();
             switch (this.opcion) {
                 case 0 ->
@@ -40,7 +44,15 @@ public class SeccionUsuario implements Seccion {
     public void showMenu() {
         //mostar el tipo de acciones que puede realizar el usuario.
         do{
-            System.out.println("\nIngrese:\n1. Realizar pedido.\n2. Seguir pedido.\n3. historial de pedido.\n4. PQRS.\n0. salir.");
+            System.out.println("""
+
+                    Ingrese:
+                    1. Realizar pedido.
+                    2. Seguir pedido.
+                    3. historial de pedido.
+                    4. PQRS.
+                    0. salir.""");
+
             this.opcion = Main.getOption();
             switch (this.opcion) {
                 case 0:
@@ -50,7 +62,7 @@ public class SeccionUsuario implements Seccion {
                     //realizar pedido
                     this.realizarPedido();
                     this.opcion = -1;
-
+                    
                     break;
                 case 2:
                     /*
@@ -82,19 +94,43 @@ public class SeccionUsuario implements Seccion {
         pais = this.selecionarPais();
 
         //Seleccionar ciudad de origen
-        origen = this.ElegirCiudad(pais,"Origen");
-
-        //seleccionar ciuddad de destino
-        destino = this.ElegirCiudad(pais,"Destino");
-
-        //seleccionar tipos de prodcto a transportar
+        origen = this.elegirCiudad(pais,"Origen");
         
+        //seleccionar ciuddad de destino
+        destino = this.elegirCiudad(pais,"Destino");
+        
+        //seleccionar tipos de produccto a transportar
+        this.seleccionarProductos();
     }
 
-    private String ElegirCiudad(Pais pais,String ciudad) {
+    private void seleccionarProductos() {
+        System.out.println("Seleccione el tipo de producto a transportar");
+        do{
+            System.out.println("""
+                    Ingrese:\s
+                    1. Carga perecedera.
+                    2. Carga fragil.
+                    3. Carga fragil.
+                    4. Carga ADR.
+                    5. Carga general.\s""");
+
+            this.opcion = Main.getOption();
+
+
+        }while(this.opcion != 0);
+    }
+
+    private String elegirCiudad(Pais pais,String ciudad) {
         String str;
         do{
-            System.out.println("\nIngrese:\n1. Ingresar ciudad de "+ciudad+".\n2. ver lista de ciudades.\n0. Salir.");
+            System.out.println("""
+            
+            Ingrese:
+            1. Ingresar ciudad de "+ciudad+".
+            2. ver lista de ciudades.
+            0. Salir.""");
+
+            this.opcion = Main.getOption();
             switch (opcion){
                 case 0:
                     break;
@@ -114,9 +150,16 @@ public class SeccionUsuario implements Seccion {
     }
 
     private Pais selecionarPais() {
-        //seleccionar pais donde se realiza el pedido.
+        //seleccionar pais donde se realizara el transporte del pedido.
         do{
-            System.out.println("\nIngrese:\n1. Colombia.\n2. Ecuador.\n3. Panama.\n0. Salir.");
+            System.out.println("""
+
+                    Ingrese:
+                    1. Colombia.
+                    2. Ecuador.
+                    3. Panama.
+                    0. Salir.""");
+            
             this.opcion = Main.getOption();
             switch (this.opcion){
                 case 0:

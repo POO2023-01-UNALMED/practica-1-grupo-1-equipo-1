@@ -23,7 +23,13 @@ public class Main {
 
         //inicio de seccion
         do {
-            System.out.println("\nPresione:\n1. Ingresar como usuario\n2. Ingresar como empleado\n3. Ingresar como administrador\n0. Salir");
+            System.out.println("""
+                    
+                    Presione:
+                    1. Ingresar como usuario
+                    2. Ingresar como empleado
+                    3. Ingresar como administrador
+                    0. Salir""");
             opcion = Main.getOption();
             switch (opcion) {
                 case 0 ->

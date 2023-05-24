@@ -9,7 +9,11 @@ public class SeccionAdministrador implements Seccion {
     public void Inicio() {
         do{
         //Se tienen las opciones de ingresar como administardor o salir al menu principal en Main
-            System.out.println("\nIngrese:\n1. ingresar como administrador.\n0. salir.");
+            System.out.println("""
+
+                    Ingrese:
+                    1. ingresar como administrador.
+                    0. salir.""");
 
         this.opcion = Main.getOption();
         switch (this.opcion) {
@@ -28,7 +32,16 @@ public class SeccionAdministrador implements Seccion {
     public void showMenu() {
         //mostar el tipo de acciones que puede realizar el administrador.
         do{
-            System.out.println("\nIngrese:\n1. Historial de pedidos.\n2. Pedidos en curso.\n3. Trabajadores.\n4. Vehiculos.\n5. Usuarios.\n0salir.");
+            System.out.println("""
+
+                    Ingrese:
+                    1. Historial de pedidos.
+                    2. Pedidos en curso.
+                    3. Trabajadores.
+                    4. Vehiculos.
+                    5. Usuarios.
+                    0salir.""");
+
             this.opcion = Main.getOption();
             switch (this.opcion) {
                 case 0:
