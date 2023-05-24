@@ -23,10 +23,11 @@ public abstract class Camion {
     private Empleado empleado;
 
     //constructor
-    public Camion(String placa,String pais, double pesoMaximo,double capacidad){
+    public Camion(String placa,String pais, String ciudadActual,double pesoMaximo,double capacidad){
         this.placa = placa;
         this.pesoMaximo = pesoMaximo;
         this.pais = pais;
+        this.ciudadActual = ciudadActual;
         this.capacidad = capacidad;
     }
 

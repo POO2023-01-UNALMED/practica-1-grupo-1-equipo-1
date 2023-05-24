@@ -8,8 +8,8 @@ import java.util.Map;
 public class CamionLona extends Camion {
     public final static ArrayList<CamionLona> camiones = new ArrayList<CamionLona>();
 
-    public CamionLona(String placa, String pais, double pesoMaximo, double capacidad) {
-        super(placa, pais, pesoMaximo, capacidad);
+    public CamionLona(String placa, String pais, String CiudadActual, double pesoMaximo, double capacidad) {
+        super(placa, pais, CiudadActual, pesoMaximo, capacidad);
         camiones.add(this);
     }
 

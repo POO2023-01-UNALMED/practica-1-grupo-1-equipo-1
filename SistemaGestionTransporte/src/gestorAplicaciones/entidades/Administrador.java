@@ -2,8 +2,6 @@ package gestorAplicaciones.entidades;
 
 import gestorAplicaciones.camion.*;
 import gestorAplicaciones.pais.Pais;
-import uiMain.Main;
-
 import java.util.ArrayList;
 
 public class Administrador extends Empleado{
@@ -76,18 +74,18 @@ public class Administrador extends Empleado{
 		return null;
 	}
 
-	public void registrarEmpleado(String nombre, String clave, String id, String correo, String pais) {
+	public void registrarEmpleado(String nombre, String clave, String id, String correo, String pais,String CiudadActual) {
 
-		Empleado.crearEmpleado(nombre, clave, Long.parseLong(id), correo,pais);
+		Empleado.crearEmpleado(nombre, clave, Long.parseLong(id), correo, pais, CiudadActual);
 	}
 
-	public void registarCamion(int opcion, String placa, String pais, double pesoMaximo, double capacidad) {
+	public void registarCamion(int opcion, String placa, String pais, String ciudadActual, double pesoMaximo, double capacidad) {
 
 		switch (opcion) {
-				case 1 -> camion = new CamionCisterna(placa, this.pais.getNombre(), pesoMaximo, capacidad);
-				case 2 -> camion = new CamionFrigorifico(placa, this.pais.getNombre(), pesoMaximo, capacidad);
-				case 3 -> camion = new CamionLona(placa, this.pais.getNombre(), pesoMaximo, capacidad);
-				case 4 -> camion = new CamionPortaCoches(placa, this.pais.getNombre(), pesoMaximo, capacidad);
+				case 1 -> camion = new CamionCisterna(placa, pais,ciudadActual, pesoMaximo, capacidad);
+				case 2 -> camion = new CamionFrigorifico(placa, pais, ciudadActual, pesoMaximo, capacidad);
+				case 3 -> camion = new CamionLona(placa, pais, ciudadActual, pesoMaximo, capacidad);
+				case 4 -> camion = new CamionPortaCoches(placa, pais, ciudadActual, pesoMaximo, capacidad);
 				default -> System.out.println("Opcion no valida");
 			}
 	}

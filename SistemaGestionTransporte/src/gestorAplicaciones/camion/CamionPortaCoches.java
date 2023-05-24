@@ -4,8 +4,8 @@ import java.util.ArrayList;
 
 public class CamionPortaCoches extends Camion{
     public final static ArrayList<CamionPortaCoches> camiones = new ArrayList<CamionPortaCoches>();
-    public CamionPortaCoches(String placa, String pais, double pesoMaximo, double capacidad) {
-        super(placa, pais, pesoMaximo, capacidad);
+    public CamionPortaCoches(String placa, String pais, String CiudadActual, double pesoMaximo, double capacidad) {
+        super(placa, pais, CiudadActual, pesoMaximo, capacidad);
         camiones.add(this);
     }
 

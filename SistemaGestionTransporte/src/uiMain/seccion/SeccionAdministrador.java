@@ -7,6 +7,8 @@ import gestorAplicaciones.entidades.Usuario;
 import gestorAplicaciones.pais.Pais;
 import uiMain.Main;
 
+import javax.sound.midi.Soundbank;
+
 public class SeccionAdministrador implements Seccion {
     int opcion = 0; //toma el valor de la opcion ingresado por consola
     Camion camion;
@@ -123,7 +125,7 @@ public class SeccionAdministrador implements Seccion {
         return null;
     }
     public void nuevoEmpleado() {
-        String nombre, clave, id, correo;
+        String nombre, clave, id, correo, ciudadActual;
 
         pais = Main.selecionarPais();
 
@@ -146,11 +148,22 @@ public class SeccionAdministrador implements Seccion {
         System.out.println("Clave: ");
         clave = Main.pedirDato();
 
-        admin.registrarEmpleado(nombre, clave, id, correo,pais.getNombre());
+        System.out.println("ciudad actual del empleado: ");
+        ciudadActual = Main.pedirDato();
+        do{
+            ciudadActual = Main.pedirDato();
+            if(pais.isCiudad(ciudadActual)) break;
+            System.out.println("Ciudad no encontrada.");
+            System.out.println("\n\"ciudad actual del empleado: \"");
+        }while(ciudadActual!=null);
+
+        if(ciudadActual==null) return;
+
+        admin.registrarEmpleado(nombre, clave, id, correo,pais.getNombre(), ciudadActual);
     }
 
     public void nuevoCamion() {
-        String placa;
+        String placa, ciudadActual;
         double pesoMaximo = 0, capacidad = 0;
 
         pais = Main.selecionarPais();
@@ -203,6 +216,9 @@ public class SeccionAdministrador implements Seccion {
                     pesoMaximo = 24;
                     capacidad = 48;
                 }
+                case 0 -> {
+                    return;
+                }
                 default -> System.out.println("Opcion no valida");
             }
         }while(this.opcion != 0);
@@ -219,9 +235,26 @@ public class SeccionAdministrador implements Seccion {
                 0. Cancelar.
                 """);
 
+            System.out.println("ciudad actual del empleado: ");
+            ciudadActual = Main.pedirDato();
+            do{
+                ciudadActual = Main.pedirDato();
+                if(pais.isCiudad(ciudadActual)) break;
+                System.out.println("Ciudad no encontrada.");
+                System.out.println("\n\"ciudad actual del empleado: \"");
+            }while(ciudadActual!=null);
+
+            if(ciudadActual==null) return;
+
             switch (this.opcion) {
-                case 1,2,3,4 -> admin.registarCamion(this.opcion, placa,pais.getNombre(),pesoMaximo,capacidad);
+                case 1,2,3,4 -> {
+                    admin.registarCamion(this.opcion, placa,pais.getNombre(), ciudadActual,pesoMaximo,capacidad);
+                    return;
+                }
                 default -> System.out.println("Opcion no valida");
+                case 0 -> {
+                    return;
+                }
             }
         }while (this.opcion != 0);
     }

@@ -17,10 +17,11 @@ public class Empleado extends Usuario {
 		super(nombre, clave, id, correo);
 	}
 
-	public Empleado (String nombre, String clave, long id, String correo, boolean statusActivo, String pais){
+	public Empleado (String nombre, String clave, long id, String correo, boolean statusActivo, String pais, String ciudadActual){
 		this(nombre, clave, id, correo);
 		this.estatusActivo = statusActivo;
 		this.pais = pais;
+		this.ciudadActual = ciudadActual;
 		Empleado.empleados.add(this);
 	}
 	
@@ -90,8 +91,8 @@ public class Empleado extends Usuario {
 		return costoPedido;
 	}
 
-	public static void crearEmpleado(String nombre, String clave, long id, String correo, String pais) {
-		new Empleado(nombre, clave, id, correo, true, pais);
+	public static void crearEmpleado(String nombre, String clave, long id, String correo, String pais, String ciudadActual) {
+		new Empleado(nombre, clave, id, correo, true, pais,ciudadActual);
 	}
 
 }
