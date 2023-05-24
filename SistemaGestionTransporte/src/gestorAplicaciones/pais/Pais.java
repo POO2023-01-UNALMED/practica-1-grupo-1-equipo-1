@@ -78,7 +78,7 @@ public enum Pais {
      * y crea el grafo de conexiones.
      */
     private void generarConexiones() {
-        String ruta = "src/baseDatos/temp/paises/" + this.nombre + ".txt";
+        String ruta = "../src/baseDatos/temp/paises/" + this.nombre + ".txt";
         String mapa = LeerArchivo(ruta);
         String[] lineas = mapa.split("\n");
         String[] conexion;

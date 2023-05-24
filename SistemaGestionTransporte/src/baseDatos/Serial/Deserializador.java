@@ -22,7 +22,7 @@ public class Deserializador {
 
         //deserializar usuarios
         try {
-            archivoEntrada = new FileInputStream("src/baseDatos/temp/usuarios.dat");
+            archivoEntrada = new FileInputStream("../src/baseDatos/temp/usuarios.dat");
             objetoEntrada = new ObjectInputStream(archivoEntrada);
             //Usuario.setUsuarios((ArrayList<Usuario>) objetoEntrada.readObject());
             ArrayList<Usuario> usuarios = (ArrayList<Usuario>) objetoEntrada.readObject();
@@ -33,7 +33,7 @@ public class Deserializador {
 
         //deserializar empleados
         try {
-            archivoEntrada = new FileInputStream("src/baseDatos/temp/empleados.dat");
+            archivoEntrada = new FileInputStream("../src/baseDatos/temp/empleados.dat");
             objetoEntrada = new ObjectInputStream(archivoEntrada);
             //Empleado.setEmpleados((ArrayList<Empleado>) objetoEntrada.readObject());
             ArrayList<Empleado> empleados = (ArrayList<Empleado>) objetoEntrada.readObject();
@@ -44,7 +44,7 @@ public class Deserializador {
 
         //deserializar facturas
         try {
-            archivoEntrada = new FileInputStream("src/baseDatos/temp/facturas.dat");
+            archivoEntrada = new FileInputStream("../src/baseDatos/temp/facturas.dat");
             objetoEntrada = new ObjectInputStream(archivoEntrada);
             //Factura.setFacturas((ArrayList<Factura>) objetoEntrada.readObject());
             ArrayList<Factura> facturas = (ArrayList<Factura>) objetoEntrada.readObject();
@@ -54,7 +54,7 @@ public class Deserializador {
         }
 
         try {
-            archivoEntrada = new FileInputStream("src/baseDatos/temp/facturaID.dat");
+            archivoEntrada = new FileInputStream("../src/baseDatos/temp/facturaID.dat");
             objetoEntrada = new ObjectInputStream(archivoEntrada);
             //Factura.setIDfactura((Long) objetoEntrada.readObject());
             long id = (Long) objetoEntrada.readObject();
@@ -65,7 +65,7 @@ public class Deserializador {
 
         //deserializar Camiones
         try {
-            archivoEntrada = new FileInputStream("src/baseDatos/temp/cisternas.dat");
+            archivoEntrada = new FileInputStream("../src/baseDatos/temp/cisternas.dat");
             objetoEntrada = new ObjectInputStream(archivoEntrada);
             //CamionCisterna.setCamiones((ArrayList<CamionCisterna>) objetoEntrada.readObject());
             ArrayList<CamionCisterna>  camiones = (ArrayList<CamionCisterna>) objetoEntrada.readObject();
@@ -75,7 +75,7 @@ public class Deserializador {
         }
 
         try {
-            archivoEntrada = new FileInputStream("src/baseDatos/temp/frigorificos.dat");
+            archivoEntrada = new FileInputStream("../src/baseDatos/temp/frigorificos.dat");
             objetoEntrada = new ObjectInputStream(archivoEntrada);
             //CamionFrigorifico.setCamiones((ArrayList<CamionFrigorifico>) objetoEntrada.readObject());
             ArrayList<CamionFrigorifico>  camiones = (ArrayList<CamionFrigorifico>) objetoEntrada.readObject();
@@ -85,7 +85,7 @@ public class Deserializador {
         }
 
         try {
-            archivoEntrada = new FileInputStream("src/baseDatos/temp/lonas.dat");
+            archivoEntrada = new FileInputStream("../src/baseDatos/temp/lonas.dat");
             objetoEntrada = new ObjectInputStream(archivoEntrada);
             //CamionLona.setCamiones((ArrayList<CamionLona>) objetoEntrada.readObject());
             ArrayList<CamionLona>  camiones = (ArrayList<CamionLona>) objetoEntrada.readObject();
@@ -95,7 +95,7 @@ public class Deserializador {
         }
 
         try {
-            archivoEntrada = new FileInputStream("src/baseDatos/temp/portaCoches.dat");
+            archivoEntrada = new FileInputStream("../src/baseDatos/temp/portaCoches.dat");
             objetoEntrada = new ObjectInputStream(archivoEntrada);
             //CamionPortaCoches.setCamiones((ArrayList<CamionPortaCoches>) objetoEntrada.readObject());
             ArrayList<CamionPortaCoches>  camiones = (ArrayList<CamionPortaCoches>) objetoEntrada.readObject();
