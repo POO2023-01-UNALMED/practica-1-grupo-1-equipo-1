@@ -91,8 +91,8 @@ public class Empleado extends Usuario {
 		return costoPedido;
 	}
 
-	public static Empleado crearEmpleado(String nombre, String clave, long id, String correo, String pais) {
-		return new Empleado(nombre, clave, id, correo, true, pais);
+	public static void crearEmpleado(String nombre, String clave, long id, String correo, String pais) {
+		new Empleado(nombre, clave, id, correo, true, pais);
 	}
 
 }
