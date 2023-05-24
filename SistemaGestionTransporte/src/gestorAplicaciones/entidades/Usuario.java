@@ -17,15 +17,22 @@ public class Usuario{
 	//constructor
 	
 	public Usuario (String nombre, String clave,long id, String correo) {
-		this(nombre, clave, correo);
+		this.nombre = nombre;
+		this.clave = clave;
 		this.ID = id;
-		Usuario.usuarios.add(this);
+		this.correo = correo;
 
 	}
-	public Usuario (String nombre, String clave, String correo) {
+	public Usuario (String nombre, long id, String correo) {
+		this(nombre,"0000", correo, id);
+	}
+	public Usuario (String nombre, String clave, String correo, long id) {
 		this.nombre = nombre;
 		this.clave = clave;
 		this.correo = correo;
+		this.ID = id;
+		Usuario.usuarios.add(this);
+
 	}
 	
 	//metodod gettter and setter
@@ -66,7 +73,7 @@ public class Usuario{
 		este metodo de clase crea una instacioa de tipo Usuario con los datos pasados
 		como argumentos.
 		 */
-		return new Usuario(nombre, clave, id, correo);
+		return new Usuario(nombre, clave, correo, id);
 	}
 
 	public boolean comprobarUsuario(String nombre, String clave){

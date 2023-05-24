@@ -13,14 +13,13 @@ public class Empleado extends Usuario {
 	private String ciudadActual;
 	
 	//constructor
-	public Empleado (String nombre, String clave, long id, String correo, boolean statusActivo) {
+	public Empleado (String nombre, String clave, long id, String correo) {
 		super(nombre, clave, id, correo);
-		this.estatusActivo = statusActivo;
-		//Empleado.empleados.add(this);
 	}
 
 	public Empleado (String nombre, String clave, long id, String correo, boolean statusActivo, String pais){
-		this(nombre, clave, id, correo, statusActivo);
+		this(nombre, clave, id, correo);
+		this.estatusActivo = statusActivo;
 		this.pais = pais;
 		Empleado.empleados.add(this);
 	}

@@ -13,7 +13,7 @@ public class Administrador extends Empleado{
 
 	//constructor
 	public Administrador() {
-		super("Administrador","Clave",0,"Administrador@egt.com",true);
+		super("Administrador","Clave",0,"Administrador@egt.com");
 	}
 	
 	//metodos
