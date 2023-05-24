@@ -47,6 +47,14 @@ public class Deserializador {
             throw new RuntimeException(e);
         }
 
+        try {
+            archivoEntrada = new FileInputStream("src/baseDatos/temp/facturaID.txt");
+            objetoEntrada = new ObjectInputStream(archivoEntrada);
+            Factura.setIDfactura((Long) objetoEntrada.readObject());
+        } catch (IOException | ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+
         //deserializar Camiones
         try {
             archivoEntrada = new FileInputStream("src/baseDatos/temp/cisternas.txt");

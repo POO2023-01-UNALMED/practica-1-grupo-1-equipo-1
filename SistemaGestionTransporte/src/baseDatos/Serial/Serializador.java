@@ -53,6 +53,16 @@ public class Serializador {
             throw new RuntimeException(e);
         }
 
+        try {
+            archivoSalida = new FileOutputStream("src/baseDatos/temp/facturaID.txt");
+            objetoSalida = new ObjectOutputStream(archivoSalida);
+            objetoSalida.writeObject(Factura.getIDfactura());
+            objetoSalida.close();
+            archivoSalida.close();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
         //Serilizar Camionnes
         try {
             archivoSalida = new FileOutputStream("src/baseDatos/temp/cisternas.txt");
