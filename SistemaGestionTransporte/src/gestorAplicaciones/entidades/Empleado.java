@@ -29,6 +29,7 @@ public class Empleado extends Usuario {
 		return empleados;
 	}
 
+
 	public boolean isEstatusActivo() {
 		return estatusActivo;
 	}
@@ -88,8 +89,9 @@ public class Empleado extends Usuario {
 	public double calcularPago(double costoPedido) {
 		return costoPedido;
 	}
-	/*public boolean clausula() {
 
-	}*/
+	public static Empleado crearEmpleado(String nombre, String clave, long id, String correo, String pais) {
+		return new Empleado(nombre, clave, id, correo, true, pais);
+	}
 
 }

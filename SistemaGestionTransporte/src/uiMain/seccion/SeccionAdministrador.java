@@ -167,6 +167,30 @@ public class SeccionAdministrador implements Seccion {
     }
 
     private void registrarEmpleado() {
+
+        String nombre, clave, id, correo;
+
+        pais = Pais.selecionarPais();
+
+        //pedir nombre
+        System.out.println("nombre: ");
+        nombre = Main.pedirDato();
+        if(!Empleado.isNombreValido(nombre)) return;
+
+        //pedir numero de identificacion
+        System.out.println("ID: ");
+        id = Main.pedirDato();
+        if(!Empleado.isIDValido(id)) return;
+
+        //pedir correo
+        System.out.println("correo: ");
+        correo = Main.pedirDato();
+        if(!Empleado.isCorreoValido(correo)) return;
+
+        //pedir clave
+        System.out.println("Clave: ");
+        clave = Main.pedirDato();
+        this.empleado = Empleado.crearEmpleado(nombre, clave, Long.parseLong(id), correo,pais.getNombre());
     }
 
     @Override
