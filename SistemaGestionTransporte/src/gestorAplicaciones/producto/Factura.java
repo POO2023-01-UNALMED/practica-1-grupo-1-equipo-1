@@ -2,6 +2,8 @@ package gestorAplicaciones.producto;
 
 import gestorAplicaciones.entidades.Usuario;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 public class Factura {
@@ -14,6 +16,8 @@ public class Factura {
     private String Fecha;
     private long ID;
     private double costo;
+    private LocalDateTime horaSalida;
+    private LocalDateTime horaLLegada;
 
     //constructor
     public Factura() {
@@ -80,21 +84,38 @@ public class Factura {
         this.costo = costo;
     }
 
+    public LocalDateTime getHoraSalida() {
+        return horaSalida;
+    }
+
+    public void setHoraSalida(LocalDateTime horaSalida) {
+        this.horaSalida = horaSalida;
+    }
+
+    public LocalDateTime getHoraLLegada() {
+        return horaLLegada;
+    }
+
+    public void setHoraLLegada(LocalDateTime horaLLegada) {
+        this.horaLLegada = horaLLegada;
+    }
+
     //metodos
 
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("Factura Nro: ").append(this.getID()).append("\n");
-        sb.append(this.pedido.toString());
-        sb.append("Vendido a:\n").append(this.usuario.toString());
-
-        return sb.toString();
+        DateTimeFormatter formato = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        String llegada = this.horaSalida.format(formato) + "\n";
+        return "Factura Nro: " + this.getID() + "\n" +
+                this.pedido.toString() +
+                "Vendido a:\n" + this.usuario.toString() +
+                "Hora Salida: " + this.horaSalida.format(formato) +
+                "\nHora llegada: " + this.horaLLegada.format(formato);
     }
 
     public void calcularCostoTotal(double costoCamion, double capacidad){
         //Calcular costo total del pedido
-        this.costo = capacidad*0.05*costoCamion*this.ganancia;
+        this.costo = capacidad * 0.05 * costoCamion * this.ganancia;
 
     }
 

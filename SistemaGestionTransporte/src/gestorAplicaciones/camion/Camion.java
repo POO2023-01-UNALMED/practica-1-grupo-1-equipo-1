@@ -9,8 +9,8 @@ public abstract class Camion {
     //nota: capacidad de los camiones:(1 tn, 20 m3), (8 ton, 35 m3), (17 ton, 42 m3) y 24 (24 ton, 48m3);
     //atributos
     private String placa;
-    private double pesoMaximo;
-    private double capacidad;
+    private final double pesoMaximo;
+    private final double capacidad;
     private double costo;
     private String pais;
     private boolean disponible;
@@ -43,17 +43,11 @@ public abstract class Camion {
         return pesoMaximo;
     }
 
-    public void setPesoMaximo(double pesoMaximo) {
-        this.pesoMaximo = pesoMaximo;
-    }
 
     public double getCapacidad() {
         return capacidad;
     }
 
-    public void setCapacidad(double capacidad) {
-        this.capacidad = capacidad;
-    }
 
     public double getCosto() {
         return costo;
@@ -103,8 +97,15 @@ public abstract class Camion {
         this.empleado = empleado;
     }
 
+
     //metodos
     public abstract void calcularCostoCamion();
+
+    public int calcularTiempo(){
+        double km = this.getRuta().get(this.getRuta().size() - 1).getValue();
+        return Integer.parseInt(String.valueOf(km/this.valocidad()));
+    }
+    public abstract double valocidad();
 
     public abstract boolean comprobarPlaca(String placa);
 

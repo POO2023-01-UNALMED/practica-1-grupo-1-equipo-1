@@ -20,6 +20,13 @@ public class CamionPortaCoches extends Camion{
     }
 
     @Override
+    public double valocidad() {
+        double velocidadBase = 80.57;
+        double factor = -0.42857;
+        return velocidadBase + this.getCapacidad() * factor;
+    }
+
+    @Override
     public boolean comprobarPlaca(String placa) {
         return false;
     }

@@ -9,8 +9,6 @@ import gestorAplicaciones.producto.Pedido;
 import gestorAplicaciones.producto.Producto;
 import uiMain.Main;
 
-import java.util.ArrayList;
-
 public class SeccionUsuario implements Seccion {
     int opcion = 0;
     Usuario usuario;
@@ -102,6 +100,9 @@ public class SeccionUsuario implements Seccion {
         //funcionalidad 2 tarifa dinamica
         this.calcularTarifa();
 
+        //Calcular hora de salida y llegada
+        this.calcularTiempo();
+
         //confirmar pedido
         this.confirmarPedido();
         if(this.opcion == 1){
@@ -116,9 +117,13 @@ public class SeccionUsuario implements Seccion {
         }
         else{
             factura.setID(factura.getID() - 1);
-
         }
 
+    }
+
+    private void calcularTiempo() {
+        factura.setHoraSalida(pedido.calcularHoraSalida());
+        factura.setHoraLLegada(pedido.calcularHoraLLegada(camion.calcularTiempo(),factura.getHoraSalida()));
     }
 
     private boolean gestionarPedido() {
@@ -162,6 +167,8 @@ public class SeccionUsuario implements Seccion {
             System.out.println("Camion no disponible por el momento.");
             return false;
         }
+        pedido.setVehiculo(camion.getPlaca());
+
         //Seleccionar empleado a conducir coche
         camion.setEmpleado(Empleado.seleccionarEmpleado(pedido.getOrigen()));
         if(camion.getEmpleado() == null){

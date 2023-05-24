@@ -7,6 +7,7 @@ public class CamionCisterna extends Camion{
     public final static ArrayList<CamionCisterna> camiones = new ArrayList<CamionCisterna>();
     public CamionCisterna(String placa, String pais, double pesoMaximo, double capacidad) {
         super(placa, pais, pesoMaximo, capacidad);
+
     }
 
     public static ArrayList<CamionCisterna> getCamiones(){
@@ -18,6 +19,13 @@ public class CamionCisterna extends Camion{
         double factor = 0.005;
         double km = this.getRuta().get(this.getRuta().size()-1).getValue();
         this.setCosto(km * this.getCapacidad() * factor);
+    }
+
+    @Override
+    public double valocidad() {
+        double velocidadBase = 81.857;
+        double factor = -0.392957;
+        return velocidadBase + this.getCapacidad() * factor;
     }
 
     @Override

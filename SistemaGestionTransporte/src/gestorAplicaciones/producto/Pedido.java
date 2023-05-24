@@ -3,8 +3,9 @@ package gestorAplicaciones.producto;
 import gestorAplicaciones.pais.Ciudad;
 import gestorAplicaciones.pais.Pais;
 import gestorAplicaciones.util.Pair;
-import uiMain.Main;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 public class Pedido {
@@ -192,21 +193,40 @@ public class Pedido {
 
     public String toString(){
         StringBuilder sb = new StringBuilder();
+        sb.append("Desde: ").append(this.origen).append("\nhasta: ").append(this.destino).append("\n");
         for(Producto producto : this.productos){
             sb.append(producto.toString()).append("\n");
         }
         return sb.toString();
     }
 
+    public LocalDateTime calcularHoraSalida() {
+        LocalDateTime salida = LocalDateTime.now();
+        String strFecha;
+        DateTimeFormatter formato = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        int hora  = salida.getHour();
+        if(hora < 14 && hora > 5){
+            strFecha = (salida.format(formato)) + (" 15:00:00");
+        }
+        else if(hora > 14){
+            salida = salida.plusDays(1);
+            strFecha = (salida.format(formato)) + (" 06:00:00");
+        }
+        else {
+            strFecha = (salida.format(formato)) + (" 06:00:00");
+        }
+        formato = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        return LocalDateTime.parse(strFecha, formato);
+    }
 
-    /*public static void main(String[] args){
+    public LocalDateTime calcularHoraLLegada(int horas, LocalDateTime horaSalida) {
+        return horaSalida.plusHours(horas);
+    }
+
+    public static void main(String[] args){
         Pedido pedido= new Pedido();
         pedido.setPais(Pais.COLOMBIA);
-        pedido.setOrigen("T");
-        pedido.setDestino("B");
-        ArrayList<Pair<String,Double>> ruta = pedido.calcularRuta();
-        for(Pair<String,Double> ciudad : ruta){
-            System.out.println(ciudad.getKey()+"\t"+ciudad.getValue());
-        }
-    }*/
+        pedido.calcularHoraSalida();
+        pedido.calcularHoraLLegada(8,pedido.calcularHoraSalida());
+    }
 }
