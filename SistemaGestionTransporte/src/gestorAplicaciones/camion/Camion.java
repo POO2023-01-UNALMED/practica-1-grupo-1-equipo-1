@@ -1,26 +1,26 @@
 package gestorAplicaciones.camion;
 
+import gestorAplicaciones.producto.Producto;
 import gestorAplicaciones.util.Pair;
 
 import java.util.ArrayList;
 
 public abstract class Camion {
+    //nota: capacidad de los camiones: (8 ton, 35 m3), (17 ton, 42 m3) y 24 (24 ton, 48m3);
     //atributos
     public final static ArrayList<Camion> camiones = new ArrayList<Camion>();
     private String placa;
     private String tamanio;
-    private String capacidad;
-    private String costo;
+    private double capacidad;
+    private double costo;
     private String pais;
     private boolean disponible;
     private ArrayList <Pair<String, Double>> ruta;
 
     //constructor
-    public Camion(String placa, String tamanio, String capacidad, String costo, String pais){
+    public Camion(String placa, String tamanio, String pais){
         this.placa = placa;
         this.tamanio = tamanio;
-        this.capacidad = capacidad;
-        this.costo = costo;
         this.pais = pais;
         camiones.add(this);
     }
@@ -46,19 +46,19 @@ public abstract class Camion {
         this.tamanio = tamanio;
     }
 
-    public String getCapacidad() {
+    public double getCapacidad() {
         return capacidad;
     }
 
-    public void setCapacidad(String capacidad) {
+    public void setCapacidad(double capacidad) {
         this.capacidad = capacidad;
     }
 
-    public String getCosto() {
+    public double getCosto() {
         return costo;
     }
 
-    public void setCosto(String costo) {
+    public void setCosto(double costo) {
         this.costo = costo;
     }
 
@@ -93,4 +93,10 @@ public abstract class Camion {
 
     public abstract String ubicacion();
     public abstract String tiempoRestante();
+
+    public static Camion elegirCamion(String tipoCarga, Producto producto){
+
+        return null;
+    }
+
 }

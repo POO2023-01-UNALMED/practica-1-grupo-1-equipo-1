@@ -1,5 +1,6 @@
 package uiMain.seccion;
 
+import gestorAplicaciones.camion.*;
 import gestorAplicaciones.entidades.Usuario;
 import gestorAplicaciones.pais.Pais;
 import gestorAplicaciones.producto.Factura;
@@ -10,6 +11,7 @@ public class SeccionUsuario implements Seccion {
     int opcion = 0;
     Usuario usuario;
     Pedido pedido = new Pedido();
+    Camion camion;
     @Override
     public void Inicio() {
         /*
@@ -87,9 +89,7 @@ public class SeccionUsuario implements Seccion {
 
     private void realizarPedido() {
         //esta funcion se encarga de gestionnar la realizacion de un pedido
-        String origen, destino, tipo;
-        Pais pais;
-
+        String tipoCarga;
         //Seleccionar pais
         pedido.setPais(this.selecionarPais());
 
@@ -100,15 +100,20 @@ public class SeccionUsuario implements Seccion {
         pedido.setDestino(this.elegirCiudad(pedido.getPais(),"Destino"));
 
         //seleccionar tipos de produccto a transportar
-        tipo = this.tipoProductos();
-        this.seleccionarProductos();
+        tipoCarga = this.tipoProductos();
+        this.seleccionarProductos(tipoCarga);
 
         //Sleccionar camion
-        //this.seleccionarCamion(String);
+        camion = this.seleccionarCamion(tipoCarga);
 
     }
 
-    private void seleccionarProductos() {
+    public Camion seleccionarCamion(String tipoCarga) {
+
+        return null;
+    }
+
+    private void seleccionarProductos(String tipo) {
         String nombre;
         double peso, volumen;
         long cantidad;
@@ -136,6 +141,8 @@ public class SeccionUsuario implements Seccion {
 
                     System.out.println("Cantidad de ese producto: ");
                     cantidad = Long.parseLong(Main.pedirDato());
+
+                    //this.pedido.setProductos(this.pedido.getProductos().add(new Producto(nombre,tipo,peso,volumen,cantidad)));
                     break;
             }
         }while(this.opcion != 0);

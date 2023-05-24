@@ -1,8 +1,8 @@
 package gestorAplicaciones.camion;
 
 public class CamionFrigorifico extends Camion{
-    public CamionFrigorifico(String placa, String tamanio, String capacidad, String costo, String pais) {
-        super(placa, tamanio, capacidad, costo, pais);
+    public CamionFrigorifico(String placa, String tamanio, String pais) {
+        super(placa, tamanio, pais);
     }
 
     @Override
