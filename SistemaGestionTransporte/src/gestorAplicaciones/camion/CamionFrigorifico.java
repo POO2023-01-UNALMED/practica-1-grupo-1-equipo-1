@@ -15,6 +15,8 @@ public class CamionFrigorifico extends Camion implements Serializable {
         camiones.add(this);
     }
 
+    public CamionFrigorifico(){}
+
     public static ArrayList<CamionFrigorifico> getCamiones(){
         return CamionFrigorifico.camiones;
     }
@@ -42,7 +44,9 @@ public class CamionFrigorifico extends Camion implements Serializable {
         return "\nTipo: Frigorifico" +
                 "\nPlaca: " + this.getPlaca() +
                 "\npais: " + this.getPais() +
+                "\nCiudad actual: " + this.getCiudadActual() +
                 "\nPeso Maximo: " + this.getPesoMaximo() +
-                "\nCapacidad: " + this.getCapacidad() +"\n";
+                "\nCapacidad: " + this.getCapacidad() +
+                "\nDisponible: " + this.isDisponible() +"\n";
     }
 }

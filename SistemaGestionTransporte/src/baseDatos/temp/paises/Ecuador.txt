@@ -1,22 +1,24 @@
-O:A:4
-O:B:3
-O:C:6
-A:C:5
-A:D:3
-B:C:4
-B:F:6
-C:D:2
-C:E:2
-C:F:5
-D:E:2
-D:G:4
-E:F:1
-E:G:2
-E:H:5
-F:H:2
-F:I:5
-G:H:2
-G:T:7
-H:I:3
-H:T:8
-I:T:4
+Esmeralda:Ibarra:234
+Esmeralda:PortoViejo:118
+Esmeralda:Quito:182
+Ibarra:Quito:202
+Ibarra:Nueva Loja:274
+PortoViejo:SantoDomingo:128
+PortoViejo:Guayaquil:300
+Quito:Nueva Loja:278
+Quito:SantoDomingo:185
+Quito:Latacunga:262
+Quito:Tena:103
+Nueva Loja:Puerto Francisco:190
+SantoDomingo:Latacunga:112
+Guayaquil:Riobamba:129
+Guayaquil:Cuenca:266
+Guayaquil:Loja:249
+Latacunga:Tena:162
+Tena:Puyo:297
+Puerto Francisco:Macas:184
+Riobamba:Puyo:120
+Cuenca:Macas:257
+Cuenca:Zamora:170
+Loja:Zamora:198
+Macas:Zamora:146

@@ -1,8 +1,13 @@
 package gestorAplicaciones.util;
 
-public class Pair<K, V> {
+import java.io.Serial;
+import java.io.Serializable;
+
+public class Pair<K, V>  implements Serializable {
     //esta clase es de tipo generica, guarda dos valores del tipo de dato definidos al ser instanciada
 
+    @Serial
+    private static final long serialVersionUID = 1L;
     //atributos
     private final K key;
     private final V value;

@@ -181,9 +181,9 @@ public class Usuario implements Serializable {
 	@Override
 	public String toString(){
 		//sobreescritura del metodo toString para mostar los atributos del objeto.
-		return "\nnombre\t" + this.nombre
-				+ "\nid\t" + this.ID
-				+ "\ncorreo\t" + this.correo
+		return "\nnombre:\t" + this.nombre
+				+ "\nid:\t" + this.ID
+				+ "\ncorreo:\t" + this.correo
 				+ "\n";
 	}
 }

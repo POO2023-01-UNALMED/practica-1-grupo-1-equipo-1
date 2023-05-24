@@ -1,22 +1,15 @@
-O:A:4
-O:B:3
-O:C:6
-A:C:5
-A:D:3
-B:C:4
-B:F:6
-C:D:2
-C:E:2
-C:F:5
-D:E:2
-D:G:4
-E:F:1
-E:G:2
-E:H:5
-F:H:2
-F:I:5
-G:H:2
-G:T:7
-H:I:3
-H:T:8
-I:T:4
+Bocas de Toro:Bugle:267
+Bocas de Toro:Chiriqui:195
+Bugle:Colon:163
+Chiriqui:Veraguas:231
+Colon:Cocle:281
+Colon:Wargandi:143
+Veraguas:Herrera:107
+Cocle:Herrera:203
+Cocle:Ciudad de Panama:173
+Wargandi:Ciudad de Panama:199
+Wargandi:Embera:213
+Herrera:Ciudad de Panama:275
+Herrera:Los Santos:129
+Ciudad de Panama:Darien:127
+Embera:Darien:203

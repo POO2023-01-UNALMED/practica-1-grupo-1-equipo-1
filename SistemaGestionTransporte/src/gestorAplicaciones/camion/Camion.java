@@ -3,18 +3,23 @@ package gestorAplicaciones.camion;
 import gestorAplicaciones.entidades.Empleado;
 import gestorAplicaciones.util.Pair;
 
+import java.io.Serial;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-public abstract class Camion {
+public abstract class Camion implements Serializable {
     //nota: capacidad de los camiones:(1 tn, 20 m3), (8 ton, 35 m3), (17 ton, 42 m3) y 24 (24 ton, 48m3);
     //atributos
     //public final static ArrayList<Camion> camiones = new ArrayList<Camion>();
     public final static Map<String,ArrayList<? extends Camion>> camiones = new HashMap<>();
+
+    @Serial
+    private static final long serialVersionUID = 1L;
     private String placa;
-    private final double pesoMaximo;
-    private final double capacidad;
+    private double pesoMaximo;
+    private double capacidad;
     private double costo;
     private String pais;
     private boolean disponible;
@@ -32,6 +37,15 @@ public abstract class Camion {
         this.disponible = true;
     }
 
+    public Camion() {}
+
+    public void setPesoMaximo(double pesoMaximo) {
+        this.pesoMaximo = pesoMaximo;
+    }
+
+    public void setCapacidad(double capacidad) {
+        this.capacidad = capacidad;
+    }
 
     public String getPlaca() {
         return placa;
@@ -119,8 +133,9 @@ public abstract class Camion {
     }
 
     public double tiempoRestante(double tiempo){
-        double distancia = this.distanciaRecorrida(tiempo);
-        return (double) this.calcularTiempo() - distancia;
+        //double distancia = this.distanciaRecorrida(tiempo);
+        //return (double) this.calcularTiempo() - distancia;
+        return this.calcularTiempo() - tiempo;
     }
 
     public String ubicacionActual(double tiempo) {
@@ -129,12 +144,13 @@ public abstract class Camion {
         String ciudadA = null;
         String ciudadB = null;
         for (Pair<String, Double> recorrido : this.ruta){
+
             aux += recorrido.getValue();
-            ciudadB = ciudadA;
-            if(aux > tiempo){
-                break;
-            }
-            ciudadA = recorrido.getKey();
+            ciudadA = ciudadB;
+            ciudadB = recorrido.getKey();
+
+            if(aux > distancia) break;
+
         }
         return ciudadA + " - " + ciudadB;
     }

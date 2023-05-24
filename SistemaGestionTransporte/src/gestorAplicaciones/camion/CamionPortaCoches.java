@@ -16,6 +16,8 @@ public class CamionPortaCoches extends Camion implements Serializable {
         camiones.add(this);
     }
 
+    public CamionPortaCoches(){}
+
     public static ArrayList<CamionPortaCoches> getCamiones(){
         return CamionPortaCoches.camiones;
     }
@@ -43,7 +45,9 @@ public class CamionPortaCoches extends Camion implements Serializable {
         return "\nTipo: Portacohes" +
                 "\nPlaca: " + this.getPlaca() +
                 "\npais: " + this.getPais() +
+                "\nCiudad actual: " + this.getCiudadActual() +
                 "\nPeso Maximo: " + this.getPesoMaximo() +
-                "\nCapacidad: " + this.getCapacidad() +"\n";
+                "\nCapacidad: " + this.getCapacidad() +
+                "\nDisponible: " + this.isDisponible() +"\n";
     }
 }

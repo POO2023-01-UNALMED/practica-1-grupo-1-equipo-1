@@ -85,9 +85,12 @@ public class SeccionUsuario implements Seccion {
         id = Long.parseLong(Main.pedirDato());
         factura = Factura.buscarFactura(id, usuario.getNombre());
         if(factura != null){
+
+            Main.actualizarInformacion(factura);
+
             pedido = factura.getPedido();
             camion = Camion.buscarCamion(pedido.getTipoProductos(), pedido.getVehiculo());
-            pedido.verificarEstado(factura.getHoraSalida(),factura.getHoraLLegada());
+            //pedido.verificarEstado(factura.getHoraSalida(),factura.getHoraLLegada());
             System.out.println(factura);
 
             if(pedido.getEstado().equals("Enviado")){

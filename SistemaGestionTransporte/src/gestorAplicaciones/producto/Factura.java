@@ -1,6 +1,7 @@
 package gestorAplicaciones.producto;
 
 import gestorAplicaciones.entidades.Usuario;
+import uiMain.Main;
 
 import java.io.Serial;
 import java.io.Serializable;
@@ -27,7 +28,6 @@ public class Factura implements Serializable{
 
     //constructor
     public Factura() {
-        Factura.IDfactura += 1;
     }
 
     //constrctor
@@ -36,6 +36,7 @@ public class Factura implements Serializable{
         this.pedido = pedido;
         this.usuario = usuario;
         this.ID = Factura.IDfactura;
+        Factura.IDfactura += 1;
     }
 
     //metodos getter and setter
@@ -120,12 +121,13 @@ public class Factura implements Serializable{
     @Override
     public String toString() {
         DateTimeFormatter formato = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-        String llegada = this.horaSalida.format(formato) + "\n";
+
         return "Factura Nro: " + this.getID() + "\n" +
                 this.pedido.toString() +
-                "Vendido a:\n" + this.usuario.toString() +
+                "Vendido a:" + this.usuario.toString() +
                 "Hora Salida: " + this.horaSalida.format(formato) +
-                "\nHora llegada: " + this.horaLLegada.format(formato);
+                "\nHora llegada: " + this.horaLLegada.format(formato)+
+                "\nCosto: $" + this.getCosto();
     }
 
     public void calcularCostoTotal(double costoCamion, double capacidad){
@@ -138,14 +140,15 @@ public class Factura implements Serializable{
         Factura.facturas.add(factura);
     }
 
-    public static void historialFacturas(Usuario usuairo){
+    public static void historialFacturas(Usuario usuario){
         /*
             imprime toString() de los objetos de tipo Factura que tieden como atributo al Usuario
             pasado como argumento.
         */
 
         for (Factura factura : Factura.facturas){
-            if(factura.getUsuario() == usuairo){
+            if(factura.getUsuario().getID() == usuario.getID()){
+                Main.actualizarInformacion(factura);
                 System.out.println(factura);
             }
         }

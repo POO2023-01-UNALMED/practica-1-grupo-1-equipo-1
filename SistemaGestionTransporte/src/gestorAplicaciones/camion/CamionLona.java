@@ -17,6 +17,8 @@ public class CamionLona extends Camion implements Serializable {
         camiones.add(this);
     }
 
+    public CamionLona(){}
+
     public static ArrayList<CamionLona> getCamiones() {
         return CamionLona.camiones;
     }
@@ -44,7 +46,9 @@ public class CamionLona extends Camion implements Serializable {
         return "\nTipo: Lona" +
                 "\nPlaca: " + this.getPlaca() +
                 "\npais: " + this.getPais() +
+                "\nCiudad actual: " + this.getCiudadActual() +
                 "\nPeso Maximo: " + this.getPesoMaximo() +
-                "\nCapacidad: " + this.getCapacidad() +"\n";
+                "\nCapacidad: " + this.getCapacidad() +
+                "\nDisponible: " + this.isDisponible() +"\n";
     }
 }

@@ -85,24 +85,24 @@ public class Main {
         return scanner.nextLine();
     }
 
-    public static void actualizarInformacion(){
-
-        ArrayList<Factura> facturas = Factura.getFacturas();
+    public static void actualizarInformacion(Factura factura){
+        //funcionalidad 5 actuaalizar informacionede envio
+        //ArrayList<Factura> facturas = Factura.getFacturas();
         String estadoAnterior;
-        for (Factura factura : facturas) {
-            if(!factura.getPedido().getEstado().equals("Entregado")) {
-                Pedido pedido = factura.getPedido();
-                estadoAnterior = pedido.getEstado();
-                pedido.verificarEstado(factura.getHoraSalida(), factura.getHoraLLegada());
-                if (!pedido.getEstado().equals(estadoAnterior) && pedido.getEstado().equals("Entregado")) {
-                    Camion camion = Camion.buscarCamion(pedido.getTipoProductos(), pedido.getVehiculo());
-                    camion.setDisponible(true);
-                    camion.setCiudadActual(pedido.getDestino());
-                    camion.getEmpleado().setDisponible(true);
-                    camion.getEmpleado().setCiudadActual(pedido.getDestino());
-                }
+        //for (Factura factura : facturas) {
+        if(!factura.getPedido().getEstado().equals("Entregado")) {
+            Pedido pedido = factura.getPedido();
+            estadoAnterior = pedido.getEstado();
+            pedido.verificarEstado(factura.getHoraSalida(), factura.getHoraLLegada());
+            if (!pedido.getEstado().equals(estadoAnterior) && pedido.getEstado().equals("Entregado")) {
+                Camion camion = Camion.buscarCamion(pedido.getTipoProductos(), pedido.getVehiculo());
+                camion.setDisponible(true);
+                camion.setCiudadActual(pedido.getDestino());
+                camion.getEmpleado().setDisponible(true);
+                camion.getEmpleado().setCiudadActual(pedido.getDestino());
             }
         }
+        //}
     }
     public  static Pais selecionarPais() {
         //seleccionar pais donde se realizara el transporte del pedido.

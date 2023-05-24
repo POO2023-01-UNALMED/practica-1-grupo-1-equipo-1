@@ -84,10 +84,13 @@ public class Empleado extends Usuario{
 
 	public String toString(){
 		//sobreescritura del metodo toString para mostar los atributos del objeto.
-		return "\nnombre\t" + this.getNombre()
-				+ "\nid\t" + this.getID()
-				+ "\ncorreo\t" + this.getCorreo()
-				+ "\nActivo\t" + this.estatusActivo
+		return "\nnombre:\t" + this.getNombre()
+				+ "\nid:\t" + this.getID()
+				+ "\ncorreo:\t" + this.getCorreo()
+				+ "\nPais:" + this.getPais()
+				+ "\nCiudad Actual:\t" + this.ciudadActual
+				+ "\nActivo:\t" + this.estatusActivo
+				+ "\nDisponible:\t" + this.disponible
 				+ "\nPais\t" + this.pais
 				+ "\n";
 	}

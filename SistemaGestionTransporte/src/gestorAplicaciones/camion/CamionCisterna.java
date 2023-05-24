@@ -16,6 +16,8 @@ public class CamionCisterna extends Camion implements Serializable {
         camiones.add(this);
     }
 
+    public CamionCisterna(){}
+
     public static ArrayList<CamionCisterna> getCamiones(){
         return CamionCisterna.camiones;
     }
@@ -43,7 +45,9 @@ public class CamionCisterna extends Camion implements Serializable {
         return "\nTipo: Cisterna" +
                 "\nPlaca: " + this.getPlaca() +
                 "\npais: " + this.getPais() +
+                "\nCiudad actual: " + this.getCiudadActual() +
                 "\nPeso Maximo: " + this.getPesoMaximo() +
-                "\nCapacidad: " + this.getCapacidad() +"\n";
+                "\nCapacidad: " + this.getCapacidad() +
+                "\nDisponible: " + this.isDisponible() +"\n";
     }
 }
