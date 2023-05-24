@@ -87,7 +87,7 @@ public class SeccionUsuario implements Seccion {
 
     private void realizarPedido() {
         //esta funcion se encarga de gestionnar la realizacion de un pedido
-        String origen, destino;
+        String origen, destino, tipo;
         Pais pais;
 
         //Seleccionar pais
@@ -100,10 +100,12 @@ public class SeccionUsuario implements Seccion {
         destino = this.elegirCiudad(pais,"Destino");
         
         //seleccionar tipos de produccto a transportar
-        this.tipoProductos();
+        tipo = this.tipoProductos();
         this.seleccionarProductos();
 
-        //Sleccionar auto
+        //Sleccionar camion
+        //this.seleccionarCamion(String);
+
     }
 
     private void seleccionarProductos() {
@@ -139,16 +141,18 @@ public class SeccionUsuario implements Seccion {
         }while(this.opcion != 0);
     }
 
-    private void tipoProductos() {
+    private String tipoProductos() {
         System.out.println("Seleccione el tipo de producto a transportar");
         do{
             System.out.println("""
-                    Ingrese:\s
+                    
+                    Ingrese:
                     1. Carga perecedera.
                     2. Carga fragil.
-                    3. Carga fragil.
-                    4. Carga ADR.
-                    5. Carga general.\s""");
+                    3. Carga ADR.
+                    4. Carga de automiviles.
+                    5. Carga general.
+                    0. Salir.""");
 
             this.opcion = Main.getOption();
             switch(opcion){
@@ -166,6 +170,8 @@ public class SeccionUsuario implements Seccion {
                     System.out.println("Opcion no valida");
             }
         }while(this.opcion != 0);
+
+        return null;
     }
 
     private String elegirCiudad(Pais pais,String ciudad) {
@@ -225,7 +231,6 @@ public class SeccionUsuario implements Seccion {
         }while (this.opcion != 0);
         this.opcion = -1;
         return null;
-
     }
 
     @Override
