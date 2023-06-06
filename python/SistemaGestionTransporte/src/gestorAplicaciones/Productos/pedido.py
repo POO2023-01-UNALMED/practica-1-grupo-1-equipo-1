@@ -152,4 +152,3 @@ class Pedido:
     def tiempoTranscurrido(self, salida):
         actual = datetime.now()
         return actual.hour - salida.hour + actual.minute / 60
-    
