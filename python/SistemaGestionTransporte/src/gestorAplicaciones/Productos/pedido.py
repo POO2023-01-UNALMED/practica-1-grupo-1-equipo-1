@@ -1,8 +1,7 @@
-from src.gestorAplicaciones.Pais.pais import Pais
-from src.gestorAplicaciones.Pais.ciudad import Ciudad
+from src.gestorAplicaciones.Pais.pais import Pais, Ciudad
+from producto import Producto
 import heapq
 from datetime import datetime, timedelta
-
 
 
 class Pedido:
@@ -137,11 +136,11 @@ class Pedido:
     def calcularHoraLlegada(self, horas, horaSalida):
         return horaSalida + timedelta(hours=horas)
 
-    def verificarEstado(self,salida, llegada):
+    def verificarEstado(self, salida, llegada):
         actual = datetime.now()
         duracion = salida.hour - llegada.hour
         factor = actual.timetuple().tm_mday - salida.timetuple().tm_yday
-        diffHora = 24*factor + actual.hour - salida.hour
+        diffHora = 24 * factor + actual.hour - salida.hour
 
         if diffHora < 0:
             self._estado = "Confirmado"
@@ -152,6 +151,5 @@ class Pedido:
 
     def tiempoTranscurrido(self, salida):
         actual = datetime.now()
-        return actual.hour - salida.hour + actual.minute/60
-
-
+        return actual.hour - salida.hour + actual.minute / 60
+    
