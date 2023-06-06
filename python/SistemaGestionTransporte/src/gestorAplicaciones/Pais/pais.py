@@ -10,37 +10,37 @@ class Pais(Enum):
     def __init__(self, nombre):
         self._nombre = nombre
         self._ciudades = []
-        self._generar_conexiones()
+        self._generarConexiones()
 
     # metodos getter and setter
 
-    def get_nombre(self):
+    def getNombre(self):
         return self._nombre
 
-    def set_nombre(self, nombre):
+    def setNombre(self, nombre):
         self._nombre = nombre
 
-    def get_ciudades(self):
+    def getCiudades(self):
         return self._ciudades
 
-    def set_ciudades(self, ciudades):
+    def setCiudades(self, ciudades):
         self._ciudades = ciudades
 
-    def get_ciudad(self, nombre_ciudad):
+    def getCiudad(self, nombreCiudad):
         for ciudad in self._ciudades:
-            if ciudad.get_nombre() == nombre_ciudad:
+            if ciudad.getNombre() == nombreCiudad:
                 return ciudad
         return None
 
-    def mostrar_ciudades(self):
+    def mostrarCiudades(self):
         ciudades = "Ciudades de " + self._nombre + "\n"
         for ciudad in self._ciudades:
-            ciudades += ciudad.get_nombre() + "\n"
+            ciudades += ciudad.getNombre() + "\n"
         return ciudades
 
-    def _generar_conexiones(self):
+    def _generarConexiones(self):
         ruta = "src/baseDatos/temp/paises/" + self._nombre + ".txt"
-        mapa = self.leer_archivo(ruta)
+        mapa = self.leerArchivo(ruta)
         lineas = mapa.split("\n")
         for linea in lineas:
             conexion = linea.split(":")
@@ -48,30 +48,30 @@ class Pais(Enum):
             if not self.isCiudad(conexion[0]): self._agregarCiudad(conexion[0])
             self._costoCiudades(conexion[0], conexion[1], float(conexion[2]))
 
-    def isCiudad(self, nombre_ciudad):
-        return nombre_ciudad in self._ciudades
+    def isCiudad(self, nombreCiudad):
+        return nombreCiudad in self._ciudades
 
-    def _agregarCiudad(self, nombre_ciudad):
-        self._ciudades.append(Ciudad(nombre_ciudad, self._nombre))
-        self._conexiones_iniciales()
+    def _agregarCiudad(self, nombreCiudad):
+        self._ciudades.append(Ciudad(nombreCiudad, self._nombre))
+        self._conexionesIniciales()
 
-    def _conexiones_iniciales(self):
+    def _conexionesIniciales(self):
         ciudad = self._ciudades[len(self._ciudades) - 1]
-        for ciudad_adyacente in self._ciudades:
-            if not (ciudad.get_nombre() == ciudad_adyacente.get_nombre()):
-                ciudad.conectar_ciudades(ciudad_adyacente, -1)
-                ciudad_adyacente.conectar_ciudades(ciudad, -1)
+        for ciudadAdyacente in self._ciudades:
+            if not (ciudad.getNombre() == ciudadAdyacente.getNombre()):
+                ciudad.conectar_ciudades(ciudadAdyacente, -1)
+                ciudadAdyacente.conectar_ciudades(ciudad, -1)
 
-    def _costoCiudades(self, nombre_ciudad1, nombre_ciudad2, costo):
+    def _costoCiudades(self, nombreCiudad1, nombreCiudad2, costo):
         for ciudad1 in self._ciudades:
-            if ciudad1.get_nombre() == nombre_ciudad1:
+            if ciudad1.getNombre() == nombreCiudad1:
                 for ciudad2 in self._ciudades:
-                    if ciudad2.get_nombre() == nombre_ciudad2:
-                        ciudad1.conectar_ciudades(ciudad2.get_nombre(), costo)
-                        ciudad2.conectar_ciudades(ciudad1.get_nombre(), costo)
+                    if ciudad2.getNombre() == nombreCiudad2:
+                        ciudad1.conectarCiudades(ciudad2.getNombre(), costo)
+                        ciudad2.conectarCiudades(ciudad1.getNombre(), costo)
                         return
 
-    def leer_archivo(self, ruta):
+    def leerArchivo(self, ruta):
         archivo = open(ruta, 'r')
         texto = archivo.read()
         archivo.close()

@@ -3,39 +3,42 @@ import sys
 
 class Ciudad:
 
-    def __init__(self, nombre, nombre_pais):
+    def __init__(self, nombre, nombrePais):
         self._nombre = nombre
-        self._nombre_pais = nombre_pais
+        self._nombrePais = nombrePais
         self._conexiones = {}
 
     # metodos getter and setter
-    def get_nombre(self):
+    def getNombre(self):
         return self._nombre
 
-    def set_nombre(self, nombre):
+    def setNombre(self, nombre):
         self._nombre = nombre
 
-    def get_nombre_pais(self):
-        return self._nombre_pais
+    def getNombrePais(self):
+        return self._nombrePais
 
-    def set_nombre_pais(self, nombre_pais):
-        self._nombre_pais = nombre_pais
+    def setNombrePais(self, nombrePais):
+        self._nombrePais = nombrePais
 
-    def get_conexiones(self):
+    def getConexiones(self):
         return self._conexiones
 
-    def set_conexiones(self, conexiones):
+    def setConexiones(self, conexiones):
         self._conexiones = conexiones
 
-    def inicializar_ciudades_visitidas(self, ciudades_visitadas):
+    def inicializarCiudadesVisitidas(self, ciudadesVisitadas):
         tupla_visitas = (False, '-')
         for key in self._conexiones:
-            ciudades_visitadas[key] = tupla_visitas
+            ciudadesVisitadas[key] = tupla_visitas
 
-    def inicializar_costos(self, costos):
-        for key, value in costos:
+    def inicializarCostos(self, costos):
+        for key, value in costos.items():
             if value == -1:
                 costos[key] = sys.float_info.max
+
+    def conectarCiudades(self, nombre, costo):
+        self._conexiones[nombre] = costo
 
     def __str__(self):
         return self._nombre+"\n"
