@@ -35,6 +35,12 @@ class Pedido:
     def setProductos(self, productos):
         self._productos = productos
 
+    def getPais(self):
+        return self._pais
+
+    def setPais(self, pais):
+        self._pais = pais
+
     def getEstado(self):
         return self._estado
 
@@ -57,23 +63,23 @@ class Pedido:
         ciudadPartida = self._pais.getCiudad(self._origen)  # ciudad de origen
 
         # diccionario para referenciar las ciudades ya visitadas en el algoritmo
-        ciudadesVistadas = {}
-        ciudadPartida.inicializarCiudadesVisitadas(ciudadesVistadas)
+        ciudadesVisitadas = {}
+        ciudadPartida.inicializarCiudadesVisitadas(ciudadesVisitadas)
 
-        costos = ciudadPartida.getConexiones()
+        costos = ciudadPartida.getConexiones().copy()
         ciudadPartida.inicializarCostos(costos)
 
         queue = []
-        heapq.heappush(queue, (ciudadPartida, 0))
+        heapq.heappush(queue, (0, ciudadPartida.getNombre()))
 
         nombre = None
         distancia = None
         ciudad = None
-        ciudadesVistadas[ciudadPartida.getNombre()] = (True, '-')
+        ciudadesVisitadas[ciudadPartida.getNombre()] = (True, '-')
 
         while len(queue) > 0:
-            nombre = heapq.heappop(queue)[0]
-            ciudadesVistadas[nombre] = (True, ciudadesVistadas[nombre][1])
+            nombre = heapq.heappop(queue)[1]
+            ciudadesVisitadas[nombre] = (True, ciudadesVisitadas[nombre][1])
 
             ciudad = self._pais.getCiudad(nombre)
 
@@ -81,15 +87,15 @@ class Pedido:
                 break
 
             for key, value in ciudad.getConexiones().items():
-                if value != -1 and not (ciudadesVistadas[key][1]):
-                    distancia = costos[nombre] + ciudad.getConexiones[key]
+                if value != -1 and not (ciudadesVisitadas[key][0]):
+                    distancia = costos[nombre] + value
 
                     if distancia <= costos[key]:
                         costos[key] = distancia
-                        heapq.heappush(queue, (key, distancia))
-                        ciudadesVistadas[key] = tuple[False, nombre]
+                        heapq.heappush(queue, (distancia, key))
+                        ciudadesVisitadas[key] = (False, nombre)
 
-        return self._getRuta(self._getCamino(self._destino, ciudadesVistadas), costos)
+        return self._getRuta(self._getCamino(self._destino, ciudadesVisitadas), costos)
 
     def _getCamino(self, destino, ciudadesVistadas):
         procedencia = [destino]
@@ -104,6 +110,7 @@ class Pedido:
         ruta = []
         for ciudad in camino:
             ruta.append((ciudad, costos[ciudad]))
+        return ruta
 
     def calcularpeso(self):
         peso = 0
@@ -152,3 +159,10 @@ class Pedido:
     def tiempoTranscurrido(self, salida):
         actual = datetime.now()
         return actual.hour - salida.hour + actual.minute / 60
+
+
+pedido = Pedido()
+pedido.setOrigen("Valledupar")
+pedido.setDestino("Cali")
+pedido.setPais(Pais.COLOMBIA)
+print(pedido.calcularRuta())
