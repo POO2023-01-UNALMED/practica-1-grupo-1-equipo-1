@@ -1,4 +1,5 @@
+from src.uiMain.uiMain import UiMain
+
 if __name__ == '__main__':
-    print('PyCharm')
-
-
+    gui = UiMain()
+    gui.mainloop()
