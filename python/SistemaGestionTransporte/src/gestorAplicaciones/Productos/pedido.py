@@ -160,9 +160,3 @@ class Pedido:
         actual = datetime.now()
         return actual.hour - salida.hour + actual.minute / 60
 
-
-pedido = Pedido()
-pedido.setOrigen("Valledupar")
-pedido.setDestino("Cali")
-pedido.setPais(Pais.COLOMBIA)
-print(pedido.calcularRuta())
