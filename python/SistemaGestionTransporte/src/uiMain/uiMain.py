@@ -11,7 +11,7 @@ class UiMain(tk.Tk):
         self.resizable(False, False)
         self.ventana = Inicio(self)
         self.ventana.bienvenida()
-        self.ventana.desarrolladores()
+        self.ventana.desarrolladores("Julian")
 
     def getWindow(self):
         return self
