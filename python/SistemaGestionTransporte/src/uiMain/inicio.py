@@ -26,6 +26,8 @@ class Inicio(tk.Frame):
         self.p2 = None
         self.p1 = None
         self.indice = 0
+        self.dev = "julian"
+        self.info = None
         self.frames()
         self.menuInicio()
 
@@ -34,13 +36,13 @@ class Inicio(tk.Frame):
                  font=("ROMAN", 40)).place(x=25, y=30)
         self.cambiarImagenP4(None)
 
-    def desarrolladores(self, dev):
+    def desarrolladores(self):
         font = Font(size=15)
-        tk.Label(self.p5, text=self.hojaVida[dev], bg="#FFE8C6", font=("ROMAN", 15)).place(x=20, y=10)
+        tk.Label(self.p5, text=self.hojaVida[self.dev], bg="#FFE8C6", font=("ROMAN", 15)).place(x=20, y=10)
         images = []
         for i in range(1, 5):
-            imagen = Image.open(Inicio.path + "\\images\\julian\\" + str(i) + ".jpg")
-            imagen.resize((222, 175))
+            imagen = Image.open(Inicio.path + "\\images\\" + self.dev + "\\" + str(i) + ".jpg")
+            imagen = imagen.resize((222, 175))
             photo = ImageTk.PhotoImage(imagen)
             fondo = tk.Label(self.p6)
             fondo.image = photo
@@ -52,6 +54,12 @@ class Inicio(tk.Frame):
             for column in range(0, 2):
                 images[i].grid(row=row, column=column, padx=5, pady=5)
                 i += 1
+
+        if self.dev == "julian":
+            self.dev = "Michael"
+        else:
+            self.dev = "julian"
+        print(self.dev)
 
     def tipoSesion(self):
         self.destruir(self.p4)
@@ -74,7 +82,7 @@ class Inicio(tk.Frame):
 
     def frames(self):
         image = Image.open(Inicio.path + "\\images\\f3.jpg")
-        image.resize((930, 530), Image.ANTIALIAS)
+        image = image.resize((930, 530), Image.ANTIALIAS)
         photo = ImageTk.PhotoImage(image)
         fondo = tk.Label(self)
         fondo.image = photo
@@ -96,13 +104,14 @@ class Inicio(tk.Frame):
 
         self.p5 = tk.Frame(self.p2, bg="#f7b21d", width=455, height=150)
         self.p5.place(x=0, y=0)
+        self.p5.bind("<Button-1>", self.cambiarInfoP2)
 
         self.p6 = tk.Frame(self.p2, bg=self.p2["bg"], width=455, height=380)
         self.p6.place(x=0, y=150)
 
-        self.hojaVida = {"Julian": "Nombre:          Julian Salazar.          \nEdad:            21 años.             "
-                                   "   \nFecha:           24 Diciembre 2001        \n"
-                                   "Ocupación:       Estudiante               \nEmail:        jusalazard@unal.edu.co  "}
+        self.hojaVida = {"julian": "Julian Ricardo Salazar Duarte:Estudiante:21 años:24 Diciembre "
+                                   "2001:jusalazard@unal.edu.co",
+                         "Michael": "Nombre:Ocupacion:edad:fecha:email"}
 
     def cambiarImagenP4(self, event):
         self.indice += 1
@@ -111,7 +120,7 @@ class Inicio(tk.Frame):
         self.destruir(self.p4)
         ruta = Inicio.path + "\\images\\f" + str(self.indice) + ".jpg"
         image = Image.open(ruta)
-        image.resize((455, 350), Image.ANTIALIAS)
+        image = image.resize((455, 350), Image.ANTIALIAS)
         photo = ImageTk.PhotoImage(image)
         fondo = tk.Label(self.p4)
         fondo.image = photo
@@ -119,6 +128,11 @@ class Inicio(tk.Frame):
         fondo.place(x=0, y=0, relwidth=1, relheight=1)
         tk.Button(self.p4, text="ingresar", font=("ITALIC", 25), command=self.tipoSesion,
                   bg="black", fg=self.p3["bg"]).place(x=140, y=140)
+
+    def cambiarInfoP2(self, event):
+        self.destruir(self.p5)
+        self.destruir(self.p6)
+        self.desarrolladores()
 
     def destruir(self, frame):
         for children in frame.winfo_children():

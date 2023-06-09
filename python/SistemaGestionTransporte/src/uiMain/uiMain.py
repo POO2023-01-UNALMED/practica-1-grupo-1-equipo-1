@@ -12,7 +12,7 @@ class UiMain(tk.Tk):
         self.configure(bg="#F8883E")
         self.ventana = Inicio(self)
         self.ventana.bienvenida()
-        self.ventana.desarrolladores("Julian")
+        self.ventana.desarrolladores()
 
     def getWindow(self):
         return self
