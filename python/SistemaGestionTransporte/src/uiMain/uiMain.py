@@ -11,8 +11,6 @@ class UiMain(tk.Tk):
         self.resizable(False, False)
         self.configure(bg="#F8883E")
         self.ventana = Inicio(self)
-        self.ventana.bienvenida()
-        self.ventana.desarrolladores()
 
     def getWindow(self):
         return self

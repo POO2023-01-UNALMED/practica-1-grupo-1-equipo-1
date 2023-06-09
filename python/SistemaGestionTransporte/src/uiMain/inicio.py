@@ -27,7 +27,7 @@ class Inicio(tk.Frame):
         self.p1 = None
         self.indice = 0
         self.dev = "julian"
-        self.info = None
+        self.info = []
         self.frames()
         self.menuInicio()
 
@@ -37,8 +37,33 @@ class Inicio(tk.Frame):
         self.cambiarImagenP4(None)
 
     def desarrolladores(self):
-        font = Font(size=15)
-        tk.Label(self.p5, text=self.hojaVida[self.dev], bg="#FFE8C6", font=("ROMAN", 15)).place(x=20, y=10)
+        # tk.Label(self.p5, text=self.hojaVida[self.dev], bg="#FFE8C6", font=("ROMAN", 15)).place(x=20, y=10)
+        self.info = self.info.clear()
+        self.info = []
+        info = self.hojaVida[self.dev].split(':')
+        font = ("Times New Roman", 12)
+        bg = "#FFE8C6"
+        bg = self.p5["bg"]
+        padx = 60
+        pady = 3
+        self.info.append(tk.Label(self.p5, text=info[0], bg=bg, font=font))
+        self.info[0].grid(row=0, column=0, columnspan=2, padx=padx, pady=pady)
+        self.info.append(tk.Label(self.p5, text="Ocupacion:", bg=bg, font=font))
+        self.info[1].grid(row=1, column=0, padx=padx, pady=pady)
+        self.info.append(tk.Label(self.p5, text=info[1].center(len(info[-1])), bg=bg, font=font))
+        self.info[2].grid(row=1, column=1, padx=padx, pady=pady)
+        self.info.append(tk.Label(self.p5, text="    Edad:  ", bg=bg, font=font))
+        self.info[3].grid(row=2, column=0, padx=padx, pady=pady)
+        self.info.append(tk.Label(self.p5, text=info[2].center(len(info[-1])), bg=bg, font=font))
+        self.info[4].grid(row=2, column=1, padx=padx, pady=pady)
+        self.info.append(tk.Label(self.p5, text="   Fecha:  ", bg=bg, font=font))
+        self.info[5].grid(row=3, column=0, padx=padx, pady=pady)
+        self.info.append(tk.Label(self.p5, text=info[3].center(len(info[-1])), bg=bg, font=font))
+        self.info[6].grid(row=3, column=1, padx=padx, pady=pady)
+        self.info.append(tk.Label(self.p5, text="  Email:   ", bg=bg, font=font))
+        self.info[7].grid(row=4, column=0, padx=padx, pady=pady)
+        self.info.append(tk.Label(self.p5, text=info[4].center(len(info[-1])), bg=bg, font=font))
+        self.info[8].grid(row=4, column=1, padx=padx, pady=pady)
         images = []
         for i in range(1, 5):
             imagen = Image.open(Inicio.path + "\\images\\" + self.dev + "\\" + str(i) + ".jpg")
@@ -60,6 +85,9 @@ class Inicio(tk.Frame):
         else:
             self.dev = "julian"
         print(self.dev)
+
+        for i in self.info:
+            i.bind("<Button-1>", self.cambiarInfoP2)
 
     def tipoSesion(self):
         self.destruir(self.p4)
@@ -104,7 +132,7 @@ class Inicio(tk.Frame):
 
         self.p5 = tk.Frame(self.p2, bg="#f7b21d", width=455, height=150)
         self.p5.place(x=0, y=0)
-        self.p5.bind("<Button-1>", self.cambiarInfoP2)
+        # self.p5.bind("<Button-1>", self.cambiarInfoP2)
 
         self.p6 = tk.Frame(self.p2, bg=self.p2["bg"], width=455, height=380)
         self.p6.place(x=0, y=150)
@@ -112,6 +140,12 @@ class Inicio(tk.Frame):
         self.hojaVida = {"julian": "Julian Ricardo Salazar Duarte:Estudiante:21 años:24 Diciembre "
                                    "2001:jusalazard@unal.edu.co",
                          "Michael": "Nombre:Ocupacion:edad:fecha:email"}
+
+        self.bienvenida()
+        self.desarrolladores()
+
+        for i in self.info:
+            i.bind("<Button-1>", self.cambiarInfoP2)
 
     def cambiarImagenP4(self, event):
         self.indice += 1
