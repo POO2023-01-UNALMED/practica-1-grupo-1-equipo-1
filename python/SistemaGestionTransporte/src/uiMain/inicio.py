@@ -30,17 +30,14 @@ class Inicio(tk.Frame):
     def bienvenida(self):
         tk.Label(self.p3, text="Bienvenidos a \nTransportes Ltda.", bg=self.p3["bg"],
                  font=("ROMAN", 40)).place(x=25, y=30)
-
-        tk.Button(self.p4, text="ingresar", font=("ITALIC", 25), command=self.tipoSesion,
-                  bg="black", fg=self.p3["bg"]).place(x=140, y=140)
+        self.cambiarImagenP4(None)
 
     def desarrolladores(self, dev):
         font = Font(size=15)
         tk.Label(self.p5, text=self.hojaVida[dev], font=font).place(x=20, y=10)
 
     def tipoSesion(self):
-        for children in self.p4.winfo_children():
-            children.destroy()
+        self.destruir(self.p4)
         font = Font(size=15)
         tk.Button(self.p4, text="Usuario", font=font, command=self.ingresarUsuario).place(x=182, y=70)
         tk.Button(self.p4, text="Empleado", font=font, command=self.ingresarEmpleado).place(x=170, y=130)
@@ -93,6 +90,7 @@ class Inicio(tk.Frame):
         self.indice += 1
         if self.indice > 5:
             self.indice = 1
+        self.destruir(self.p4)
         ruta = Inicio.path + "\\images\\f" + str(self.indice) + ".jpg"
         print(ruta)
         image = Image.open(ruta)
@@ -102,4 +100,10 @@ class Inicio(tk.Frame):
         fondo.image = photo
         fondo.configure(image=photo)
         fondo.place(x=0, y=0, relwidth=1, relheight=1)
-        # self.p4.bind("<Enter>", self.cambiarImagenP4)
+        tk.Button(self.p4, text="ingresar", font=("ITALIC", 25), command=self.tipoSesion,
+                  bg="black", fg=self.p3["bg"]).place(x=140, y=140)
+
+    def destruir(self, frame):
+        for children in frame.winfo_children():
+            children.destroy()
+
