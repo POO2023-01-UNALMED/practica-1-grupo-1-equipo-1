@@ -3,6 +3,7 @@ import pathlib
 import tkinter as tk
 from tkinter.font import Font
 from PIL import Image, ImageTk
+from tkinter import messagebox
 
 from src.uiMain.sesion.sesionAdministrador import SesionAdministrador
 from src.uiMain.sesion.sesionEmpleado import SesionEmpleado
@@ -26,6 +27,7 @@ class Inicio(tk.Frame):
         self.p1 = None
         self.indice = 0
         self.frames()
+        self.menuInicio()
 
     def bienvenida(self):
         tk.Label(self.p3, text="Bienvenidos a \nTransportes Ltda.", bg=self.p3["bg"],
@@ -92,7 +94,6 @@ class Inicio(tk.Frame):
             self.indice = 1
         self.destruir(self.p4)
         ruta = Inicio.path + "\\images\\f" + str(self.indice) + ".jpg"
-        print(ruta)
         image = Image.open(ruta)
         image.resize((455, 350), Image.ANTIALIAS)
         photo = ImageTk.PhotoImage(image)
@@ -107,3 +108,20 @@ class Inicio(tk.Frame):
         for children in frame.winfo_children():
             children.destroy()
 
+    def menuInicio(self):
+        menuBar = tk.Menu(self.root, activebackground="#4F53CE", activeforeground="white")
+        self.root.config(menu=menuBar)
+
+        menu = tk.Menu(menuBar, activebackground="#4F53CE", activeforeground="white")
+        menuBar.add_cascade(label="Inicio", menu=menu)
+        menu.add_command(label="Descripcion del sistema", command=self.descripcion)
+        menu.add_command(label="Salir", command=self.salir)
+
+    def descripcion(self):
+        messagebox.showinfo("Descripcion del sistema", "Plataforma para administrar de manera efectiva todas "
+                                                       "las operaciones relacionadas con el transporte de mercancías "
+                                                       "entre ciudades de diferentes países. Garantizando la "
+                                                       "puntualidad, seguridad y satisfacción del cliente.")
+
+    def salir(self):
+        self.root.destroy()
