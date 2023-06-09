@@ -6,9 +6,10 @@ class UiMain(tk.Tk):
 
     def __init__(self):
         super().__init__()
-        self.title("Transportes LTDA")
+        self.title("Transportes Ltda.")
         self.geometry("950x550")
         self.resizable(False, False)
+        self.configure(bg="#F8883E")
         self.ventana = Inicio(self)
         self.ventana.bienvenida()
         self.ventana.desarrolladores("Julian")
