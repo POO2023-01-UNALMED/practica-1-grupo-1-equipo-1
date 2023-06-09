@@ -124,4 +124,6 @@ class Inicio(tk.Frame):
                                                        "puntualidad, seguridad y satisfacción del cliente.")
 
     def salir(self):
-        self.root.destroy()
+        opcion = messagebox.askokcancel("Salir", "Salir del sistema")
+        if opcion:
+            self.root.destroy()
