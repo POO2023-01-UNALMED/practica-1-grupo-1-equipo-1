@@ -36,7 +36,22 @@ class Inicio(tk.Frame):
 
     def desarrolladores(self, dev):
         font = Font(size=15)
-        tk.Label(self.p5, text=self.hojaVida[dev], font=font).place(x=20, y=10)
+        tk.Label(self.p5, text=self.hojaVida[dev], bg="#FFE8C6", font=("ROMAN", 15)).place(x=20, y=10)
+        images = []
+        for i in range(1, 5):
+            imagen = Image.open(Inicio.path + "\\images\\julian\\" + str(i) + ".jpg")
+            imagen.resize((222, 175))
+            photo = ImageTk.PhotoImage(imagen)
+            fondo = tk.Label(self.p6)
+            fondo.image = photo
+            fondo.configure(image=photo)
+            images.append(fondo)
+
+        i = 0
+        for row in range(0, 2):
+            for column in range(0, 2):
+                images[i].grid(row=row, column=column, padx=5, pady=5)
+                i += 1
 
     def tipoSesion(self):
         self.destruir(self.p4)
@@ -69,24 +84,25 @@ class Inicio(tk.Frame):
         self.p1 = tk.Frame(self, width=455, height=530)
         self.p1.place(x=0, y=0)
 
-        self.p2 = tk.Frame(self, width=455, height=530)
+        self.p2 = tk.Frame(self, bg="#FDC345", width=455, height=530)
         self.p2.place(x=475, y=0)
 
         self.p3 = tk.Frame(self.p1, bg="#FEC343", width=455, height=180)
         self.p3.place(x=0, y=0)
 
-        self.p4 = tk.Frame(self.p1, bg=self['bg'], width=455, height=350)
+        self.p4 = tk.Frame(self.p1, width=455, height=350)
         self.p4.place(x=0, y=180)
         self.p4.bind("<Enter>", self.cambiarImagenP4)
 
-        self.p5 = tk.Frame(self.p2, bg=self['bg'], width=455, height=180)
+        self.p5 = tk.Frame(self.p2, bg="#f7b21d", width=455, height=150)
         self.p5.place(x=0, y=0)
 
-        self.p6 = tk.Frame(self.p2, bg=self['bg'], width=455, height=350)
-        self.p6.place(x=0, y=180)
+        self.p6 = tk.Frame(self.p2, bg=self.p2["bg"], width=455, height=380)
+        self.p6.place(x=0, y=150)
 
-        self.hojaVida = {"Julian": "Nombre:    Julian Salazar.\nEdad:    21 años.\nFecha:    24 Diciembre 2001\n"
-                                   "Ocupacion:Estudiante\nemail:    jusalazard@unal.edu.co"}
+        self.hojaVida = {"Julian": "Nombre:          Julian Salazar.          \nEdad:            21 años.             "
+                                   "   \nFecha:           24 Diciembre 2001        \n"
+                                   "Ocupación:       Estudiante               \nEmail:        jusalazard@unal.edu.co  "}
 
     def cambiarImagenP4(self, event):
         self.indice += 1

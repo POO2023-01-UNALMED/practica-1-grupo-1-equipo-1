@@ -13,7 +13,7 @@ class SesionUsuario(tk.Frame):
         self.place(x=10, y=10)
 
         image = Image.open(SesionUsuario.path + "\\images\\f1.jpg")
-        image.resize((930, 530), Image.ANTIALIAS)
+        image = image.resize((930, 530), Image.ANTIALIAS)
         photo = ImageTk.PhotoImage(image)
         fondo = tk.Label(self)
         fondo.image = photo
