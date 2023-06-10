@@ -55,9 +55,27 @@ class FieldFrame(tk.Frame):
         for i in range(len(self.wValores)):
             self.wValores[i].grid(row=i + 1, column=1, padx=padx, pady=pady)
 
+        tk.Button(self, text="Aceptar", command=self.aceptar, font=font).grid(row=len(self.wCriterios)+1,
+                                                                              column=0, padx=padx, pady=pady)
+
+        tk.Button(self, text="Borrar", command=self.borrar, font=font).grid(row=len(self.wValores)+1,
+                                                                            column=1, padx=padx, pady=pady)
+
     def getValue(self, criterio):
         try:
             pos = self.criterios.index(criterio)
             return self.wValores[pos].get()
         except ValueError:
             return None
+
+    def aceptar(self):
+        valores = []
+        for valor in self.wValores:
+            valores.append(valor.get())
+        self.borrar()
+        print(valores)
+
+    def borrar(self):
+        for valor in self.wValores:
+            valor.delete(0, "end")
+        self.destroy()
