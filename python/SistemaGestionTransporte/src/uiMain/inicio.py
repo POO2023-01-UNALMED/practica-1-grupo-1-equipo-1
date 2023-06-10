@@ -42,7 +42,6 @@ class Inicio(tk.Frame):
         self.info = []
         info = self.hojaVida[self.dev].split(':')
         font = ("Times New Roman", 12)
-        bg = "#FFE8C6"
         bg = self.p5["bg"]
         padx = 60
         pady = 3
@@ -91,21 +90,40 @@ class Inicio(tk.Frame):
 
     def tipoSesion(self):
         self.destruir(self.p4)
-        font = Font(size=15)
-        tk.Button(self.p4, text="Usuario", font=font, command=self.ingresarUsuario).place(x=182, y=70)
-        tk.Button(self.p4, text="Empleado", font=font, command=self.ingresarEmpleado).place(x=170, y=130)
-        tk.Button(self.p4, text="Administrador", font=font, command=self.ingresarAdministrador).place(x=150, y=190)
+        self.p4.destroy()
+        self.p4 = tk.Frame(self.p1, width=455, height=350)
+        self.p4.place(x=0, y=180)
+        font = ("ITALIC", 25)
+        imagen = Image.open(Inicio.path + "\\images\\orange.png")
+        imagen = imagen.resize((460, 360))
+        photo = ImageTk.PhotoImage(imagen)
+        fondo = tk.Label(self.p4)
+        fondo.image = photo
+        fondo.configure(image=photo)
+        fondo.place(x=-5, y=-5)
+        """imagen = tk.PhotoImage(file=Inicio.path + "\\images\\orange.png")
+        imagen = imagen.subsample(2)
+        fondo = tk.Label(self.p4)
+        fondo.image = imagen
+        fondo.configure(image=imagen)
+        fondo.place(x=-5, y=-5)"""
+        tk.Button(self.p4, text="Usuario", font=font, bg="black", fg=self.p3["bg"],
+                  command=self.ingresarUsuario).place(x=150, y=60)
+        tk.Button(self.p4, text="Empleado", font=font, bg="black", fg=self.p3["bg"],
+                  command=self.ingresarEmpleado).place(x=130, y=142)
+        tk.Button(self.p4, text="Administrador", font=font, bg="black", fg=self.p3["bg"],
+                  command=self.ingresarAdministrador).place(x=100, y=225)
 
     def ingresarUsuario(self):
-        self.destroy()
+        self.destruir(self.root)
         SesionUsuario(self.root)
 
     def ingresarEmpleado(self):
-        self.destroy()
+        self.destruir(self.root)
         SesionEmpleado(self.root)
 
     def ingresarAdministrador(self):
-        self.destroy()
+        self.destruir(self.root)
         SesionAdministrador(self.root)
 
     def frames(self):
@@ -143,9 +161,6 @@ class Inicio(tk.Frame):
 
         self.bienvenida()
         self.desarrolladores()
-
-        for i in self.info:
-            i.bind("<Button-1>", self.cambiarInfoP2)
 
     def cambiarImagenP4(self, event):
         self.indice += 1
