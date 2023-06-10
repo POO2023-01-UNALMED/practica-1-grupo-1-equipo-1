@@ -3,6 +3,8 @@ import pathlib
 import tkinter as tk
 from PIL import Image, ImageTk
 
+from src.uiMain.fieldFrame import FieldFrame
+
 
 class SesionUsuario(tk.Frame):
     path = os.path.join(pathlib.Path(__file__).parent.absolute())
@@ -20,13 +22,7 @@ class SesionUsuario(tk.Frame):
         self.principal()
 
     def principal(self):
-        image = Image.open(SesionUsuario.path + "\\images\\f3.jpg")
-        image = image.resize((930, 530), Image.ANTIALIAS)
-        photo = ImageTk.PhotoImage(image)
-        fondo = tk.Label(self)
-        fondo.image = photo
-        fondo.configure(image=photo)
-        fondo.place(x=0, y=0)
+        self.fondoPantalla()
         font = ("ITALIC", 25)
         padx = 355
         pady = 55
@@ -41,13 +37,24 @@ class SesionUsuario(tk.Frame):
         pass
 
     def registarUsuario(self):
-        pass
-
-
+        self.destruir(self)
+        self.fondoPantalla()
+        criterios = ["Nombre", "ID", "Correo", "Clave"]
+        registro = FieldFrame(self, "Datos", criterios, "valores")
 
     def salir(self):
         self.destroy()
         self.root.ventanaInicio()
 
+    def destruir(self, frame):
+        for children in frame.winfo_children():
+            children.destroy()
 
-
+    def fondoPantalla(self):
+        image = Image.open(SesionUsuario.path + "\\images\\f4.jpg")
+        image = image.resize((930, 530), Image.ANTIALIAS)
+        photo = ImageTk.PhotoImage(image)
+        fondo = tk.Label(self)
+        fondo.image = photo
+        fondo.configure(image=photo)
+        fondo.place(x=0, y=0)
