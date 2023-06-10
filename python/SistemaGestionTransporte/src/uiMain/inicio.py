@@ -1,7 +1,6 @@
 import os
 import pathlib
 import tkinter as tk
-from tkinter.font import Font
 from PIL import Image, ImageTk
 from tkinter import messagebox
 
@@ -94,7 +93,7 @@ class Inicio(tk.Frame):
         self.p4 = tk.Frame(self.p1, width=455, height=350)
         self.p4.place(x=0, y=180)
         font = ("ITALIC", 25)
-        imagen = Image.open(Inicio.path + "\\images\\orange.png")
+        imagen = Image.open(Inicio.path + "\\images\\orange.jpg")
         imagen = imagen.resize((460, 360))
         photo = ImageTk.PhotoImage(imagen)
         fondo = tk.Label(self.p4)

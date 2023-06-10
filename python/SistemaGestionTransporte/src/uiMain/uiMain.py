@@ -10,7 +10,8 @@ class UiMain(tk.Tk):
         self.geometry("950x550")
         self.resizable(False, False)
         self.configure(bg="#F8883E")
-        self.ventana = Inicio(self)
+        self.ventana = None
+        self.ventanaInicio()
 
-    def getWindow(self):
-        return self
+    def ventanaInicio(self):
+        self.ventana = Inicio(self)
