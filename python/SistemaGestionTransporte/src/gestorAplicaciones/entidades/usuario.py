@@ -1,45 +1,47 @@
 import pickle
 
+
 class Usuario:
     usuarios = []
-    
-    def __init__(self, nombre, clave, id, correo):
+
+    def __init__(self, nombre, id, correo, clave):
         self.nombre = nombre
         self.clave = clave
         self.ID = id
         self.correo = correo
         Usuario.usuarios.append(self)
-    
+
     @classmethod
     def crearUsuario(cls, nombre, clave, id, correo):
         return cls(nombre, clave, id, correo)
-    
+
     def comprobarUsuario(self, nombre, clave):
+        if nombre.isdigit():
+            return self.ID == nombre and self.clave == clave
         return self.nombre == nombre and self.clave == clave
-    
-    def comprobarUsuario(self, id, clave):
-        return self.ID == id and self.clave == clave
-    
+
     def comprobarNombre(self, nombre):
         return self.nombre == nombre
-    
+
     def comprobarID(self, id):
         return self.ID == id
-    
+
     def comprobarCorreo(self, correo):
         return self.correo == correo
-    
+
     @staticmethod
     def isNombreValido(nombre):
-        if nombre is None or not nombre.isalpha():
-            print("El nombre solo debe tener caracteres alfabéticos.")
-            return False
+        nombre = nombre.split(' ')
+        for i in nombre:
+            if i is None or not i.isalpha():
+                print("El nombre solo debe tener caracteres alfabéticos.")
+                return False
         for usuario in Usuario.usuarios:
             if usuario.comprobarNombre(nombre):
                 print("Nombre ya registrado.")
                 return False
         return True
-    
+
     @staticmethod
     def isIDValido(id):
         if id is None or not id.isdigit():
@@ -50,10 +52,10 @@ class Usuario:
                 print("Número de identificación ya registrado.")
                 return False
         return True
-    
+
     @staticmethod
     def isCorreoValido(correo):
-        if '@' not in correo or correo.endswith('@'):
+        if '@' not in correo or correo.endswith('@') or ' ' in correo:
             print("Correo no válido.")
             return False
         for usuario in Usuario.usuarios:
@@ -61,7 +63,7 @@ class Usuario:
                 print("Correo ya registrado.")
                 return False
         return True
-    
+
     def __str__(self):
         return f"\nnombre:\t{self.nombre}\nid:\t{self.ID}\ncorreo:\t{self.correo}\n"
 
@@ -69,13 +71,9 @@ class Usuario:
     def guardarDatos(self, archivo):
         with open(archivo, 'wb') as f:
             pickle.dump(Usuario.usuarios, f)
-    
+
     @staticmethod
     def cargarDatos(archivo):
         with open(archivo, 'rb') as f:
             Usuario.usuarios = pickle.load(f)
-
-    # Atributo y anotación para serialización
-    serialVersionUID = 1L
-
 

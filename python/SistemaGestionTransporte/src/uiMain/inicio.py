@@ -82,7 +82,6 @@ class Inicio(tk.Frame):
             self.dev = "Michael"
         else:
             self.dev = "julian"
-        print(self.dev)
 
         for i in self.info:
             i.bind("<Button-1>", self.cambiarInfoP2)
@@ -149,7 +148,6 @@ class Inicio(tk.Frame):
 
         self.p5 = tk.Frame(self.p2, bg="#f7b21d", width=455, height=150)
         self.p5.place(x=0, y=0)
-        # self.p5.bind("<Button-1>", self.cambiarInfoP2)
 
         self.p6 = tk.Frame(self.p2, bg=self.p2["bg"], width=455, height=380)
         self.p6.place(x=0, y=150)
