@@ -100,8 +100,6 @@ class Camion:
                 break
         return f"{ciudadA} - {ciudadB}"
 
-    def camionOptimo(self, origen: str, peso: float) -> bool:
-        if self.capacidad == 20 and peso <= self.pesoMaximo:
  
     def camionOptimo(self, tipoCarga: str, origen: str, peso: float) -> bool:
         if tipoCarga == "Cisterna":
@@ -116,4 +114,68 @@ class Camion:
         elif tipoCarga == "PortaCoches":
             if self.capacidad == 48 and peso <= self.pesoMaximo and peso > 17:
                 return self.ciudadActual == origen
-        return False
+        
+ 
+
+public class Camion {
+    private String placa;
+    private String pais;
+    private boolean disponible;
+    // Otros atributos y métodos de la clase
+
+    public static Camion seleccionarCamion(String tipoCarga, String origen, double peso, double volumen) {
+        ArrayList<? extends Camion> camiones = Camion.camiones.get(tipoCarga);
+        for (Camion c : camiones) {
+            if (c.camionOptimo(origen, peso)) {
+                return c;
+            }
+        }
+        return null;
+    }
+
+    public static Camion buscarCamion(String tipoCarga, String placa) {
+        ArrayList<? extends Camion> camiones = Camion.camiones.get(tipoCarga);
+        for (Camion c : camiones) {
+            if (c.comprobarPlaca(placa)) {
+                return c;
+            }
+        }
+        return null;
+    }
+
+    public static boolean verificarPlaca(String placa, String nombre) {
+        String letras, num;
+        if (nombre.equals("Colombia") && placa.length() == 6) {
+            letras = placa.substring(0, 3);
+            num = placa.substring(3);
+            return letras.chars().allMatch(Character::isLetter) && num.chars().allMatch(Character::isDigit);
+        } else if (nombre.equals("Panama") && placa.length() == 6 && placa.chars().allMatch(Character::isDigit)) {
+            return true;
+        } else if (nombre.equals("Ecuador") && placa.length() == 7) {
+            letras = placa.substring(0, 3);
+            num = placa.substring(3);
+            return letras.chars().allMatch(Character::isLetter) && num.chars().allMatch(Character::isDigit);
+        }
+        return false;
+    }
+
+    public static boolean isPlacaNueva(String placa) {
+        for (Map.Entry<String, ArrayList<? extends Camion>> entry : Camion.camiones.entrySet()) {
+            ArrayList<? extends Camion> camiones = entry.getValue();
+            for (Camion camion : camiones) {
+                if (camion.placa.equals(placa)) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
+    public static void datosCamiones() {
+        Camion.camiones.put("Cisterna", CamionCisterna.getCamiones());
+        Camion.camiones.put("Frigorifico", CamionFrigorifico.getCamiones());
+        Camion.camiones.put("Lona", CamionLona.getCamiones());
+        Camion.camiones.put("PortaCoches", CamionPortaCoches.getCamiones());
+    }
+}
+
