@@ -115,67 +115,84 @@ class Camion:
             if self.capacidad == 48 and peso <= self.pesoMaximo and peso > 17:
                 return self.ciudadActual == origen
         
- 
 
-public class Camion {
-    private String placa;
-    private String pais;
-    private boolean disponible;
-    // Otros atributos y métodos de la clase
+class Camion:
+    camiones = {}
 
-    public static Camion seleccionarCamion(String tipoCarga, String origen, double peso, double volumen) {
-        ArrayList<? extends Camion> camiones = Camion.camiones.get(tipoCarga);
-        for (Camion c : camiones) {
-            if (c.camionOptimo(origen, peso)) {
-                return c;
-            }
-        }
-        return null;
-    }
+    @staticmethod
+    def seleccionar_camion(tipo_carga, origen, peso, volumen):
+        camiones = Camion.camiones.get(tipo_carga)
+        for c in camiones:
+            if c.camion_optimo(origen, peso):
+                return c
+        return None
 
-    public static Camion buscarCamion(String tipoCarga, String placa) {
-        ArrayList<? extends Camion> camiones = Camion.camiones.get(tipoCarga);
-        for (Camion c : camiones) {
-            if (c.comprobarPlaca(placa)) {
-                return c;
-            }
-        }
-        return null;
-    }
+    @staticmethod
+    def buscar_camion(tipo_carga, placa):
+        camiones = Camion.camiones.get(tipo_carga)
+        for c in camiones:
+            if c.comprobar_placa(placa):
+                return c
+        return None
 
-    public static boolean verificarPlaca(String placa, String nombre) {
-        String letras, num;
-        if (nombre.equals("Colombia") && placa.length() == 6) {
-            letras = placa.substring(0, 3);
-            num = placa.substring(3);
-            return letras.chars().allMatch(Character::isLetter) && num.chars().allMatch(Character::isDigit);
-        } else if (nombre.equals("Panama") && placa.length() == 6 && placa.chars().allMatch(Character::isDigit)) {
-            return true;
-        } else if (nombre.equals("Ecuador") && placa.length() == 7) {
-            letras = placa.substring(0, 3);
-            num = placa.substring(3);
-            return letras.chars().allMatch(Character::isLetter) && num.chars().allMatch(Character::isDigit);
-        }
-        return false;
-    }
+    @staticmethod
+    def verificar_placa(placa, nombre):
+        letras, num = '', ''
 
-    public static boolean isPlacaNueva(String placa) {
-        for (Map.Entry<String, ArrayList<? extends Camion>> entry : Camion.camiones.entrySet()) {
-            ArrayList<? extends Camion> camiones = entry.getValue();
-            for (Camion camion : camiones) {
-                if (camion.placa.equals(placa)) {
-                    return false;
-                }
-            }
-        }
-        return true;
-    }
+        if nombre == "Colombia" and len(placa) == 6:
+            letras = placa[:3]
+            num = placa[3:]
+            return all(c.isalpha() for c in letras) and all(c.isdigit() for c in num)
 
-    public static void datosCamiones() {
-        Camion.camiones.put("Cisterna", CamionCisterna.getCamiones());
-        Camion.camiones.put("Frigorifico", CamionFrigorifico.getCamiones());
-        Camion.camiones.put("Lona", CamionLona.getCamiones());
-        Camion.camiones.put("PortaCoches", CamionPortaCoches.getCamiones());
-    }
-}
+        elif nombre == "Panama" and len(placa) == 6 and placa.isdigit():
+            return True
 
+        elif nombre == "Ecuador" and len(placa) == 7:
+            letras = placa[:3]
+            num = placa[3:]
+            return all(c.isalpha() for c in letras) and all(c.isdigit() for c in num)
+
+        return False
+
+    @staticmethod
+    def is_placa_nueva(placa):
+        for camiones in Camion.camiones.values():
+            for camion in camiones:
+                if camion.placa == placa:
+                    return False
+        return True
+
+    @staticmethod
+    def datos_camiones():
+        Camion.camiones["Cisterna"] = CamionCisterna.get_camiones()
+        Camion.camiones["Frigorifico"] = CamionFrigorifico.get_camiones()
+        Camion.camiones["Lona"] = CamionLona.get_camiones()
+        Camion.camiones["PortaCoches"] = CamionPortaCoches.get_camiones()
+
+
+class CamionCisterna(Camion):
+    @staticmethod
+    def get_camiones():
+        # Implementación para obtener los camiones cisterna en Python
+        pass
+
+
+class CamionFrigorifico(Camion):
+    @staticmethod
+    def get_camiones():
+        # Implementación para obtener los camiones frigoríficos en Python
+        pass
+
+
+class CamionLona(Camion):
+    @staticmethod
+    def get_camiones():
+        # Implementación para obtener los camiones con lona en Python
+        pass
+
+
+class CamionPortaCoches(Camion):
+    @staticmethod
+    def get_camiones():
+        # Implementación para obtener los camiones porta coches en Python
+        pass
