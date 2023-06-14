@@ -1,6 +1,8 @@
 import os
 import pathlib
 import tkinter as tk
+from functools import partial
+
 from PIL import Image, ImageTk
 
 from src.uiMain.fieldFrame import FieldFrame
@@ -39,8 +41,30 @@ class SesionUsuario(tk.Frame):
     def registarUsuario(self):
         self.destruir(self)
         self.fondoPantalla()
+        padx = 5
+        pady = 5
+        font = ("helvetica", 12)
         criterios = ["Nombre", "ID", "Correo", "Clave"]
         registro = FieldFrame(self, "Datos", criterios, "valores")
+        tk.Button(registro, text="Aceptar", command=partial(self.aceptarRegistro, registro), font=font).grid(
+            row=len(registro.getWValores()) + 1,
+            column=0, padx=padx, pady=pady)
+
+        tk.Button(registro, text="Borrar", command=partial(self.borrarRegistro,registro), font=font).grid(
+            row=len(registro.getWCriterios()) + 1,
+            column=1, padx=padx, pady=pady)
+
+    def aceptarRegistro(self, registro):
+        valores = registro.aceptar()
+        if self.isRegistroValido(valores):
+            # crear usuario
+            self.showMenu()
+        else:
+            self.principal()
+
+
+    def borrarRegistro(self, registro):
+        registro.borrar()
 
     def salir(self):
         self.destroy()
@@ -58,3 +82,6 @@ class SesionUsuario(tk.Frame):
         fondo.image = photo
         fondo.configure(image=photo)
         fondo.place(x=0, y=0)
+
+    def isRegistroValido(self, valores):
+        pass

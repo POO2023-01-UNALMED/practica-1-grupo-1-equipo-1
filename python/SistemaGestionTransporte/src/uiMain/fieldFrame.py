@@ -17,6 +17,12 @@ class FieldFrame(tk.Frame):
         self.wValores = []
         self.implementar()
 
+    def getWCriterios(self):
+        return self.wCriterios
+
+    def getWValores(self):
+        return self.wValores
+
     def implementar(self):
         self.grid_propagate(False)
         path = os.path.join(pathlib.Path(__file__).absolute())
@@ -55,12 +61,6 @@ class FieldFrame(tk.Frame):
         for i in range(len(self.wValores)):
             self.wValores[i].grid(row=i + 1, column=1, padx=padx, pady=pady)
 
-        tk.Button(self, text="Aceptar", command=self.aceptar, font=font).grid(row=len(self.wCriterios)+1,
-                                                                              column=0, padx=padx, pady=pady)
-
-        tk.Button(self, text="Borrar", command=self.borrar, font=font).grid(row=len(self.wValores)+1,
-                                                                            column=1, padx=padx, pady=pady)
-
     def getValue(self, criterio):
         try:
             pos = self.criterios.index(criterio)
@@ -73,7 +73,7 @@ class FieldFrame(tk.Frame):
         for valor in self.wValores:
             valores.append(valor.get())
         self.borrar()
-        print(valores)
+        return valores
 
     def borrar(self):
         for valor in self.wValores:
