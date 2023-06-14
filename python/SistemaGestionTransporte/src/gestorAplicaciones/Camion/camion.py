@@ -102,3 +102,18 @@ class Camion:
 
     def camionOptimo(self, origen: str, peso: float) -> bool:
         if self.capacidad == 20 and peso <= self.pesoMaximo:
+ 
+    def camionOptimo(self, tipoCarga: str, origen: str, peso: float) -> bool:
+        if tipoCarga == "Cisterna":
+            if self.capacidad == 20 and peso <= self.pesoMaximo:
+                return self.ciudadActual == origen
+        elif tipoCarga == "Frigorifico":
+            if self.capacidad == 35 and peso <= self.pesoMaximo and peso > 1:
+                return self.ciudadActual == origen
+        elif tipoCarga == "Lona":
+            if self.capacidad == 42 and peso <= self.pesoMaximo and peso > 8:
+                return self.ciudadActual == origen
+        elif tipoCarga == "PortaCoches":
+            if self.capacidad == 48 and peso <= self.pesoMaximo and peso > 17:
+                return self.ciudadActual == origen
+        return False
