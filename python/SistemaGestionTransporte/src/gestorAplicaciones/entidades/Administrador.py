@@ -1,7 +1,13 @@
-from gestorAplicaciones.camion import *
-from gestorAplicaciones.producto import Factura
-from uiMain import Main
-from gestorAplicaciones.entidades import Empleado, Usuario
+from src.gestorAplicaciones.Camion.CamionCisterna import CamionCisterna
+from src.gestorAplicaciones.Camion.CamionFrigorifico import CamionFrigorifico
+from src.gestorAplicaciones.Camion.CamionLona import CamionLona
+from src.gestorAplicaciones.Camion.CamionPortaCoches import CamionPortaCoches
+from src.gestorAplicaciones.Camion.camion import Camion
+from src.gestorAplicaciones.Productos.factura import Factura
+from src.gestorAplicaciones.entidades.empleado import Empleado
+from src.gestorAplicaciones.entidades.usuario import Usuario
+from src.main import actualizarInformacion
+
 
 class Administrador(Empleado):
     def __init__(self):
@@ -32,7 +38,7 @@ class Administrador(Empleado):
     def mostrarFacturas(self, pais):
         infoFacturas = ""
         for factura in Factura.getFacturas():
-            Main.actualizarInformacion(factura)
+            actualizarInformacion(factura)
             if factura.getPedido().getPais().getNombre() == pais:
                 infoFacturas += str(factura)
         return infoFacturas
@@ -54,4 +60,4 @@ class Administrador(Empleado):
     
     def actualizarFacturas(self):
         for factura in Factura.getFacturas():
-            Main.actualizarInformacion(factura)
+            actualizarInformacion(factura)

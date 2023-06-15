@@ -123,7 +123,6 @@ class Pais(Enum):
                         return
 
     def leerArchivo(self, ruta):
-        print(ruta)
         archivo = open(ruta, 'r')
         texto = archivo.read()
         archivo.close()

@@ -37,24 +37,25 @@ class FieldFrame(tk.Frame):
         padx = 50
         pady = 20
         font = ("helvetica", 20)
-        tk.Label(self, text=self.tituloCriterios, font=font).grid(row=0, column=0, padx=padx, pady=pady)
-        tk.Label(self, text=self.tituloValores, font=font).grid(row=0, column=1, padx=padx, pady=pady)
+        tk.Label(self, text=self.tituloCriterios, font=font, bg="#FEC343").grid(row=0, column=0, padx=padx, pady=pady)
+        tk.Label(self, text=self.tituloValores, font=font, bg="#FEC343").grid(row=0, column=1, padx=padx, pady=pady)
         padx = 5
         pady = 5
         font = ("helvetica", 12)
+        bg = "#FEC343"
         for criterio in self.criterios:
-            self.wCriterios.append(tk.Label(self, text=criterio, font=font))
+            self.wCriterios.append(tk.Label(self, text=criterio, font=font, bg=bg))
         if self.valores is not None:
             for valor in self.valores:
                 if valor in self.habilitado:
-                    self.wValores.append(tk.Entry(self, justify="center", state="disabled"))
+                    self.wValores.append(tk.Entry(self, justify="center", bg=bg, state="disabled"))
                     self.wValores[-1].entry.insert(0, valor)
                 else:
-                    self.wValores.append(tk.Entry(self, justify="center"))
+                    self.wValores.append(tk.Entry(self, justify="center", bg=bg))
                     self.wValores[-1].entry.insert(0, valor)
         else:
             for i in range(len(self.wCriterios)):
-                self.wValores.append(tk.Entry(self, justify="center"))
+                self.wValores.append(tk.Entry(self, justify="center", bg=bg))
 
         for i in range(len(self.wCriterios)):
             self.wCriterios[i].grid(row=i + 1, column=0, padx=padx, pady=pady)

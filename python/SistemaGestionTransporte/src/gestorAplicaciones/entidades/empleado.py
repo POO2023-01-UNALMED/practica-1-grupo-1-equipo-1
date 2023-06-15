@@ -1,3 +1,6 @@
+from src.gestorAplicaciones.entidades.usuario import Usuario
+
+
 class Empleado(Usuario):
     empleados = []
 
