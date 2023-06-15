@@ -1,5 +1,4 @@
 from src.gestorAplicaciones.Pais.pais import Pais, Ciudad
-from producto import Producto
 import heapq
 from datetime import datetime, timedelta
 

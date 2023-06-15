@@ -6,6 +6,8 @@ from tkinter import messagebox
 
 from PIL import Image, ImageTk
 
+from src.gestorAplicaciones.Productos.factura import Factura
+from src.gestorAplicaciones.Productos.pedido import Pedido
 from src.gestorAplicaciones.entidades.usuario import Usuario
 from src.uiMain.fieldFrame import FieldFrame
 
@@ -46,12 +48,10 @@ class SesionUsuario(tk.Frame):
         criterios = ["Nombre/ID", "Clave"]
         datos = FieldFrame(self, "Datos", criterios, "valores")
         tk.Button(datos, text="Aceptar", command=partial(self.validarInformacion, datos), font=font).grid(
-            row=len(datos.getWValores()) + 1,
-            column=0, padx=padx, pady=pady)
+            row=len(datos.getWValores()) + 1, column=0, padx=padx, pady=pady)
 
         tk.Button(datos, text="Borrar", command=partial(self.borrarRegistro, datos), font=font).grid(
-            row=len(datos.getWCriterios()) + 1,
-            column=1, padx=padx, pady=pady)
+            row=len(datos.getWCriterios()) + 1, column=1, padx=padx, pady=pady)
 
     def validarInformacion(self, datos):
         valores = datos.aceptar()
@@ -72,12 +72,10 @@ class SesionUsuario(tk.Frame):
         criterios = ["Nombre", "ID", "Correo", "Clave"]
         registro = FieldFrame(self, "Datos", criterios, "valores")
         tk.Button(registro, text="Aceptar", command=partial(self.aceptarRegistro, registro), font=font).grid(
-            row=len(registro.getWValores()) + 1,
-            column=0, padx=padx, pady=pady)
+            row=len(registro.getWValores()) + 1, column=0, padx=padx, pady=pady)
 
         tk.Button(registro, text="Borrar", command=partial(self.borrarRegistro, registro), font=font).grid(
-            row=len(registro.getWCriterios()) + 1,
-            column=1, padx=padx, pady=pady)
+            row=len(registro.getWCriterios()) + 1, column=1, padx=padx, pady=pady)
 
     def aceptarRegistro(self, registro):
         valores = registro.aceptar()
@@ -151,4 +149,21 @@ class SesionUsuario(tk.Frame):
         pass
 
     def historialPedidos(self):
-        pass
+        self.destruir(self)
+        self.fondoPantalla()
+        criterios = []
+        valores = []
+        for factura in Factura.getFacturas():
+            if factura.getUsuario().getnombre() == self.usuario.getNombre():
+                criterios.append(factura.getID())
+                valores.append(factura.getPedido().getEstado())
+        historial = FieldFrame(self, "No. Factura", criterios, "Estado", valores, valores)
+        padx = 5
+        pady = 5
+        font = ("helvetica", 12)
+        tk.Button(historial, text="Aceptar", command=partial(self.aceptarOpcion, historial), font=font).grid(
+            row=len(historial.getWValores()) + 1, column=0, padx=padx, pady=pady)
+
+    def aceptarOpcion(self, opcion):
+        opcion.destroy()
+        self.showMenu()

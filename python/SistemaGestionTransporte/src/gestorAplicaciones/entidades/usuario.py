@@ -11,6 +11,9 @@ class Usuario:
         self.correo = correo
         Usuario.usuarios.append(self)
 
+    def getNombre(self):
+        return self.nombre
+
     @classmethod
     def crearUsuario(cls, nombre, clave, id, correo):
         return cls(nombre, clave, id, correo)

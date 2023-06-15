@@ -154,7 +154,7 @@ class Inicio(tk.Frame):
 
         self.hojaVida = {"julian": "Julian Ricardo Salazar Duarte:Estudiante:21 años:24 Diciembre "
                                    "2001:jusalazard@unal.edu.co",
-                         "Michael": "Nombre:Ocupacion:edad:fecha:email"}
+                         "Michael": "Michael Garcia Quincos:Estudiante:23 años :24 Marzo 2000:""mgarciaqu@unal.edu.co"}
 
         self.bienvenida()
         self.desarrolladores()
