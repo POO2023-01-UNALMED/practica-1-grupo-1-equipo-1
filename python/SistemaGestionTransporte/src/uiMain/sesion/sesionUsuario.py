@@ -25,6 +25,9 @@ class SesionUsuario(tk.Frame):
         self.camion = None
         self.factura = None
         self.frame1 = None
+        self.padx = 5
+        self.pady = 5
+        self.font = ("helvetica", 12)
         self.principal()
 
     def principal(self):
@@ -42,16 +45,13 @@ class SesionUsuario(tk.Frame):
     def ingresar(self):
         self.destruir(self)
         self.fondoPantalla()
-        padx = 5
-        pady = 5
-        font = ("helvetica", 12)
         criterios = ["Nombre/ID", "Clave"]
-        datos = FieldFrame(self, "Datos", criterios, "valores")
-        tk.Button(datos, text="Aceptar", command=partial(self.validarInformacion, datos), font=font).grid(
-            row=len(datos.getWValores()) + 1, column=0, padx=padx, pady=pady)
+        datos = FieldFrame(self, "Datos", criterios, "valor")
+        tk.Button(datos, text="Aceptar", command=partial(self.validarInformacion, datos), font=self.font).grid(
+            row=len(datos.getWValores()) + 1, column=0, padx=self.padx, pady=self.pady)
 
-        tk.Button(datos, text="Borrar", command=partial(self.borrarRegistro, datos), font=font).grid(
-            row=len(datos.getWCriterios()) + 1, column=1, padx=padx, pady=pady)
+        tk.Button(datos, text="Borrar", command=partial(self.borrarRegistro, datos), font=self.font).grid(
+            row=len(datos.getWCriterios()) + 1, column=1, padx=self.padx, pady=self.pady)
 
     def validarInformacion(self, datos):
         valores = datos.aceptar()
@@ -66,16 +66,13 @@ class SesionUsuario(tk.Frame):
     def registarUsuario(self):
         self.destruir(self)
         self.fondoPantalla()
-        padx = 5
-        pady = 5
-        font = ("helvetica", 12)
         criterios = ["Nombre", "ID", "Correo", "Clave"]
         registro = FieldFrame(self, "Datos", criterios, "valores")
-        tk.Button(registro, text="Aceptar", command=partial(self.aceptarRegistro, registro), font=font).grid(
-            row=len(registro.getWValores()) + 1, column=0, padx=padx, pady=pady)
+        tk.Button(registro, text="Aceptar", command=partial(self.aceptarRegistro, registro), font=self.font).grid(
+            row=len(registro.getWValores()) + 1, column=0, padx=self.padx, pady=self.pady)
 
-        tk.Button(registro, text="Borrar", command=partial(self.borrarRegistro, registro), font=font).grid(
-            row=len(registro.getWCriterios()) + 1, column=1, padx=padx, pady=pady)
+        tk.Button(registro, text="Borrar", command=partial(self.borrarRegistro, registro), font=self.font).grid(
+            row=len(registro.getWCriterios()) + 1, column=1, padx=self.padx, pady=self.pady)
 
     def aceptarRegistro(self, registro):
         valores = registro.aceptar()
@@ -143,7 +140,29 @@ class SesionUsuario(tk.Frame):
         messagebox.showinfo("Autores", "Julian Ricardo Salazar Duarte\nMichael Garcia Quincos")
 
     def realizarPedido(self):
-        pass
+        self.destruir(self)
+        self.fondoPantalla()
+        criterios = ["Pais", "Origen", "Destino", "productos tipo"]
+        valores = [["Colombia", "Ecuador", "Panama"], '', '', ["Perecederos", "Fragil", "ADR", "coches", "generales"]]
+        framePedido = FieldFrame(self, "Datos", criterios, "Valores", valores)
+        tk.Button(framePedido, text="Aceptar", command=partial(self.aceptarPedido, framePedido), font=self.font).grid(
+            row=len(framePedido.getWValores()) + 1, column=0, padx=self.padx, pady=self.pady)
+
+        tk.Button(framePedido, text="Borrar", command=partial(self.borrarRegistro, framePedido), font=self.font).grid(
+            row=len(framePedido.getWCriterios()) + 1, column=1, padx=self.padx, pady=self.pady)
+
+    def aceptarPedido(self, framePedido):
+        valores = framePedido.aceptar()
+        self.pedido = Pedido()
+        self.pedido.setPais(valores[0])
+        self.pedido.setOrigen(valores[1])
+        self.pedido.setDestino(valores[2])
+        self.pedido.setTipoProdutos(valores[3])
+        self.pedido.setProductos(self.selecionarProductos(self.pedido.getTipoProdutos()))
+
+    def selecionarProductos(self, tipo):
+        self.destruir(self)
+        self.fondoPantalla()
 
     def seguirPedido(self):
         pass
@@ -158,11 +177,8 @@ class SesionUsuario(tk.Frame):
                 criterios.append(factura.getID())
                 valores.append(factura.getPedido().getEstado())
         historial = FieldFrame(self, "No. Factura", criterios, "Estado", valores, valores)
-        padx = 5
-        pady = 5
-        font = ("helvetica", 12)
-        tk.Button(historial, text="Aceptar", command=partial(self.aceptarOpcion, historial), font=font).grid(
-            row=len(historial.getWValores()) + 1, column=0, padx=padx, pady=pady)
+        tk.Button(historial, text="Aceptar", command=partial(self.aceptarOpcion, historial), font=self.font).grid(
+            row=len(historial.getWValores()) + 1, column=0, padx=self.padx, pady=self.pady)
 
     def aceptarOpcion(self, opcion):
         opcion.destroy()

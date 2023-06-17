@@ -1,6 +1,12 @@
 from typing import List, Tuple
 from abc import ABC, abstractmethod
 
+from src.gestorAplicaciones.Camion.CamionCisterna import CamionCisterna
+from src.gestorAplicaciones.Camion.CamionFrigorifico import CamionFrigorifico
+from src.gestorAplicaciones.Camion.CamionLona import CamionLona
+from src.gestorAplicaciones.Camion.CamionPortaCoches import CamionPortaCoches
+
+
 class Camion(ABC):
     camiones = {}
 
@@ -73,18 +79,18 @@ class Camion(ABC):
     def calcularCostoCamion(self):
         pass
 
-    def calcularTiempo(self) -> int:
+    def calcularTiempo(self):
         km = self.ruta[-1][1]
         return int(km / self.velocidad())
 
     @abstractmethod
-    def velocidad(self) -> float:
+    def velocidad(self):
         pass
 
-    def comprobarPlaca(self, placa: str) -> bool:
+    def comprobarPlaca(self, placa):
         return self.placa == placa
 
-    def distanciaRecorrida(self, tiempo: float) -> float:
+    def distanciaRecorrida(self, tiempo):
         return self.velocidad() * tiempo
 
     def tiempoRestante(self, tiempo: float) -> float:
@@ -103,97 +109,60 @@ class Camion(ABC):
                 break
         return f"{ciudadA} - {ciudadB}"
 
-    @abstractmethod
-    def camionOptimo(self, tipoCarga: str, origen: str, peso: float) -> bool:
-        pass
-
-
-class CamionCisterna(Camion):
-    def calcularCostoCamion(self):
-        pass
-
-    def velocidad(self) -> float:
-        pass
-
-    def camionOptimo(self, tipoCarga: str, origen: str, peso: float) -> bool:
-        if tipoCarga == "Cisterna":
-            if self.capacidad == 20 and peso <= self.pesoMaximo:
-                return self.ciudadActual == origen
-        return False
-
-    @staticmethod
-    def get_camiones():
-        # Implementación para obtener los camiones cisterna en Python
-        pass
-
-
-class CamionFrigorifico(Camion):
-    def calcularCostoCamion(self):
-        pass
-
-    def velocidad(self) -> float:
-        pass
-
-    def camionOptimo(self, tipoCarga: str, origen: str, peso: float) -> bool:
-        if tipoCarga == "Frigorifico":
-            if self.capacidad == 35 and peso <= self.pesoMaximo and peso > 1:
-                return self.ciudadActual == origen
-        return False
-
-    @staticmethod
-    def get_camiones():
-        # Implementación para obtener los camiones frigoríficos en Python
-        pass
-
-
-class CamionLona(Camion):
-    def calcularCostoCamion(self):
-        pass
-
-    def velocidad(self) -> float:
-        pass
-
-    def camionOptimo(self, tipoCarga: str, origen: str, peso: float) -> bool:
-        if tipoCarga == "Lona":
-            if self.capacidad == 42 and peso <= self.pesoMaximo and peso > 8:
-                return self.ciudadActual == origen
-        return False
-
-    @staticmethod
-    def get_camiones():
-        # Implementación para obtener los camiones con lona en Python
-        pass
-
-
-class CamionPortaCoches(Camion):
-    def calcularCostoCamion(self):
-        pass
-
-    def velocidad(self) -> float:
-        pass
-
-    def camionOptimo(self, tipoCarga: str, origen: str, peso: float) -> bool:
-        if tipoCarga == "PortaCoches":
-            if self.capacidad == 48 and peso <= self.pesoMaximo and peso > 17:
-                return self.ciudadActual == origen
-        return False
-
-    @staticmethod
-    def get_camiones():
-        # Implementación para obtener los camiones porta coches en Python
-        pass
-
-class CamionFactory:
-    @staticmethod
-    def crear_camion(tipo: str, placa: str, pais: str, ciudad_actual: str, peso_maximo: float, capacidad: float):
-        if tipo == "Cisterna":
-            return CamionCisterna(placa, pais, ciudad_actual, peso_maximo, capacidad)
-        elif tipo == "Frigorifico":
-            return CamionFrigorifico(placa, pais, ciudad_actual, peso_maximo, capacidad)
-        elif tipo == "Lona":
-            return CamionLona(placa, pais, ciudad_actual, peso_maximo, capacidad)
-        elif tipo == "PortaCoches":
-            return CamionPortaCoches(placa, pais, ciudad_actual, peso_maximo, capacidad)
+    def camionOptimo(self, origen, peso):
+        if self.capacidad == 20 and peso <= self.getPesoMaximo():
+            return self.ciudadActual == origen
+        elif self.capacidad == 35 and self.getPesoMaximo() >= peso > 1:
+            return self.ciudadActual == origen
+        elif self.capacidad == 42 and self.getPesoMaximo() >= peso > 8:
+            return self.ciudadActual == origen
+        elif self.capacidad == 48 and self.getPesoMaximo() >= peso > 17:
+            return self.ciudadActual == origen
         else:
-            return None
+            return False
 
+    @classmethod
+    def seleccionarCamion(cls, tipoCarga, origen, peso):
+        camiones = cls.camiones[tipoCarga]
+        for camion in camiones:
+            if camion.camionOptimo(origen, peso):
+                return camion
+        return None
+
+    @classmethod
+    def buscarCamion(cls, tipoCarga, placa):
+        camiones = cls.camiones[tipoCarga]
+        for camion in camiones:
+            if camion.comprobarPlaca(placa):
+                return camion
+        return None
+
+    @staticmethod
+    def verificarPlaca(placa, nombre):
+        letras, num = '', ''
+        if nombre == "Colombia" and len(placa) == 6:
+            letras = placa[:3]
+            num = placa[3:]
+            return letras.isalpha() and num.isdigit()
+        elif nombre == "Panama" and len(placa) == 6 and placa.isdigit():
+            return True
+        elif nombre == "Ecuador" and len(placa) == 7:
+            letras = placa[:3]
+            num = placa[3:]
+            return letras.isalpha() and num.isdigit()
+        return False
+
+    @classmethod
+    def isPlacaNueva(cls, placa):
+        for camiones in cls.camiones.values():
+            for camion in camiones:
+                if camion.placa == placa:
+                    return False
+        return True
+
+    @classmethod
+    def datosCamiones(cls):
+        cls.camiones["Cisterna"] = CamionCisterna.getCamiones()
+        cls.camiones["Frigorifico"] = CamionFrigorifico.getCamiones()
+        cls.camiones["Lona"] = CamionLona.getCamiones()
+        cls.camiones["PortaCoches"] = CamionPortaCoches.getCamiones()

@@ -1,4 +1,5 @@
-from gestorAplicaciones.camion import Camion
+from src.gestorAplicaciones.Camion.camion import Camion
+
 
 class CamionCisterna(Camion):
     camiones = []
@@ -20,8 +21,8 @@ class CamionCisterna(Camion):
     def __str__(self):
         return "\nTipo: Cisterna" \
                "\nPlaca: " + self.getPlaca() + \
-               "\nPais: " + self.getPais() + \
-               "\nCiudad actual: " + self.getCiudadActual() + \
-               "\nPeso Maximo: " + str(self.getPesoMaximo()) + \
-               "\nCapacidad: " + str(self.getCapacidad()) + \
-               "\nDisponible: " + str(self.isDisponible()) + "\n"
+            "\nPais: " + self.getPais() + \
+            "\nCiudad actual: " + self.getCiudadActual() + \
+            "\nPeso Maximo: " + str(self.getPesoMaximo()) + \
+            "\nCapacidad: " + str(self.getCapacidad()) + \
+            "\nDisponible: " + str(self.isDisponible()) + "\n"

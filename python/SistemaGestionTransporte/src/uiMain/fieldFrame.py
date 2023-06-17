@@ -2,11 +2,14 @@ import os
 import pathlib
 import tkinter as tk
 from PIL import Image, ImageTk
+from tkinter import ttk
 
 
 class FieldFrame(tk.Frame):
-    def __init__(self, root, tituloCriterios, criterios, tituloValores, valores=None, habilitado=None):
+    def __init__(self, root, tituloCriterios, criterios, tituloValores, valores=None, habilitado=['-']):
         super().__init__(root, width=400, height=430)
+        if habilitado is None:
+            habilitado = []
         self.place(x=300, y=100)
         self.tituloCriterios = tituloCriterios
         self.criterios = criterios
@@ -28,7 +31,7 @@ class FieldFrame(tk.Frame):
         path = os.path.join(pathlib.Path(__file__).absolute())
         path = os.path.dirname(path)
         image = Image.open(path + "\\images\\orange.jpg")
-        image = image.resize((730, 430), Image.ANTIALIAS)
+        image = image.resize((730, 430), Image.LANCZOS)
         photo = ImageTk.PhotoImage(image)
         fondo = tk.Label(self)
         fondo.image = photo
@@ -47,12 +50,14 @@ class FieldFrame(tk.Frame):
             self.wCriterios.append(tk.Label(self, text=criterio, font=font, bg=bg))
         if self.valores is not None:
             for valor in self.valores:
-                if valor in self.habilitado:
+                if isinstance(valor, list):
+                    self.wValores.append(ttk.Combobox(self, values=valor, justify="center"))
+                elif valor in self.habilitado:
                     self.wValores.append(tk.Entry(self, justify="center", bg=bg, state="disabled"))
-                    self.wValores[-1].entry.insert(0, valor)
+                    self.wValores[-1].insert(0, valor)
                 else:
                     self.wValores.append(tk.Entry(self, justify="center", bg=bg))
-                    self.wValores[-1].entry.insert(0, valor)
+                    self.wValores[-1].insert(0, valor)
         else:
             for i in range(len(self.wCriterios)):
                 self.wValores.append(tk.Entry(self, justify="center", bg=bg))
