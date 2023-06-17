@@ -6,8 +6,11 @@ from tkinter import messagebox
 
 from PIL import Image, ImageTk
 
+from src.gestorAplicaciones.Camion.camion import Camion
 from src.gestorAplicaciones.Productos.factura import Factura
 from src.gestorAplicaciones.Productos.pedido import Pedido
+from src.gestorAplicaciones.Productos.producto import Producto
+from src.gestorAplicaciones.entidades.empleado import Empleado
 from src.gestorAplicaciones.entidades.usuario import Usuario
 from src.uiMain.fieldFrame import FieldFrame
 
@@ -158,11 +161,128 @@ class SesionUsuario(tk.Frame):
         self.pedido.setOrigen(valores[1])
         self.pedido.setDestino(valores[2])
         self.pedido.setTipoProdutos(valores[3])
-        self.pedido.setProductos(self.selecionarProductos(self.pedido.getTipoProdutos()))
+        # self.pedido.setProductos(self.selecionarProductos(self.pedido.getTipoProdutos()))
 
-    def selecionarProductos(self, tipo):
+    def selecionarProductos(self):
         self.destruir(self)
         self.fondoPantalla()
+        opciones = ["Ingresar producto", "Ver productos", "Confirmar productos", "eliminar productos", "descratar "
+                                                                                                       "productos"]
+        frameProductos = FieldFrame(self, "menu", "Selecione", "Opciones", opciones)
+        tk.Button(frameProductos, text="Aceptar", command=partial(self.opcionProductos, frameProductos),
+                  font=self.font).grid(row=len(frameProductos.getWValores()) + 1, column=0, padx=self.padx,
+                                       pady=self.pady)
+
+    def opcionProductos(self, frameProductos):
+        opcion = frameProductos.aceptar()
+
+        if opcion == "Ingresar producto":
+            self.ingresarProducto()
+        elif opcion == "Ver productos":
+            self.verProductos()
+        elif opcion == "Confirmar productos":
+            pass
+        elif opcion == "Eliminar productos":
+            pass
+        elif opcion == "Descartar productos":
+            self.descartarProductos()
+
+    def ingresarProducto(self):
+        self.destruir(self)
+        self.fondoPantalla()
+        criterios = ["Nombre", "peso (kg)", "volumen m3", "cantdad"]
+        ingresarP = FieldFrame(self, "Datos", criterios, "Valores")
+        tk.Button(ingresarP, text="Aceptar", command=partial(self.guardarProducto, ingresarP), font=self.font).grid(
+            row=len(ingresarP.getWValores()) + 1, column=0, padx=self.padx, pady=self.pady)
+
+    def guardarProducto(self, info):
+        valores = info.aceptar()
+        producto = Producto(valores[0], self.pedido.getTipoProdutos(), valores[1], valores[2], valores[3])
+        if self.pedido.getProductos() is None:
+            self.pedido.setProductos([])
+        self.pedido.setProductos(self.pedido.getProductos.append(producto))
+        self.selecionarProductos()
+
+    def verProductos(self):
+        self.destruir(self)
+        self.fondoPantalla()
+        criterios = []
+        cantidad = []
+        if self.pedido.getProductos() is not None:
+            for producto in self.pedido.getProductos():
+                criterios.append(producto.getNombre())
+                cantidad.append(str(producto.getCantidad()))
+        verP = FieldFrame(self, "Nombre", criterios, "Cantidad ", cantidad, cantidad)
+        tk.Button(verP, text="Aceptar", command=self.selecionarProductos, font=self.font).grid(
+            row=len(verP.getWValores()) + 1, column=0, padx=self.padx, pady=self.pady)
+
+    def confirmarProductos(self):
+        self.camion = Camion.seleccionarCamion(self.pedido.getTipoProdutos(), self.pedido.getOrigen(),
+                                               self.pedido.calcularpeso(), self.pedido.calcularVolumen())
+        if self.camion is None:
+            self.camion = self.camionCercano(self.pedido.getTipoProdutos(), self.pedido.getOrigen(),
+                                             self.pedido.calcularpeso())
+        self.pedido.setVehiculo(self.camion.getPlaca())
+        self.calcularTarifa()
+        self.calcularTiempo()
+        self.mostrarFactura()
+
+    def calcularTarifa(self):
+        self.factura = self.factura(self.pedido, self.usuario)
+        self.camion.setRuta(self.pedido.calcularRuta())
+        self.camion.calcularCostoCamion()
+        costoPedido = self.camion.getCosto()
+        costoPedido = self.camion.getEmpleado().calcular_pago(costoPedido)
+        self.factura.calcularCostoTotal(costoPedido, self.camion.getCapacidad())
+
+    def calcularTiempo(self):
+        self.factura.setHoraSalida(self.pedido.calcularHoraSalida())
+        self.factura.setHoraLLegada(self.pedido.calcularHoraLlegada(self.camion.calcularTiempo(),
+                                                                    self.factura.getHoraSalida()))
+
+    def mostrarFactura(self):
+        self.destruir(self)
+        self.fondoPantalla()
+        mostarF = FieldFrame(self, "mostrarFactura", "Most", "otra", "otra")
+        tk.Button(mostarF, text="Aceptar", command=self.confirmarFactura,
+                  font=self.font).grid(
+            row=len(mostarF.getWValores()) + 1, column=0, padx=self.padx, pady=self.pady)
+        tk.Button(mostarF, text="Cancelar", command=self.cancelarFactura, font=self.font).grid(
+            row=len(mostarF.getWValores()) + 1, column=1, padx=self.padx, pady=self.pady)
+
+    def confirmarFactura(self):
+        Factura.agregarFactura(self.factura)
+        self.cancelarFactura()
+
+    def cancelarFactura(self):
+        self.pedido = None
+        self.camion = None
+        self.factura = None
+        self.showMenu()
+
+    def eliminarProducto(self):
+        self.destruir(self)
+        self.fondoPantalla()
+        eliminarP = FieldFrame(self, "Producto", ["nombre"], "elimnar")
+        tk.Button(eliminarP, text="Aceptar", command=partial(self.confirmarEliminacionP, eliminarP),
+                  font=self.font).grid(
+            row=len(eliminarP.getWValores()) + 1, column=0, padx=self.padx, pady=self.pady)
+        tk.Button(eliminarP, text="Cancelar", command=self.selecionarProductos, font=self.font).grid(
+            row=len(eliminarP.getWValores()) + 1, column=1, padx=self.padx, pady=self.pady)
+
+    def confirmarEliminacionP(self, eliminar):
+        nombre = eliminar.aceptar()
+        for producto in self.pedido.getProductos():
+            if producto.getNombre() == nombre:
+                self.pedido.setProductos(self.pedido.getProductos.remove(producto))
+                break
+        self.selecionarProductos()
+
+    def descartarProductos(self):
+        self.destruir(self)
+        self.fondoPantalla()
+        self.pedido.setProductos(None)
+        self.selecionarProductos()
 
     def seguirPedido(self):
         pass
@@ -183,3 +303,37 @@ class SesionUsuario(tk.Frame):
     def aceptarOpcion(self, opcion):
         opcion.destroy()
         self.showMenu()
+
+    def camionCercano(self, tipoCarga, origen, peso):
+        if peso <= 1:
+            peso = 1
+        elif peso <= 8:
+            peso = 8
+        elif peso <= 17:
+            peso = 17
+        else:
+            peso = 24
+
+        camion = None
+        distancia = float('inf')
+        pedido = Pedido()
+        pedido.setPais(self.pedido.getPais())
+        pedido.setDestino(origen)
+
+        for c in Camion.camiones.get(tipoCarga):
+            if c.getPesoMaximo() == peso and c.isDisponible() and c.getPais() == pedido.getPais().getNombre():
+                pedido.setOrigen(c.getCiudadActual())
+
+                for d in pedido.calcularRuta():
+                    if d[0] == origen and d[1] < distancia:
+                        distancia = d[1]
+                        camion = c
+
+        if camion:
+            for empleado in Empleado.get_empleados():
+                if empleado.get_ciudad_actual() == camion.get_ciudad_actual() and empleado.is_estatus_activo() and empleado.is_disponible():
+                    empleado.set_ciudad_actual(origen)
+                    camion.set_ciudad_actual(origen)
+                    return camion
+
+        return None

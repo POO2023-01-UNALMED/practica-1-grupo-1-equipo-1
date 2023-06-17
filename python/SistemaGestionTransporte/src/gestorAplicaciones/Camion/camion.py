@@ -10,7 +10,7 @@ from src.gestorAplicaciones.Camion.CamionPortaCoches import CamionPortaCoches
 class Camion(ABC):
     camiones = {}
 
-    def __init__(self, placa: str, pais: str, ciudadActual: str, pesoMaximo: float, capacidad: float):
+    def __init__(self, placa, pais, ciudadActual, pesoMaximo, capacidad):
         self.placa = placa
         self.pesoMaximo = pesoMaximo
         self.capacidad = capacidad
@@ -122,7 +122,7 @@ class Camion(ABC):
             return False
 
     @classmethod
-    def seleccionarCamion(cls, tipoCarga, origen, peso):
+    def seleccionarCamion(cls, tipoCarga, origen, peso, volumen):
         camiones = cls.camiones[tipoCarga]
         for camion in camiones:
             if camion.camionOptimo(origen, peso):

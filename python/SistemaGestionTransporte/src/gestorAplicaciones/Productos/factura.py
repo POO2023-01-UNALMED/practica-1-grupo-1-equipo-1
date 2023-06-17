@@ -63,6 +63,9 @@ class Factura:
     def setHoraLLegada(self, horaLLegada):
         self._horaLLegada = horaLLegada
 
+    def calcularCostoTotal(self, costoCamion, capacidad):
+        self._costo = capacidad * 0.05 + costoCamion * self._ganancia
+
     @classmethod
     def agregarFactura(cls, factura):
         cls._facturas.append(factura)

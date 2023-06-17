@@ -6,7 +6,7 @@ from tkinter import ttk
 
 
 class FieldFrame(tk.Frame):
-    def __init__(self, root, tituloCriterios, criterios, tituloValores, valores=None, habilitado=['-']):
+    def __init__(self, root, tituloCriterios, criterios, tituloValores, valores=None, habilitado='-'):
         super().__init__(root, width=400, height=430)
         if habilitado is None:
             habilitado = []
