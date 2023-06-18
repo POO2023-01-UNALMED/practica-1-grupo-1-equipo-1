@@ -1,7 +1,5 @@
 from abc import ABC, abstractmethod
 
-from _distutils_hack import override
-
 
 class Camion(ABC):
     camiones = {}
@@ -216,7 +214,7 @@ class CamionFrigorifico(Camion, ABC):
 
     def calcularCostoCamion(self):
         factor = 0.01
-        km = self.getRuta()[-1].getValue()
+        km = self.getRuta()[-1][1]
         self.setCosto(km * self.getCapacidad() * factor)
 
     def velocidad(self):
@@ -251,7 +249,7 @@ class CamionLona(Camion, ABC):
 
     def calcularCostoCamion(self):
         factor = 0.005
-        km = self.getRuta()[-1].getValue()
+        km = self.getRuta()[-1][1]
         self.setCosto(km * self.getCapacidad() * factor)
 
     def velocidad(self):
@@ -286,7 +284,7 @@ class CamionPortaCoches(Camion, ABC):
 
     def calcularCostoCamion(self):
         factor = 0.008
-        km = self.getRuta()[-1].getValue()
+        km = self.getRuta()[-1][1]
         self.setCosto(km * self.getCapacidad() * factor)
 
     def velocidad(self):

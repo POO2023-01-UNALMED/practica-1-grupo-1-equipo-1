@@ -32,6 +32,7 @@ class SesionUsuario(tk.Frame):
         self.padx = 5
         self.pady = 5
         self.font = ("helvetica", 12)
+        Camion.datosCamiones()
         self.principal()
 
     def principal(self):
@@ -117,6 +118,7 @@ class SesionUsuario(tk.Frame):
         return True
 
     def showMenu(self):
+        self.destruir(self)
         menuBar = tk.Menu(self.root, activebackground="#4F53CE", activeforeground="white")
         self.root.config(menu=menuBar)
         archivo = tk.Menu(menuBar, activebackground="#4F53CE", activeforeground="white")
@@ -162,6 +164,7 @@ class SesionUsuario(tk.Frame):
         valores = framePedido.aceptar()
         self.pedido = Pedido()
         pais = None
+        tipo = None
         if valores[0] == "Colombia":
             pais = Pais.COLOMBIA
         if valores[0] == "Ecuador":
@@ -171,7 +174,15 @@ class SesionUsuario(tk.Frame):
         self.pedido.setPais(pais)
         self.pedido.setOrigen(valores[1])
         self.pedido.setDestino(valores[2])
-        self.pedido.setTipoProdutos(valores[3])
+        if valores[3] == "Perecederos":
+            tipo = "Frigorifico"
+        elif valores[3] == "Fragil" or valores[3] == "generales":
+            tipo = "Lona"
+        elif valores[3] == "ADR":
+            tipo = "Cisterna"
+        elif valores[3] == "coches":
+            tipo = "PortaCoches"
+        self.pedido.setTipoProdutos(tipo)
         self.selecionarProductos()
 
     def selecionarProductos(self):
@@ -241,7 +252,7 @@ class SesionUsuario(tk.Frame):
         self.mostrarFactura()
 
     def calcularTarifa(self):
-        self.factura = self.factura(self.pedido, self.usuario)
+        self.factura = Factura(self.pedido, self.usuario)
         self.camion.setRuta(self.pedido.calcularRuta())
         self.camion.calcularCostoCamion()
         costoPedido = self.camion.getCosto()
@@ -256,7 +267,10 @@ class SesionUsuario(tk.Frame):
     def mostrarFactura(self):
         self.destruir(self)
         self.fondoPantalla()
-        mostarF = FieldFrame(self, "mostrarFactura", "Most", "otra", "otra")
+        criterios = ["numero", "Vendio a:", "ID", "Estado", "Salida", "LLegada", "Costo $"]
+        mostarF = FieldFrame(self, "Inf de.", criterios, "Factura", self.factura.mostrarDatos(),
+                             self.factura.mostrarDatos())
+
         tk.Button(mostarF, text="Aceptar", command=self.confirmarFactura,
                   font=self.font).grid(
             row=len(mostarF.getWValores()) + 1, column=0, padx=self.padx, pady=self.pady)
@@ -265,7 +279,7 @@ class SesionUsuario(tk.Frame):
 
     def confirmarFactura(self):
         Factura.agregarFactura(self.factura)
-        self.cancelarFactura()
+        self.showMenu()
 
     def cancelarFactura(self):
         self.pedido = None
@@ -348,9 +362,10 @@ class SesionUsuario(tk.Frame):
 
         if camion:
             for empleado in Empleado.getEmpleados():
-                if empleado.getCiudadActual() == camion.get_ciudad_actual() and empleado.isEstatusActivo() and empleado.isDisponible():
+                if empleado.getCiudadActual() == camion.getCiudadActual() and empleado.isEstatusActivo() \
+                        and empleado.isDisponible():
                     empleado.setCiudadActual(origen)
-                    camion.set_ciudad_actual(origen)
+                    camion.setCiudadActual(origen)
                     return camion
 
         return None

@@ -14,6 +14,9 @@ class Usuario:
     def getNombre(self):
         return self.nombre
 
+    def getID(self):
+        return self.ID
+
     @classmethod
     def crearUsuario(cls, nombre, clave, id, correo):
         return cls(nombre, clave, id, correo)

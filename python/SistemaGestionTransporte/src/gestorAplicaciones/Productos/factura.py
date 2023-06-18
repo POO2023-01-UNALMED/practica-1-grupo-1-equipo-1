@@ -3,7 +3,7 @@ from src.gestorAplicaciones.Camion.camion import Camion
 
 class Factura:
     _facturas = []
-    _IDfactura = 100000000
+    _IDfactura = 100
 
     def __init__(self, pedido, usuario):
         self._pedido = pedido
@@ -93,6 +93,10 @@ class Factura:
             if factura.isFactura(id, nombre):
                 return factura
         return None
+
+    def mostrarDatos(self):
+        return [self._ID, self._usuario.getNombre(), self._usuario.getID(), "Pendiente", self._horaSalida,
+                self._horaLLegada, self._costo]
 
     @staticmethod
     def actualizarInformacion(factura):
