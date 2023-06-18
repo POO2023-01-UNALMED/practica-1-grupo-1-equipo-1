@@ -101,7 +101,7 @@ class SesionUsuario(tk.Frame):
 
     def fondoPantalla(self):
         image = Image.open(SesionUsuario.path + "\\images\\f4.jpg")
-        image = image.resize((930, 530), Image.ANTIALIAS)
+        image = image.resize((930, 530), Image.LANCZOS)
         photo = ImageTk.PhotoImage(image)
         fondo = tk.Label(self)
         fondo.image = photo
@@ -275,7 +275,7 @@ class SesionUsuario(tk.Frame):
     def mostrarFactura(self):
         self.destruir(self)
         self.fondoPantalla()
-        criterios = ["numero", "Vendio a:", "ID", "Estado", "Salida", "LLegada", "Costo $"]
+        criterios = ["numero", "Vendio a:", "ID", "Estado", "origen", "destino", "Salida", "LLegada", "Costo $"]
         mostarF = FieldFrame(self, "Inf de.", criterios, "Factura", self.factura.mostrarDatos(),
                              self.factura.mostrarDatos())
 
@@ -342,7 +342,7 @@ class SesionUsuario(tk.Frame):
         # valores = self.factura.mostrarDatos()
         self.factura = Factura.buscarFactura(int(id), self.usuario.getNombre())
         if self.factura is not None:
-            criterios = ["numero", "Vendio a:", "ID", "Estado", "Salida", "LLegada", "Costo $"]
+            criterios = ["numero", "Vendio a:", "ID", "Estado", "Origen", "Destino", "Salida", "LLegada", "Costo $"]
             valores = self.factura.mostrarDatos()
             Factura.actualizarInformacion(self.factura)
             self.pedido = self.factura.getPedido()

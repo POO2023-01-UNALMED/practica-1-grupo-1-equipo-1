@@ -7,10 +7,10 @@ from tkinter import ttk
 
 class FieldFrame(tk.Frame):
     def __init__(self, root, tituloCriterios, criterios, tituloValores, valores=None, habilitado='-'):
-        super().__init__(root, width=400, height=430)
+        super().__init__(root, width=400, height=490)
         if habilitado == '-':
             habilitado = []
-        self.place(x=300, y=100)
+        self.place(x=300, y=40)
         self.tituloCriterios = tituloCriterios
         self.criterios = criterios
         self.tituloValores = tituloValores
@@ -31,7 +31,7 @@ class FieldFrame(tk.Frame):
         path = os.path.join(pathlib.Path(__file__).absolute())
         path = os.path.dirname(path)
         image = Image.open(path + "\\images\\orange.jpg")
-        image = image.resize((730, 430), Image.LANCZOS)
+        image = image.resize((730, 490), Image.LANCZOS)
         photo = ImageTk.PhotoImage(image)
         fondo = tk.Label(self)
         fondo.image = photo

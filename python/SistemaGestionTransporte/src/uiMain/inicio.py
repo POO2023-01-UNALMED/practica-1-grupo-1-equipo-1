@@ -119,7 +119,7 @@ class Inicio(tk.Frame):
 
     def frames(self):
         image = Image.open(Inicio.path + "\\images\\f3.jpg")
-        image = image.resize((930, 530), Image.ANTIALIAS)
+        image = image.resize((930, 530), Image.LANCZOS)
         photo = ImageTk.PhotoImage(image)
         fondo = tk.Label(self)
         fondo.image = photo
@@ -159,7 +159,7 @@ class Inicio(tk.Frame):
         self.destruir(self.p4)
         ruta = Inicio.path + "\\images\\f" + str(self.indice) + ".jpg"
         image = Image.open(ruta)
-        image = image.resize((455, 350), Image.ANTIALIAS)
+        image = image.resize((455, 350), Image.LANCZOS)
         photo = ImageTk.PhotoImage(image)
         fondo = tk.Label(self.p4)
         fondo.image = photo

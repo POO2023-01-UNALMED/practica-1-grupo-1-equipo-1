@@ -95,8 +95,8 @@ class Factura:
         return None
 
     def mostrarDatos(self):
-        return [self._ID, self._usuario.getNombre(), self._usuario.getID(), self._pedido.getEstado(), self._horaSalida,
-                self._horaLLegada, self._costo]
+        return [self._ID, self._usuario.getNombre(), self._usuario.getID(), self._pedido.getEstado(),
+                self._pedido.getOrigen(),self._pedido.getDestino(), self._horaSalida, self._horaLLegada, self._costo]
 
     @staticmethod
     def actualizarInformacion(factura):
