@@ -107,18 +107,12 @@ class Inicio(tk.Frame):
         fondo.place(x=-5, y=-5)"""
         tk.Button(self.p4, text="Usuario", font=font, bg="black", fg=self.p3["bg"],
                   command=self.ingresarUsuario).place(x=150, y=60)
-        tk.Button(self.p4, text="Empleado", font=font, bg="black", fg=self.p3["bg"],
-                  command=self.ingresarEmpleado).place(x=130, y=142)
         tk.Button(self.p4, text="Administrador", font=font, bg="black", fg=self.p3["bg"],
                   command=self.ingresarAdministrador).place(x=100, y=225)
 
     def ingresarUsuario(self):
         self.destruir(self.root)
         SesionUsuario(self.root)
-
-    def ingresarEmpleado(self):
-        self.destruir(self.root)
-        SesionEmpleado(self.root)
 
     def ingresarAdministrador(self):
         self.destruir(self.root)

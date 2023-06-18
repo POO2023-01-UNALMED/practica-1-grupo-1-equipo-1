@@ -16,6 +16,10 @@ class Empleado(Usuario):
     def getEmpleados(cls):
         return cls.empleados
 
+    @classmethod
+    def setEmpleados(cls, empleados):
+        cls.empleados = empleados
+
     def isEstatusActivo(self):
         return self.estatusActivo
 

@@ -1,3 +1,5 @@
+from src.baseDatos.deserializar import Deserializador
+from src.baseDatos.serializar import Serializador
 from src.cargarInformacion import CargarInformacion
 from src.uiMain.uiMain import UiMain
 from tkinter import messagebox
@@ -17,8 +19,10 @@ except ImportError:
 
 
 if __name__ == '__main__':
-    CargarInformacion.cargarUsuarios()
-    CargarInformacion.cargarEmpleados()
-    CargarInformacion.cargarCamiones()
+    # CargarInformacion.cargarUsuarios()
+    # CargarInformacion.cargarEmpleados()
+    # CargarInformacion.cargarCamiones()
+    Deserializador()
     gui = UiMain()
     gui.mainloop()
+    Serializador()
