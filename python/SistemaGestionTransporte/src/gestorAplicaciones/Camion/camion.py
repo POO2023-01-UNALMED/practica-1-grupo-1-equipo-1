@@ -91,12 +91,14 @@ class Camion(ABC):
         return self.calcularTiempo() - tiempo
 
     def ubicacionActual(self, tiempo):
+        print(tiempo)
         distancia = self.distanciaRecorrida(tiempo)
+        print(distancia)
         aux = 0
         ciudadA = None
         ciudadB = None
         for recorrido in self.ruta:
-            aux += recorrido[1]
+            aux = recorrido[1]
             ciudadA = ciudadB
             ciudadB = recorrido[0]
             if aux > distancia:
