@@ -1,12 +1,12 @@
-from src.gestorAplicaciones.Camion.CamionCisterna import CamionCisterna
-from src.gestorAplicaciones.Camion.CamionFrigorifico import CamionFrigorifico
-from src.gestorAplicaciones.Camion.CamionLona import CamionLona
-from src.gestorAplicaciones.Camion.CamionPortaCoches import CamionPortaCoches
+from src.gestorAplicaciones.Camion.camion import CamionCisterna
+from src.gestorAplicaciones.Camion.camion import CamionFrigorifico
+from src.gestorAplicaciones.Camion.camion import CamionLona
+from src.gestorAplicaciones.Camion.camion import CamionPortaCoches
 from src.gestorAplicaciones.Camion.camion import Camion
 from src.gestorAplicaciones.Productos.factura import Factura
 from src.gestorAplicaciones.entidades.empleado import Empleado
 from src.gestorAplicaciones.entidades.usuario import Usuario
-from src.main import actualizarInformacion
+from main import actualizarInformacion
 
 
 class Administrador(Empleado):

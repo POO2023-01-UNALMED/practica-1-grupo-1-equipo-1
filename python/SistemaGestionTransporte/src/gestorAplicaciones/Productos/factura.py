@@ -1,3 +1,6 @@
+from src.gestorAplicaciones.Camion.camion import Camion
+
+
 class Factura:
     _facturas = []
     _IDfactura = 100000000
@@ -72,13 +75,9 @@ class Factura:
 
     @classmethod
     def historialFacturas(cls, usuario):
-        inf = ""
         for factura in cls._facturas:
             if factura.getUsuario().getID() == usuario.getID():
-                # actualizar informacion
-                inf += factura + "\n"
-
-        return inf
+                Factura.actualizarInformacion(factura)
 
     def infoViaje(self, ubicacion, tiempo):
         horas = int(tiempo)
@@ -94,3 +93,17 @@ class Factura:
             if factura.isFactura(id, nombre):
                 return factura
         return None
+
+    @staticmethod
+    def actualizarInformacion(factura):
+        estadoAnterior = ''
+        if factura.getPedido().getEstado() == "Entregado":
+            pedido = factura.getPedido()
+            estadoAnterior = factura.getPedido().getEstado()
+            pedido.verificarEstado(factura.getHoraSalida(), factura.getHoraLLegada())
+            if pedido.getEstado() is not estadoAnterior and pedido.getEstado == "Entregado":
+                camion = Camion.buscarCamion(pedido.getTipoProdutos(), pedido.getVehiculo())
+                camion.setDisponible(True)
+                camion.setCiudadActual(pedido.getDestino())
+                camion.getEmpleado().setDisponible(True)
+                camion.getEmpleado().setCiudadActual(pedido.getDestino())

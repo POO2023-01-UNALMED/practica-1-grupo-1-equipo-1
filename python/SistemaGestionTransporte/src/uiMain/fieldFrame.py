@@ -8,7 +8,7 @@ from tkinter import ttk
 class FieldFrame(tk.Frame):
     def __init__(self, root, tituloCriterios, criterios, tituloValores, valores=None, habilitado='-'):
         super().__init__(root, width=400, height=430)
-        if habilitado is None:
+        if habilitado == '-':
             habilitado = []
         self.place(x=300, y=100)
         self.tituloCriterios = tituloCriterios
@@ -53,8 +53,10 @@ class FieldFrame(tk.Frame):
                 if isinstance(valor, list):
                     self.wValores.append(ttk.Combobox(self, values=valor, justify="center"))
                 elif valor in self.habilitado:
-                    self.wValores.append(tk.Entry(self, justify="center", bg=bg, state="disabled"))
+                    self.wValores.append(tk.Entry(self, justify="center", bg=bg))
                     self.wValores[-1].insert(0, valor)
+                    self.wValores[-1].configure(state="disabled")
+
                 else:
                     self.wValores.append(tk.Entry(self, justify="center", bg=bg))
                     self.wValores[-1].insert(0, valor)

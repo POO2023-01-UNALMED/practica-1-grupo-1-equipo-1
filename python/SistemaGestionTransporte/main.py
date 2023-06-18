@@ -1,3 +1,4 @@
+from src.cargarInformacion import CargarInformacion
 from src.uiMain.uiMain import UiMain
 from tkinter import messagebox
 import importlib
@@ -15,10 +16,9 @@ except ImportError:
         exit()
 
 
-def actualizarInformacion(factura):
-    pass
-
-
 if __name__ == '__main__':
+    CargarInformacion.cargarUsuarios()
+    CargarInformacion.cargarEmpleados()
+    CargarInformacion.cargarCamiones()
     gui = UiMain()
     gui.mainloop()

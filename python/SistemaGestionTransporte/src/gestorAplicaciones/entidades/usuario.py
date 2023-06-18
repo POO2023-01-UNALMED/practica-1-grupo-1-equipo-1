@@ -20,7 +20,7 @@ class Usuario:
 
     def comprobarUsuario(self, nombre, clave):
         if nombre.isdigit():
-            return self.ID == nombre and self.clave == clave
+            return self.ID == int(nombre) and self.clave == clave
         return self.nombre == nombre and self.clave == clave
 
     def comprobarNombre(self, nombre):

@@ -1,10 +1,6 @@
-from typing import List, Tuple
 from abc import ABC, abstractmethod
 
-from src.gestorAplicaciones.Camion.CamionCisterna import CamionCisterna
-from src.gestorAplicaciones.Camion.CamionFrigorifico import CamionFrigorifico
-from src.gestorAplicaciones.Camion.CamionLona import CamionLona
-from src.gestorAplicaciones.Camion.CamionPortaCoches import CamionPortaCoches
+from _distutils_hack import override
 
 
 class Camion(ABC):
@@ -21,52 +17,52 @@ class Camion(ABC):
         self.ruta = []
         self.empleado = None
 
-    def setPesoMaximo(self, pesoMaximo: float):
+    def setPesoMaximo(self, pesoMaximo):
         self.pesoMaximo = pesoMaximo
 
-    def setCapacidad(self, capacidad: float):
+    def setCapacidad(self, capacidad):
         self.capacidad = capacidad
 
     def getPlaca(self) -> str:
         return self.placa
 
-    def setPlaca(self, placa: str):
+    def setPlaca(self, placa):
         self.placa = placa
 
-    def getPesoMaximo(self) -> float:
+    def getPesoMaximo(self):
         return self.pesoMaximo
 
-    def getCapacidad(self) -> float:
+    def getCapacidad(self):
         return self.capacidad
 
-    def getCosto(self) -> float:
+    def getCosto(self):
         return self.costo
 
-    def setCosto(self, costo: float):
+    def setCosto(self, costo):
         self.costo = costo
 
-    def getPais(self) -> str:
+    def getPais(self):
         return self.pais
 
-    def setPais(self, pais: str):
+    def setPais(self, pais):
         self.pais = pais
 
-    def isDisponible(self) -> bool:
+    def isDisponible(self):
         return self.disponible
 
-    def setDisponible(self, disponible: bool):
+    def setDisponible(self, disponible):
         self.disponible = disponible
 
-    def getCiudadActual(self) -> str:
+    def getCiudadActual(self):
         return self.ciudadActual
 
-    def setCiudadActual(self, ciudadActual: str):
+    def setCiudadActual(self, ciudadActual):
         self.ciudadActual = ciudadActual
 
-    def getRuta(self) -> List[Tuple[str, float]]:
+    def getRuta(self):
         return self.ruta
 
-    def setRuta(self, ruta: List[Tuple[str, float]]):
+    def setRuta(self, ruta):
         self.ruta = ruta
 
     def getEmpleado(self):
@@ -166,3 +162,143 @@ class Camion(ABC):
         cls.camiones["Frigorifico"] = CamionFrigorifico.getCamiones()
         cls.camiones["Lona"] = CamionLona.getCamiones()
         cls.camiones["PortaCoches"] = CamionPortaCoches.getCamiones()
+
+
+class CamionCisterna(Camion, ABC):
+    camiones = []
+
+    def __init__(self, placa, pais, ciudadActual, pesoMaximo, capacidad):
+        super().__init__(placa, pais, ciudadActual, pesoMaximo, capacidad)
+        self.camiones.append(self)
+
+    @classmethod
+    def getCamiones(cls):
+        return cls.camiones
+
+    @classmethod
+    def setCamiones(cls, camiones):
+        cls.camiones = camiones
+
+    def calcularCostoCamion(self):
+        factor = 0.005
+        km = self.getRuta()[-1][1]
+        self.setCosto(km * self.getCapacidad() * factor)
+
+    def velocidad(self):
+        velocidadBase = 81.857
+        factor = -0.392957
+        return velocidadBase + self.getCapacidad() * factor
+
+    def __str__(self):
+        return "\nTipo: Cisterna" \
+               "\nPlaca: " + self.getPlaca() + \
+            "\nPais: " + self.getPais() + \
+            "\nCiudad actual: " + self.getCiudadActual() + \
+            "\nPeso Maximo: " + str(self.getPesoMaximo()) + \
+            "\nCapacidad: " + str(self.getCapacidad()) + \
+            "\nDisponible: " + str(self.isDisponible()) + "\n"
+
+
+class CamionFrigorifico(Camion, ABC):
+    camiones = []
+
+    def __init__(self, placa, pais, CiudadActual, pesoMaximo, capacidad):
+        super().__init__(placa, pais, CiudadActual, pesoMaximo, capacidad)
+        self.camiones.append(self)
+
+    @classmethod
+    def getCamiones(cls):
+        return cls.camiones
+
+    @classmethod
+    def setCamiones(cls, camiones):
+        cls.camiones = camiones
+
+    def calcularCostoCamion(self):
+        factor = 0.01
+        km = self.getRuta()[-1].getValue()
+        self.setCosto(km * self.getCapacidad() * factor)
+
+    def velocidad(self):
+        velocidadBase = 85.14
+        factor = -0.357
+        return velocidadBase + self.getCapacidad() * factor
+
+    def __str__(self):
+        return "\nTipo: Frigorifico" \
+               "\nPlaca: " + self.getPlaca() \
+            + "\npais: " + self.getPais() \
+            + "\nCiudad actual: " + self.getCiudadActual() \
+            + "\nPeso Maximo: " + str(self.getPesoMaximo()) \
+            + "\nCapacidad: " + str(self.getCapacidad()) \
+            + "\nDisponible: " + str(self.isDisponible()) + "\n"
+
+
+class CamionLona(Camion, ABC):
+    camiones = []
+
+    def __init__(self, placa, pais, CiudadActual, pesoMaximo, capacidad):
+        super().__init__(placa, pais, CiudadActual, pesoMaximo, capacidad)
+        self.camiones.append(self)
+
+    @classmethod
+    def getCamiones(cls):
+        return cls.camiones
+
+    @classmethod
+    def setCamiones(cls, camiones):
+        cls.camiones = camiones
+
+    def calcularCostoCamion(self):
+        factor = 0.005
+        km = self.getRuta()[-1].getValue()
+        self.setCosto(km * self.getCapacidad() * factor)
+
+    def velocidad(self):
+        velocidadBase = 85.7
+        factor = -0.2857
+        return velocidadBase + self.getCapacidad() * factor
+
+    def __str__(self):
+        return "\nTipo: Lona" \
+               "\nPlaca: " + self.getPlaca() \
+            + "\npais: " + self.getPais() \
+            + "\nCiudad actual: " + self.getCiudadActual() \
+            + "\nPeso Maximo: " + str(self.getPesoMaximo()) \
+            + "\nCapacidad: " + str(self.getCapacidad()) \
+            + "\nDisponible: " + str(self.isDisponible()) + "\n"
+
+
+class CamionPortaCoches(Camion, ABC):
+    camiones = []
+
+    def __init__(self, placa, pais, CiudadActual, pesoMaximo, capacidad):
+        super().__init__(placa, pais, CiudadActual, pesoMaximo, capacidad)
+        self.camiones.append(self)
+
+    @classmethod
+    def getCamiones(cls):
+        return cls.camiones
+
+    @classmethod
+    def setCamiones(cls, camiones):
+        cls.camiones = camiones
+
+    def calcularCostoCamion(self):
+        factor = 0.008
+        km = self.getRuta()[-1].getValue()
+        self.setCosto(km * self.getCapacidad() * factor)
+
+    def velocidad(self):
+        velocidadBase = 80.57
+        factor = -0.42857
+        return velocidadBase + self.getCapacidad() * factor
+
+    def __str__(self):
+        return "\nTipo: Portacoches" \
+               "\nPlaca: " + self.getPlaca() \
+            + "\npais: " + self.getPais() \
+            + "\nCiudad actual: " + self.getCiudadActual() \
+            + "\nPeso Maximo: " + str(self.getPesoMaximo()) \
+            + "\nCapacidad: " + str(self.getCapacidad()) \
+            + "\nDisponible: " + str(self.isDisponible()) + "\n"

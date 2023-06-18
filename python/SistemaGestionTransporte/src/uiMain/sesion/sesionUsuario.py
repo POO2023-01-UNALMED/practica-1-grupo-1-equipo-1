@@ -7,6 +7,7 @@ from tkinter import messagebox
 from PIL import Image, ImageTk
 
 from src.gestorAplicaciones.Camion.camion import Camion
+from src.gestorAplicaciones.Pais.pais import Pais
 from src.gestorAplicaciones.Productos.factura import Factura
 from src.gestorAplicaciones.Productos.pedido import Pedido
 from src.gestorAplicaciones.Productos.producto import Producto
@@ -143,6 +144,9 @@ class SesionUsuario(tk.Frame):
         messagebox.showinfo("Autores", "Julian Ricardo Salazar Duarte\nMichael Garcia Quincos")
 
     def realizarPedido(self):
+        self.pedido = None
+        self.camion = None
+        self.factura = None
         self.destruir(self)
         self.fondoPantalla()
         criterios = ["Pais", "Origen", "Destino", "productos tipo"]
@@ -157,50 +161,58 @@ class SesionUsuario(tk.Frame):
     def aceptarPedido(self, framePedido):
         valores = framePedido.aceptar()
         self.pedido = Pedido()
-        self.pedido.setPais(valores[0])
+        pais = None
+        if valores[0] == "Colombia":
+            pais = Pais.COLOMBIA
+        if valores[0] == "Ecuador":
+            pais = Pais.ECUADOR
+        if valores[0] == "Panama":
+            pais = Pais.PANAMA
+        self.pedido.setPais(pais)
         self.pedido.setOrigen(valores[1])
         self.pedido.setDestino(valores[2])
         self.pedido.setTipoProdutos(valores[3])
-        # self.pedido.setProductos(self.selecionarProductos(self.pedido.getTipoProdutos()))
+        self.selecionarProductos()
 
     def selecionarProductos(self):
         self.destruir(self)
         self.fondoPantalla()
-        opciones = ["Ingresar producto", "Ver productos", "Confirmar productos", "eliminar productos", "descratar "
-                                                                                                       "productos"]
-        frameProductos = FieldFrame(self, "menu", "Selecione", "Opciones", opciones)
+        opciones = [["Ingresar producto", "Ver productos", "Confirmar productos", "Eliminar producto", "Descartar "
+                                                                                                       "productos"]]
+        frameProductos = FieldFrame(self, "menu", ["Selecione"], "Opciones", opciones)
         tk.Button(frameProductos, text="Aceptar", command=partial(self.opcionProductos, frameProductos),
                   font=self.font).grid(row=len(frameProductos.getWValores()) + 1, column=0, padx=self.padx,
                                        pady=self.pady)
 
     def opcionProductos(self, frameProductos):
-        opcion = frameProductos.aceptar()
+        opcion = frameProductos.aceptar()[0]
 
         if opcion == "Ingresar producto":
             self.ingresarProducto()
         elif opcion == "Ver productos":
             self.verProductos()
         elif opcion == "Confirmar productos":
-            pass
-        elif opcion == "Eliminar productos":
-            pass
+            self.confirmarProductos()
+        elif opcion == "Eliminar producto":
+            self.eliminarProducto()
         elif opcion == "Descartar productos":
             self.descartarProductos()
 
     def ingresarProducto(self):
         self.destruir(self)
         self.fondoPantalla()
-        criterios = ["Nombre", "peso (kg)", "volumen m3", "cantdad"]
+        criterios = ["Nombre", "peso (kg)", "volumen m3", "cantidad"]
         ingresarP = FieldFrame(self, "Datos", criterios, "Valores")
         tk.Button(ingresarP, text="Aceptar", command=partial(self.guardarProducto, ingresarP), font=self.font).grid(
             row=len(ingresarP.getWValores()) + 1, column=0, padx=self.padx, pady=self.pady)
 
     def guardarProducto(self, info):
         valores = info.aceptar()
-        producto = Producto(valores[0], self.pedido.getTipoProdutos(), valores[1], valores[2], valores[3])
-        if self.pedido.getProductos() is None:
-            self.pedido.setProductos([])
-        self.pedido.setProductos(self.pedido.getProductos.append(producto))
+        producto = Producto(valores[0], self.pedido.getTipoProdutos(), float(valores[1]), float(valores[2]),
+                            float(valores[3]))
+        nuevo = self.pedido.getProductos()
+        nuevo.append(producto)
+        self.pedido.setProductos(nuevo)
         self.selecionarProductos()
 
     def verProductos(self):
@@ -212,7 +224,7 @@ class SesionUsuario(tk.Frame):
             for producto in self.pedido.getProductos():
                 criterios.append(producto.getNombre())
                 cantidad.append(str(producto.getCantidad()))
-        verP = FieldFrame(self, "Nombre", criterios, "Cantidad ", cantidad, cantidad)
+        verP = FieldFrame(self, "Nombre", criterios, "Cantidad", cantidad, cantidad)
         tk.Button(verP, text="Aceptar", command=self.selecionarProductos, font=self.font).grid(
             row=len(verP.getWValores()) + 1, column=0, padx=self.padx, pady=self.pady)
 
@@ -223,6 +235,7 @@ class SesionUsuario(tk.Frame):
             self.camion = self.camionCercano(self.pedido.getTipoProdutos(), self.pedido.getOrigen(),
                                              self.pedido.calcularpeso())
         self.pedido.setVehiculo(self.camion.getPlaca())
+        self.camion.setEmpleado(Empleado.seleccionarEmpleado(self.pedido.getOrigen()))
         self.calcularTarifa()
         self.calcularTiempo()
         self.mostrarFactura()
@@ -232,7 +245,7 @@ class SesionUsuario(tk.Frame):
         self.camion.setRuta(self.pedido.calcularRuta())
         self.camion.calcularCostoCamion()
         costoPedido = self.camion.getCosto()
-        costoPedido = self.camion.getEmpleado().calcular_pago(costoPedido)
+        costoPedido = self.camion.getEmpleado().calcularPago(costoPedido)
         self.factura.calcularCostoTotal(costoPedido, self.camion.getCapacidad())
 
     def calcularTiempo(self):
@@ -271,17 +284,20 @@ class SesionUsuario(tk.Frame):
             row=len(eliminarP.getWValores()) + 1, column=1, padx=self.padx, pady=self.pady)
 
     def confirmarEliminacionP(self, eliminar):
-        nombre = eliminar.aceptar()
+        nombre = eliminar.aceptar()[0]
         for producto in self.pedido.getProductos():
             if producto.getNombre() == nombre:
-                self.pedido.setProductos(self.pedido.getProductos.remove(producto))
+                remover = self.pedido.getProductos()
+                remover.remove(producto)
+                print(remover)
+                self.pedido.setProductos(remover)
                 break
         self.selecionarProductos()
 
     def descartarProductos(self):
         self.destruir(self)
         self.fondoPantalla()
-        self.pedido.setProductos(None)
+        self.pedido.setProductos([])
         self.selecionarProductos()
 
     def seguirPedido(self):
@@ -290,6 +306,7 @@ class SesionUsuario(tk.Frame):
     def historialPedidos(self):
         self.destruir(self)
         self.fondoPantalla()
+        Factura.historialFacturas(self.usuario)
         criterios = []
         valores = []
         for factura in Factura.getFacturas():
@@ -330,9 +347,9 @@ class SesionUsuario(tk.Frame):
                         camion = c
 
         if camion:
-            for empleado in Empleado.get_empleados():
-                if empleado.get_ciudad_actual() == camion.get_ciudad_actual() and empleado.is_estatus_activo() and empleado.is_disponible():
-                    empleado.set_ciudad_actual(origen)
+            for empleado in Empleado.getEmpleados():
+                if empleado.getCiudadActual() == camion.get_ciudad_actual() and empleado.isEstatusActivo() and empleado.isDisponible():
+                    empleado.setCiudadActual(origen)
                     camion.set_ciudad_actual(origen)
                     return camion
 
