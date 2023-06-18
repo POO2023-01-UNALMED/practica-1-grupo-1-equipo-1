@@ -10,7 +10,7 @@ class Pedido:
         self._destino = None
         self._productos = []
         self._pais = None
-        self._estado = None
+        self._estado = "Pendiente"
         self._vehiculo = None
         self._tipoProductos = None
 
@@ -158,4 +158,3 @@ class Pedido:
     def tiempoTranscurrido(self, salida):
         actual = datetime.now()
         return actual.hour - salida.hour + actual.minute / 60
-

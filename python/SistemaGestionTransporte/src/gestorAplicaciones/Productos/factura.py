@@ -1,4 +1,5 @@
 from src.gestorAplicaciones.Camion.camion import Camion
+from src.gestorAplicaciones.Productos.pedido import Pedido
 
 
 class Factura:
@@ -10,7 +11,6 @@ class Factura:
         self._usuario = usuario
         self._ID = Factura._IDfactura
         self._ganancia = 1.25
-        self._pedido = None
         self._costo = None
         self._horaSalida = None
         self._horaLLegada = None
@@ -82,7 +82,7 @@ class Factura:
     def infoViaje(self, ubicacion, tiempo):
         horas = int(tiempo)
         minutos = int(tiempo - horas) * 60
-        return ubicacion + ":" + horas + minutos
+        return [ubicacion, str(horas + minutos)]
 
     def isFactura(self, id, nombre):
         return self._ID == id and self._usuario.getNombre() == nombre
@@ -95,7 +95,7 @@ class Factura:
         return None
 
     def mostrarDatos(self):
-        return [self._ID, self._usuario.getNombre(), self._usuario.getID(), "Pendiente", self._horaSalida,
+        return [self._ID, self._usuario.getNombre(), self._usuario.getID(), self._pedido.getEstado(), self._horaSalida,
                 self._horaLLegada, self._costo]
 
     @staticmethod

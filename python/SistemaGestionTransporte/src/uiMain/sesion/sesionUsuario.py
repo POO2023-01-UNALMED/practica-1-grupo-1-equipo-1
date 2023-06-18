@@ -119,6 +119,7 @@ class SesionUsuario(tk.Frame):
 
     def showMenu(self):
         self.destruir(self)
+        self.fondoPantalla()
         menuBar = tk.Menu(self.root, activebackground="#4F53CE", activeforeground="white")
         self.root.config(menu=menuBar)
         archivo = tk.Menu(menuBar, activebackground="#4F53CE", activeforeground="white")
@@ -157,7 +158,7 @@ class SesionUsuario(tk.Frame):
         tk.Button(framePedido, text="Aceptar", command=partial(self.aceptarPedido, framePedido), font=self.font).grid(
             row=len(framePedido.getWValores()) + 1, column=0, padx=self.padx, pady=self.pady)
 
-        tk.Button(framePedido, text="Borrar", command=partial(self.borrarRegistro, framePedido), font=self.font).grid(
+        tk.Button(framePedido, text="Borrar", command=self.showMenu, font=self.font).grid(
             row=len(framePedido.getWCriterios()) + 1, column=1, padx=self.padx, pady=self.pady)
 
     def aceptarPedido(self, framePedido):
@@ -278,6 +279,7 @@ class SesionUsuario(tk.Frame):
             row=len(mostarF.getWValores()) + 1, column=1, padx=self.padx, pady=self.pady)
 
     def confirmarFactura(self):
+        self.factura.getPedido().setEstado("Confirmado")
         Factura.agregarFactura(self.factura)
         self.showMenu()
 
@@ -315,7 +317,37 @@ class SesionUsuario(tk.Frame):
         self.selecionarProductos()
 
     def seguirPedido(self):
-        pass
+        self.destruir(self)
+        self.fondoPantalla()
+        seguirP = FieldFrame(self, "factura", ["Numero"], "ID")
+        tk.Button(seguirP, text="Aceptar", command=partial(self.mostrarPedido, seguirP),
+                  font=self.font).grid(
+            row=len(seguirP.getWValores()) + 1, column=0, padx=self.padx, pady=self.pady)
+        tk.Button(seguirP, text="Cancelar", command=self.showMenu, font=self.font).grid(
+            row=len(seguirP.getWValores()) + 1, column=1, padx=self.padx, pady=self.pady)
+
+    def mostrarPedido(self, seguirP):
+        id = seguirP.aceptar()[0]
+        self.destruir(self)
+        self.fondoPantalla()
+        criterios = ["numero", "Vendio a:", "ID", "Estado", "Salida", "LLegada", "Costo $"]
+        valores = self.factura.mostrarDatos()
+        self.factura = Factura.buscarFactura(id, self.usuario.getNombre())
+        if self.factura is not None:
+            Factura.actualizarInformacion(self.factura)
+            self.pedido = self.factura.getPedido()
+            self.camion = Camion.buscarCamion(self.pedido.getTipoProdutos(), self.pedido.getVehiculo())
+
+            if self.pedido.getEstado() == "Enviado":
+                tiempo = self.pedido.tiempoTranscurrido(self.factura.getHoraSalida())
+                ubicacion = self.camion.ubicacionActual(tiempo)
+                tiempo = self.camion.tiempoRestante(tiempo)
+                criterios = criterios + ["ubicacion", "t. restatnte"]
+                valores = valores + self.factura.infoViajes(ubicacion, tiempo)
+
+        framePedido = FieldFrame(self, "Datos", criterios, "valores", valores, valores)
+        tk.Button(framePedido, text="Aceptar", command=self.showMenu,
+                  font=self.font).grid(row=len(framePedido.getWValores()) + 1, column=0, padx=self.padx, pady=self.pady)
 
     def historialPedidos(self):
         self.destruir(self)
@@ -324,7 +356,7 @@ class SesionUsuario(tk.Frame):
         criterios = []
         valores = []
         for factura in Factura.getFacturas():
-            if factura.getUsuario().getnombre() == self.usuario.getNombre():
+            if factura.getUsuario().getNombre() == self.usuario.getNombre():
                 criterios.append(factura.getID())
                 valores.append(factura.getPedido().getEstado())
         historial = FieldFrame(self, "No. Factura", criterios, "Estado", valores, valores)
