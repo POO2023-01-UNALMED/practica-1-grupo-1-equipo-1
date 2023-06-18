@@ -120,6 +120,13 @@ class SesionUsuario(tk.Frame):
     def showMenu(self):
         self.destruir(self)
         self.fondoPantalla()
+        text = self.usuario.getNombre() + " Bienvenido a transportes LTDA!\n en la zona izquierda superior " \
+                                          "encontraras tres menus:\n Archivo, donde podras ver informacion del " \
+                                          "sistema y salir al inicio,\n Procesos y Consultas, donde podras realizar un " \
+                                          "pedido,\n Seguimiento de un pedido ya realizado o ver el histoarial de " \
+                                          "pedidos\n y Ayuda, donde se vera el nombre de los autores."
+
+        tk.Label(self, text=text, bg=self.root["bg"],  font=("ROMAN", 20)).place(x=50, y=100)
         menuBar = tk.Menu(self.root, activebackground="#4F53CE", activeforeground="white")
         self.root.config(menu=menuBar)
         archivo = tk.Menu(menuBar, activebackground="#4F53CE", activeforeground="white")
