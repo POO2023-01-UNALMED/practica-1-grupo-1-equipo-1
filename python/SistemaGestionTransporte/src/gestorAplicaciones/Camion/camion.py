@@ -87,10 +87,10 @@ class Camion(ABC):
     def distanciaRecorrida(self, tiempo):
         return self.velocidad() * tiempo
 
-    def tiempoRestante(self, tiempo: float) -> float:
+    def tiempoRestante(self, tiempo):
         return self.calcularTiempo() - tiempo
 
-    def ubicacionActual(self, tiempo: float) -> str:
+    def ubicacionActual(self, tiempo):
         distancia = self.distanciaRecorrida(tiempo)
         aux = 0
         ciudadA = None

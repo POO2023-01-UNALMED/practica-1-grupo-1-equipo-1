@@ -135,7 +135,7 @@ class SesionUsuario(tk.Frame):
 
         ayuda = tk.Menu(menuBar, activebackground="#4F53CE", activeforeground="white")
         menuBar.add_cascade(label="Ayuda", menu=ayuda)
-        ayuda.add_command(label="Descripcion del sistema", command=self.autores)
+        ayuda.add_command(label="Acerca de", command=self.autores)
 
     def informacion(self):
         messagebox.showinfo("Información", "Dentro de esta aplicaciones puedes realizar las opciones de realizar un "
@@ -330,10 +330,13 @@ class SesionUsuario(tk.Frame):
         id = seguirP.aceptar()[0]
         self.destruir(self)
         self.fondoPantalla()
-        criterios = ["numero", "Vendio a:", "ID", "Estado", "Salida", "LLegada", "Costo $"]
-        valores = self.factura.mostrarDatos()
-        self.factura = Factura.buscarFactura(id, self.usuario.getNombre())
+        criterios = []
+        valores = []
+        # valores = self.factura.mostrarDatos()
+        self.factura = Factura.buscarFactura(int(id), self.usuario.getNombre())
         if self.factura is not None:
+            criterios = ["numero", "Vendio a:", "ID", "Estado", "Salida", "LLegada", "Costo $"]
+            valores = self.factura.mostrarDatos()
             Factura.actualizarInformacion(self.factura)
             self.pedido = self.factura.getPedido()
             self.camion = Camion.buscarCamion(self.pedido.getTipoProdutos(), self.pedido.getVehiculo())
@@ -343,7 +346,7 @@ class SesionUsuario(tk.Frame):
                 ubicacion = self.camion.ubicacionActual(tiempo)
                 tiempo = self.camion.tiempoRestante(tiempo)
                 criterios = criterios + ["ubicacion", "t. restatnte"]
-                valores = valores + self.factura.infoViajes(ubicacion, tiempo)
+                valores = valores + self.factura.infoViaje(ubicacion, tiempo)
 
         framePedido = FieldFrame(self, "Datos", criterios, "valores", valores, valores)
         tk.Button(framePedido, text="Aceptar", command=self.showMenu,

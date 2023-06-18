@@ -77,7 +77,7 @@ class Factura:
     def historialFacturas(cls, usuario):
         for factura in cls._facturas:
             if factura.getUsuario().getID() == usuario.getID():
-                Factura.actualizarInformacion(factura)
+                cls.actualizarInformacion(factura)
 
     def infoViaje(self, ubicacion, tiempo):
         horas = int(tiempo)
@@ -101,7 +101,7 @@ class Factura:
     @staticmethod
     def actualizarInformacion(factura):
         estadoAnterior = ''
-        if factura.getPedido().getEstado() == "Entregado":
+        if factura.getPedido().getEstado() != "Entregado":
             pedido = factura.getPedido()
             estadoAnterior = factura.getPedido().getEstado()
             pedido.verificarEstado(factura.getHoraSalida(), factura.getHoraLLegada())

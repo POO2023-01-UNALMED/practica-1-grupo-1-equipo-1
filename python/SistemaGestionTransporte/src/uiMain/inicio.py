@@ -5,7 +5,6 @@ from PIL import Image, ImageTk
 from tkinter import messagebox
 
 from src.uiMain.sesion.sesionAdministrador import SesionAdministrador
-from src.uiMain.sesion.sesionEmpleado import SesionEmpleado
 from src.uiMain.sesion.sesionUsuario import SesionUsuario
 
 

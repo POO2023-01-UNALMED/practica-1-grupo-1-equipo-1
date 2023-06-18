@@ -144,10 +144,10 @@ class Pedido:
 
     def verificarEstado(self, salida, llegada):
         actual = datetime.now()
-        duracion = salida.hour - llegada.hour
-        factor = actual.timetuple().tm_mday - salida.timetuple().tm_yday
+        factor = llegada.day - salida.day
+        duracion = 24 * factor + llegada.hour - salida.hour
+        factor = actual.day - salida.day
         diffHora = 24 * factor + actual.hour - salida.hour
-
         if diffHora < 0:
             self._estado = "Confirmado"
         elif diffHora < duracion:
@@ -157,4 +157,5 @@ class Pedido:
 
     def tiempoTranscurrido(self, salida):
         actual = datetime.now()
-        return actual.hour - salida.hour + actual.minute / 60
+        factor = actual.day - salida.day
+        return 24 * factor + actual.hour - salida.hour + actual.minute / 60

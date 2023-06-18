@@ -12,7 +12,6 @@ def Serializar(ruta, objeto):
 
     picklefile = open(ruta, "wb")
     pickle.dump(objeto, picklefile)
-    print(objeto)
     picklefile.close()
 
 
