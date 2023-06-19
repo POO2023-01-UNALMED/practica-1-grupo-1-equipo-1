@@ -91,9 +91,7 @@ class Camion(ABC):
         return self.calcularTiempo() - tiempo
 
     def ubicacionActual(self, tiempo):
-        print(tiempo)
         distancia = self.distanciaRecorrida(tiempo)
-        print(distancia)
         aux = 0
         ciudadA = None
         ciudadB = None

@@ -6,6 +6,7 @@ from tkinter import messagebox
 
 from PIL import Image, ImageTk
 
+from src.excepcion import *
 from src.gestorAplicaciones.Camion.camion import Camion
 from src.gestorAplicaciones.Pais.pais import Pais
 from src.gestorAplicaciones.Productos.factura import Factura
@@ -59,13 +60,23 @@ class SesionUsuario(tk.Frame):
             row=len(datos.getWCriterios()) + 1, column=1, padx=self.padx, pady=self.pady)
 
     def validarInformacion(self, datos):
-        valores = datos.aceptar()
-        for u in Usuario.usuarios:
-            if u.comprobarUsuario(valores[0], valores[1]):
-                self.usuario = u
-        if self.usuario is not None:
-            self.showMenu()
-        else:
+        try:
+            valores = datos.aceptar()
+            for i in valores:
+                if i == '':
+                    raise CamposVacios("Digite todos los campos para continuar")
+            for u in Usuario.usuarios:
+                if u.comprobarUsuario(valores[0], valores[1]):
+                    self.usuario = u
+            if self.usuario is not None:
+                self.showMenu()
+            else:
+                raise DatoNoEncontrado("Usuario/ID o clave no validas.")
+        except CamposVacios as e:
+            messagebox.showerror(e.nombre, e.mensaje)
+            self.principal()
+        except DatoNoEncontrado as e:
+            messagebox.showerror(e.nombre, e.mensaje)
             self.principal()
 
     def registarUsuario(self):
@@ -80,11 +91,22 @@ class SesionUsuario(tk.Frame):
             row=len(registro.getWCriterios()) + 1, column=1, padx=self.padx, pady=self.pady)
 
     def aceptarRegistro(self, registro):
-        valores = registro.aceptar()
-        if self.isRegistroValido(valores):
-            self.usuario = Usuario.crearUsuario(valores[0], valores[1], valores[2], valores[3])
-            self.showMenu()
-        else:
+        try:
+            valores = registro.aceptar()
+            for i in valores:
+                if i == '':
+                    raise CamposVacios("Digite todos los campos para continuar")
+            if self.isRegistroValido(valores):
+                self.usuario = Usuario.crearUsuario(valores[0], int(valores[1]), valores[2], valores[3])
+                self.showMenu()
+            else:
+                raise DatoInvalido("Datos no validos, asegurese de escribir el nombre solo con caracteres alfebeticos,"
+                                   " el ID solo numeros y escribir bien el correo")
+        except CamposVacios as e:
+            messagebox.showerror(e.nombre, e.mensaje)
+            self.principal()
+        except DatoInvalido as e:
+            messagebox.showerror(e.nombre, e.mensaje)
             self.principal()
 
     def borrarRegistro(self, registro):
@@ -126,29 +148,29 @@ class SesionUsuario(tk.Frame):
                                           "pedido,\n Seguimiento de un pedido ya realizado o ver el histoarial de " \
                                           "pedidos\n y Ayuda, donde se vera el nombre de los autores."
 
-        tk.Label(self, text=text, bg=self.root["bg"],  font=("ROMAN", 20)).place(x=50, y=100)
+        tk.Label(self, text=text, bg=self.root["bg"], font=("ROMAN", 20)).place(x=50, y=100)
         menuBar = tk.Menu(self.root, activebackground="#4F53CE", activeforeground="white")
         self.root.config(menu=menuBar)
-        archivo = tk.Menu(menuBar, activebackground="#4F53CE", activeforeground="white")
+        archivo = tk.Menu(menuBar, activebackground="#4F53CE", activeforeground="white",  tearoff=False)
         menuBar.add_cascade(label="Archivo", menu=archivo)
         archivo.add_command(label="Informacion", command=self.informacion)
         archivo.add_command(label="Salir", command=self.salir)
 
-        pyq = tk.Menu(menuBar, activebackground="#4F53CE", activeforeground="white")
+        pyq = tk.Menu(menuBar, activebackground="#4F53CE", activeforeground="white",  tearoff=False)
         menuBar.add_cascade(label="Procesos y Consultas", menu=pyq)
         pyq.add_command(label="Realizar pedido", command=self.realizarPedido)
         pyq.add_command(label="Seguir pedido", command=self.seguirPedido)
         pyq.add_command(label="Historial de pedidos", command=self.historialPedidos)
 
-        ayuda = tk.Menu(menuBar, activebackground="#4F53CE", activeforeground="white")
+        ayuda = tk.Menu(menuBar, activebackground="#4F53CE", activeforeground="white",  tearoff=False)
         menuBar.add_cascade(label="Ayuda", menu=ayuda)
         ayuda.add_command(label="Acerca de", command=self.autores)
 
     def informacion(self):
         messagebox.showinfo("Información", "Dentro de esta aplicaciones puedes realizar las opciones de realizar un "
-                                           "pedido en tre ciudades de los deferentes pasies (Colombia, "
+                                           "pedido entre ciudades de los deferentes pasies (Colombia, "
                                            "Ecuador y Panama), realizar el seguimiento de un pedido ya realizado y"
-                                           "ver el historial de pedidos realizados")
+                                           " ver el historial de pedidos realizados")
 
     def autores(self):
         messagebox.showinfo("Autores", "Julian Ricardo Salazar Duarte\nMichael Garcia Quincos")
@@ -169,29 +191,56 @@ class SesionUsuario(tk.Frame):
             row=len(framePedido.getWCriterios()) + 1, column=1, padx=self.padx, pady=self.pady)
 
     def aceptarPedido(self, framePedido):
-        valores = framePedido.aceptar()
-        self.pedido = Pedido()
-        pais = None
-        tipo = None
-        if valores[0] == "Colombia":
-            pais = Pais.COLOMBIA
-        if valores[0] == "Ecuador":
-            pais = Pais.ECUADOR
-        if valores[0] == "Panama":
-            pais = Pais.PANAMA
-        self.pedido.setPais(pais)
-        self.pedido.setOrigen(valores[1])
-        self.pedido.setDestino(valores[2])
-        if valores[3] == "Perecederos":
-            tipo = "Frigorifico"
-        elif valores[3] == "Fragil" or valores[3] == "generales":
-            tipo = "Lona"
-        elif valores[3] == "ADR":
-            tipo = "Cisterna"
-        elif valores[3] == "coches":
-            tipo = "PortaCoches"
-        self.pedido.setTipoProdutos(tipo)
-        self.selecionarProductos()
+        try:
+            valores = framePedido.aceptar()
+            for i in valores:
+                if i == '':
+                    raise CamposVacios("Digite todos los campos para continuar")
+            self.pedido = Pedido()
+            pais = None
+            tipo = None
+            ciudades = None
+            if valores[0] == "Colombia":
+                pais = Pais.COLOMBIA
+                ciudades = ["Riohacha", "Valledupar", "Barranquilla", "Cucuta", "Monteria", "Bucaramanga",
+                            "Irinida", "Medellin", "Boyaca", "Mitu", "Bogota", "Armenia", "Quibdo", "Villavicencio",
+                            "Florencia", "Neiva", "Cali", "Pasto"]
+            if valores[0] == "Ecuador":
+                pais = Pais.ECUADOR
+                ciudades = ["Esmeralda", "Ibarra", "PortoViejo", "Quito", "Nueva Loja", "SantoDomingo",
+                            "Guayaquil", "Latacunga", "Tena", "Puerto Francisco", "Riobamba", "Cuenca", "Loja", "Puyo",
+                            "Macas", "Zamora"]
+            if valores[0] == "Panama":
+                pais = Pais.PANAMA
+                ciudades = ["Bocas de Toro", "Bugle", "Chiriqui", "Colon", "Veraguas", "Cocle", "Wargandi",
+                            "Herrera", "Ciudad de Panama", "Embera", "Los Santos", "Darien"]
+            if pais is None:
+                raise DatoInvalido("Pais no valido, escoga un pais entre los mostrados")
+            if valores[1] not in ciudades or valores[2] not in ciudades:
+                nombreC = ""
+                for i in ciudades:
+                    nombreC += i + " "
+                raise DatoNoEncontrado("Ciudad no encontrada. Ciudades: " + nombreC)
+            if valores[1] == valores[2]:
+                raise CiudadRepetida("La ciudad de origen y destino deben ser diferentes.")
+            self.pedido.setPais(pais)
+            self.pedido.setOrigen(valores[1])
+            self.pedido.setDestino(valores[2])
+            if valores[3] == "Perecederos":
+                tipo = "Frigorifico"
+            elif valores[3] == "Fragil" or valores[3] == "generales":
+                tipo = "Lona"
+            elif valores[3] == "ADR":
+                tipo = "Cisterna"
+            elif valores[3] == "coches":
+                tipo = "PortaCoches"
+            if tipo is None:
+                raise DatoInvalido("Tipo de producto no valido, escoga uno entre los mostrados")
+            self.pedido.setTipoProdutos(tipo)
+            self.selecionarProductos()
+        except ErrorAplicacion as e:
+            messagebox.showerror(e.nombre, e.mensaje)
+            self.realizarPedido()
 
     def selecionarProductos(self):
         self.destruir(self)
@@ -204,18 +253,24 @@ class SesionUsuario(tk.Frame):
                                        pady=self.pady)
 
     def opcionProductos(self, frameProductos):
-        opcion = frameProductos.aceptar()[0]
+        try:
+            opcion = frameProductos.aceptar()[0]
 
-        if opcion == "Ingresar producto":
-            self.ingresarProducto()
-        elif opcion == "Ver productos":
-            self.verProductos()
-        elif opcion == "Confirmar productos":
-            self.confirmarProductos()
-        elif opcion == "Eliminar producto":
-            self.eliminarProducto()
-        elif opcion == "Descartar productos":
-            self.descartarProductos()
+            if opcion == "Ingresar producto":
+                self.ingresarProducto()
+            elif opcion == "Ver productos":
+                self.verProductos()
+            elif opcion == "Confirmar productos":
+                self.confirmarProductos()
+            elif opcion == "Eliminar producto":
+                self.eliminarProducto()
+            elif opcion == "Descartar productos":
+                self.descartarProductos()
+            else:
+                raise DatoInvalido("Opcion no valida, escoga uno entre los mostrados")
+        except DatoInvalido as e:
+            messagebox.showerror(e.nombre, e.mensaje)
+            self.selecionarProductos()
 
     def ingresarProducto(self):
         self.destruir(self)
@@ -226,13 +281,23 @@ class SesionUsuario(tk.Frame):
             row=len(ingresarP.getWValores()) + 1, column=0, padx=self.padx, pady=self.pady)
 
     def guardarProducto(self, info):
-        valores = info.aceptar()
-        producto = Producto(valores[0], self.pedido.getTipoProdutos(), float(valores[1]), float(valores[2]),
-                            float(valores[3]))
-        nuevo = self.pedido.getProductos()
-        nuevo.append(producto)
-        self.pedido.setProductos(nuevo)
-        self.selecionarProductos()
+        try:
+            valores = info.aceptar()
+            for i in valores:
+                if i == '':
+                    raise CamposVacios("Digite todos los campos para continuar")
+            for i in range(1, 4):
+                if not valores[i].isdigit():
+                    raise DatoInvalido("Digite los datos pedidos, peso, volumen y cantidad solo numeros")
+            producto = Producto(valores[0], self.pedido.getTipoProdutos(), float(valores[1]), float(valores[2]),
+                                float(valores[3]))
+            nuevo = self.pedido.getProductos()
+            nuevo.append(producto)
+            self.pedido.setProductos(nuevo)
+            self.selecionarProductos()
+        except ErrorAplicacion as e:
+            messagebox.showerror(e.nombre, e.mensaje)
+            self.selecionarProductos()
 
     def verProductos(self):
         self.destruir(self)
@@ -248,16 +313,24 @@ class SesionUsuario(tk.Frame):
             row=len(verP.getWValores()) + 1, column=0, padx=self.padx, pady=self.pady)
 
     def confirmarProductos(self):
-        self.camion = Camion.seleccionarCamion(self.pedido.getTipoProdutos(), self.pedido.getOrigen(),
-                                               self.pedido.calcularpeso(), self.pedido.calcularVolumen())
-        if self.camion is None:
-            self.camion = self.camionCercano(self.pedido.getTipoProdutos(), self.pedido.getOrigen(),
-                                             self.pedido.calcularpeso())
-        self.pedido.setVehiculo(self.camion.getPlaca())
-        self.camion.setEmpleado(Empleado.seleccionarEmpleado(self.pedido.getOrigen()))
-        self.calcularTarifa()
-        self.calcularTiempo()
-        self.mostrarFactura()
+        try:
+            if not self.pedido.getProductos():
+                raise ProductosVacios()
+            self.camion = Camion.seleccionarCamion(self.pedido.getTipoProdutos(), self.pedido.getOrigen(),
+                                                   self.pedido.calcularpeso(), self.pedido.calcularVolumen())
+            if self.camion is None:
+                self.camion = self.camionCercano(self.pedido.getTipoProdutos(), self.pedido.getOrigen(),
+                                                 self.pedido.calcularpeso())
+            if self.camion is None:
+                raise CamionNodisponible()
+            self.pedido.setVehiculo(self.camion.getPlaca())
+            self.camion.setEmpleado(Empleado.seleccionarEmpleado(self.pedido.getOrigen()))
+            self.calcularTarifa()
+            self.calcularTiempo()
+            self.mostrarFactura()
+        except ErrorAplicacion as e:
+            messagebox.showerror(e.nombre, e.mensaje)
+            self.selecionarProductos()
 
     def calcularTarifa(self):
         self.factura = Factura(self.pedido, self.usuario)
@@ -307,15 +380,20 @@ class SesionUsuario(tk.Frame):
             row=len(eliminarP.getWValores()) + 1, column=1, padx=self.padx, pady=self.pady)
 
     def confirmarEliminacionP(self, eliminar):
-        nombre = eliminar.aceptar()[0]
-        for producto in self.pedido.getProductos():
-            if producto.getNombre() == nombre:
-                remover = self.pedido.getProductos()
-                remover.remove(producto)
-                print(remover)
-                self.pedido.setProductos(remover)
-                break
-        self.selecionarProductos()
+        try:
+            nombre = eliminar.aceptar()[0]
+            if nombre == '':
+                raise CamposVacios("Digite todos los campos para continuar")
+            for producto in self.pedido.getProductos():
+                if producto.getNombre() == nombre:
+                    remover = self.pedido.getProductos()
+                    remover.remove(producto)
+                    self.pedido.setProductos(remover)
+                    break
+            self.selecionarProductos()
+        except ErrorAplicacion as e:
+            messagebox.showerror(e.nombre, e.mensaje)
+            self.selecionarProductos()
 
     def descartarProductos(self):
         self.destruir(self)
@@ -334,30 +412,40 @@ class SesionUsuario(tk.Frame):
             row=len(seguirP.getWValores()) + 1, column=1, padx=self.padx, pady=self.pady)
 
     def mostrarPedido(self, seguirP):
-        id = seguirP.aceptar()[0]
-        self.destruir(self)
-        self.fondoPantalla()
-        criterios = []
-        valores = []
-        # valores = self.factura.mostrarDatos()
-        self.factura = Factura.buscarFactura(int(id), self.usuario.getNombre())
-        if self.factura is not None:
-            criterios = ["numero", "Vendio a:", "ID", "Estado", "Origen", "Destino", "Salida", "LLegada", "Costo $"]
-            valores = self.factura.mostrarDatos()
-            Factura.actualizarInformacion(self.factura)
-            self.pedido = self.factura.getPedido()
-            self.camion = Camion.buscarCamion(self.pedido.getTipoProdutos(), self.pedido.getVehiculo())
+        try:
+            id = seguirP.aceptar()[0]
+            if not id.isdigit():
+                raise DatoInvalido("Ingresar el numero (ID) de la factura a consultar")
+            self.destruir(self)
+            self.fondoPantalla()
+            criterios = []
+            valores = []
+            # valores = self.factura.mostrarDatos()
+            self.factura = Factura.buscarFactura(int(id), self.usuario.getNombre())
+            if self.factura is not None:
+                criterios = ["numero", "Vendio a:", "ID", "Estado", "Origen", "Destino", "Salida", "LLegada", "Costo $"]
+                valores = self.factura.mostrarDatos()
+                Factura.actualizarInformacion(self.factura)
+                self.pedido = self.factura.getPedido()
+                self.camion = Camion.buscarCamion(self.pedido.getTipoProdutos(), self.pedido.getVehiculo())
 
-            if self.pedido.getEstado() == "Enviado":
-                tiempo = self.pedido.tiempoTranscurrido(self.factura.getHoraSalida())
-                ubicacion = self.camion.ubicacionActual(tiempo)
-                tiempo = self.camion.tiempoRestante(tiempo)
-                criterios = criterios + ["ubicacion", "t. restatnte"]
-                valores = valores + self.factura.infoViaje(ubicacion, tiempo)
+                if self.pedido.getEstado() == "Enviado":
+                    tiempo = self.pedido.tiempoTranscurrido(self.factura.getHoraSalida())
+                    ubicacion = self.camion.ubicacionActual(tiempo)
+                    tiempo = self.camion.tiempoRestante(tiempo)
+                    criterios = criterios + ["ubicacion", "t. restatnte"]
+                    valores = valores + self.factura.infoViaje(ubicacion, tiempo)
 
-        framePedido = FieldFrame(self, "Datos", criterios, "valores", valores, valores)
-        tk.Button(framePedido, text="Aceptar", command=self.showMenu,
-                  font=self.font).grid(row=len(framePedido.getWValores()) + 1, column=0, padx=self.padx, pady=self.pady)
+            else:
+                raise DatoNoEncontrado("Numero de factura no encontrado.")
+            framePedido = FieldFrame(self, "Datos", criterios, "valores", valores, valores)
+            tk.Button(framePedido, text="Aceptar", command=self.showMenu,
+                      font=self.font).grid(row=len(framePedido.getWValores()) + 1, column=0,
+                                           padx=self.padx, pady=self.pady)
+
+        except ErrorAplicacion as e:
+            messagebox.showerror(e.nombre, e.mensaje)
+            self.showMenu()
 
     def historialPedidos(self):
         self.destruir(self)

@@ -4,7 +4,6 @@ import tkinter as tk
 from PIL import Image, ImageTk
 from tkinter import messagebox
 
-from src.uiMain.sesion.sesionAdministrador import SesionAdministrador
 from src.uiMain.sesion.sesionUsuario import SesionUsuario
 
 
@@ -35,7 +34,6 @@ class Inicio(tk.Frame):
         self.cambiarImagenP4(None)
 
     def desarrolladores(self):
-        # tk.Label(self.p5, text=self.hojaVida[self.dev], bg="#FFE8C6", font=("ROMAN", 15)).place(x=20, y=10)
         self.info = self.info.clear()
         self.info = []
         info = self.hojaVida[self.dev].split(':')
@@ -85,37 +83,9 @@ class Inicio(tk.Frame):
         for i in self.info:
             i.bind("<Button-1>", self.cambiarInfoP2)
 
-    def tipoSesion(self):
-        self.destruir(self.p4)
-        self.p4.destroy()
-        self.p4 = tk.Frame(self.p1, width=455, height=350)
-        self.p4.place(x=0, y=180)
-        font = ("ITALIC", 25)
-        imagen = Image.open(Inicio.path + "\\images\\orange.jpg")
-        imagen = imagen.resize((460, 360))
-        photo = ImageTk.PhotoImage(imagen)
-        fondo = tk.Label(self.p4)
-        fondo.image = photo
-        fondo.configure(image=photo)
-        fondo.place(x=-5, y=-5)
-        """imagen = tk.PhotoImage(file=Inicio.path + "\\images\\orange.png")
-        imagen = imagen.subsample(2)
-        fondo = tk.Label(self.p4)
-        fondo.image = imagen
-        fondo.configure(image=imagen)
-        fondo.place(x=-5, y=-5)"""
-        tk.Button(self.p4, text="Usuario", font=font, bg="black", fg=self.p3["bg"],
-                  command=self.ingresarUsuario).place(x=150, y=60)
-        tk.Button(self.p4, text="Administrador", font=font, bg="black", fg=self.p3["bg"],
-                  command=self.ingresarAdministrador).place(x=100, y=225)
-
     def ingresarUsuario(self):
         self.destruir(self.root)
         SesionUsuario(self.root)
-
-    def ingresarAdministrador(self):
-        self.destruir(self.root)
-        SesionAdministrador(self.root)
 
     def frames(self):
         image = Image.open(Inicio.path + "\\images\\f3.jpg")
@@ -165,7 +135,7 @@ class Inicio(tk.Frame):
         fondo.image = photo
         fondo.configure(image=photo)
         fondo.place(x=0, y=0, relwidth=1, relheight=1)
-        tk.Button(self.p4, text="ingresar", font=("ITALIC", 25), command=self.tipoSesion,
+        tk.Button(self.p4, text="ingresar", font=("ITALIC", 25), command=self.ingresarUsuario,
                   bg="black", fg=self.p3["bg"]).place(x=140, y=140)
 
     def cambiarInfoP2(self, event):
@@ -181,7 +151,7 @@ class Inicio(tk.Frame):
         menuBar = tk.Menu(self.root, activebackground="#4F53CE", activeforeground="white")
         self.root.config(menu=menuBar)
 
-        menu = tk.Menu(menuBar, activebackground="#4F53CE", activeforeground="white")
+        menu = tk.Menu(menuBar, activebackground="#4F53CE", activeforeground="white",  tearoff=False)
         menuBar.add_cascade(label="Inicio", menu=menu)
         menu.add_command(label="Descripcion del sistema", command=self.descripcion)
         menu.add_command(label="Salir", command=self.salir)
