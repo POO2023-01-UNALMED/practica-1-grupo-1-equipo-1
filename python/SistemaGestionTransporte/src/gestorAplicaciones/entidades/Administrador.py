@@ -6,7 +6,6 @@ from src.gestorAplicaciones.Camion.camion import Camion
 from src.gestorAplicaciones.Productos.factura import Factura
 from src.gestorAplicaciones.entidades.empleado import Empleado
 from src.gestorAplicaciones.entidades.usuario import Usuario
-from main import actualizarInformacion
 
 
 class Administrador(Empleado):
@@ -38,7 +37,6 @@ class Administrador(Empleado):
     def mostrarFacturas(self, pais):
         infoFacturas = ""
         for factura in Factura.getFacturas():
-            actualizarInformacion(factura)
             if factura.getPedido().getPais().getNombre() == pais:
                 infoFacturas += str(factura)
         return infoFacturas
@@ -57,7 +55,3 @@ class Administrador(Empleado):
             self.camion = CamionPortaCoches(placa, pais, ciudadActual, pesoMaximo, capacidad)
         else:
             print("Opción no válida")
-    
-    def actualizarFacturas(self):
-        for factura in Factura.getFacturas():
-            actualizarInformacion(factura)
