@@ -424,8 +424,8 @@ class SesionUsuario(tk.Frame):
             self.factura = Factura.buscarFactura(int(id), self.usuario.getNombre())
             if self.factura is not None:
                 criterios = ["numero", "Vendio a:", "ID", "Estado", "Origen", "Destino", "Salida", "LLegada", "Costo $"]
-                valores = self.factura.mostrarDatos()
                 Factura.actualizarInformacion(self.factura)
+                valores = self.factura.mostrarDatos()
                 self.pedido = self.factura.getPedido()
                 self.camion = Camion.buscarCamion(self.pedido.getTipoProdutos(), self.pedido.getVehiculo())
 
